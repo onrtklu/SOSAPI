@@ -1,4 +1,5 @@
 ﻿using SOS.Business.Event;
+using SOS.DataObjects.ComplexTypes.Event;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -26,6 +27,12 @@ namespace SOS.API.Controllers
         public string Get(int id)
         {
             return _eventManager.GetEvent(id);
+        }
+
+        [Route("api/Event/Detail")]
+        public List<EventDetailDto> GetDetailList()
+        {
+            return _eventManager.GetEventDetailList();
         }
 
         // POST: api/Event

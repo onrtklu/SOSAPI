@@ -1,6 +1,6 @@
-﻿using SOS.DataAccess.DAL;
-using SOS.DataAccess.DapperDal.EventDal;
+﻿using SOS.DataAccess.DapperDal.EventDal;
 using SOS.DataAccess.UOW;
+using SOS.DataObjects.ComplexTypes.Event;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,42 +11,42 @@ namespace SOS.Business.Event
 {
     public class EventManager : IEventManager
     {
-        private IEventService _eventService;
-        
+        private IUnitOfWork _uow;
+        public EventManager(IUnitOfWork uow)
+        {
+            _uow = uow;
+        }
 
         public string GetEvent(int id)
         {
-            using (DalSession dalSession = new DalSession())
-            {
-                //Your database code here
-                _eventService = new EventService(dalSession.UnitOfWork);//UoW have no effect here as Begin() is not called.
-
-                return _eventService.GetEvent(id);
-            }
-
+            return _uow.EventService.GetEvent(id);
         }
 
         public IList<string> GetEventDetails()
         {
-            using (DalSession dalSession = new DalSession())
-            {
-                UnitOfWork unitOfWork = dalSession.UnitOfWork;
-                unitOfWork.Begin();
-                try
-                {
-                    _eventService = new EventService(unitOfWork);
-                    //_eventService.Insert(myPoco);
+            //uow.EventService.insert();
+            //_uow.Commit();
+            return _uow.EventService.GetEventDetails();
+        }
 
-                    unitOfWork.Commit();
+        public List<EventDetailDto> GetEventDetailList()
+        {
+            //DataObjects.Entities.Event @event = new DataObjects.Entities.Event()
+            //{
+            //    EventDate = DateTime.Now,
+            //    HallID = 1,
+            //    PlayID = 1
+            //};
 
-                    return _eventService.GetEventDetails();
-                }
-                catch
-                {
-                    unitOfWork.Rollback();
-                    throw;
-                }
-            }
+            //int newID = _uow.EventService.Add(@event);
+
+            //_uow.Commit();
+
+            //_uow.EventService.Add(@event);
+
+            //_uow.Commit();
+
+            return _uow.EventService.GetEventDetailList();
         }
     }
 }

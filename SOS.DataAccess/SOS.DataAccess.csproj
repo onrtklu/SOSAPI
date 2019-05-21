@@ -34,6 +34,7 @@
     <Reference Include="Dapper, Version=1.60.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\Dapper.1.60.6\lib\net451\Dapper.dll</HintPath>
     </Reference>
+    <Reference Include="DapperExtensions, Version=1.6.3.0, Culture=neutral, PublicKeyToken=null" />
     <Reference Include="System" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
@@ -45,7 +46,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DAL\DalSession.cs" />
     <Compile Include="DapperDal\EventDal\EventService.cs" />
     <Compile Include="DapperDal\EventDal\IEventService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -54,6 +54,16 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\SOS.Core\SOS.Core.csproj">
+      <Project>{31A68C77-E3A1-4672-B7F6-CE7F8181D530}</Project>
+      <Name>SOS.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\SOS.DataObjects\SOS.DataObjects.csproj">
+      <Project>{5247F0E0-63A8-4F8B-A9C1-A414973B9F0C}</Project>
+      <Name>SOS.DataObjects</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

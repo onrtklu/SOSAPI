@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SOS.DataObjects.ComplexTypes.Event;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -10,5 +11,6 @@ namespace SOS.Business.Event
     {
         IList<string> GetEventDetails();
         string GetEvent(int id);
+        List<EventDetailDto> GetEventDetailList();
     }
 }

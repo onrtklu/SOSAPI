@@ -267,6 +267,10 @@
       <Project>{DD02930F-DDC5-4E12-8A93-6AE6521398D8}</Project>
       <Name>SOS.Business</Name>
     </ProjectReference>
+    <ProjectReference Include="..\SOS.DataObjects\SOS.DataObjects.csproj">
+      <Project>{5247F0E0-63A8-4F8B-A9C1-A414973B9F0C}</Project>
+      <Name>SOS.DataObjects</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

@@ -9,6 +9,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SOS.Business", "SOS.Busines
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SOS.DataAccess", "SOS.DataAccess\SOS.DataAccess.csproj", "{9D99CF91-4F17-40F7-BA9C-B68E166DE1D1}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SOS.Core", "SOS.Core\SOS.Core.csproj", "{31A68C77-E3A1-4672-B7F6-CE7F8181D530}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SOS.DataObjects", "SOS.DataObjects\SOS.DataObjects.csproj", "{5247F0E0-63A8-4F8B-A9C1-A414973B9F0C}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +31,14 @@ Global
 		{9D99CF91-4F17-40F7-BA9C-B68E166DE1D1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9D99CF91-4F17-40F7-BA9C-B68E166DE1D1}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9D99CF91-4F17-40F7-BA9C-B68E166DE1D1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{31A68C77-E3A1-4672-B7F6-CE7F8181D530}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{31A68C77-E3A1-4672-B7F6-CE7F8181D530}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{31A68C77-E3A1-4672-B7F6-CE7F8181D530}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{31A68C77-E3A1-4672-B7F6-CE7F8181D530}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5247F0E0-63A8-4F8B-A9C1-A414973B9F0C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5247F0E0-63A8-4F8B-A9C1-A414973B9F0C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5247F0E0-63A8-4F8B-A9C1-A414973B9F0C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5247F0E0-63A8-4F8B-A9C1-A414973B9F0C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

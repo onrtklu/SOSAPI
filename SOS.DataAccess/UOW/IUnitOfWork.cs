@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SOS.DataAccess.DapperDal.EventDal;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
@@ -9,11 +10,8 @@ namespace SOS.DataAccess.UOW
 {
     public interface IUnitOfWork : IDisposable
     {
-        Guid Id { get; }
-        IDbConnection Connection { get; }
-        IDbTransaction Transaction { get; }
-        void Begin();
+        IEventService EventService { get; }
+
         void Commit();
-        void Rollback();
     }
 }

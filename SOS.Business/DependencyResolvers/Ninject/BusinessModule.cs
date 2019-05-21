@@ -17,7 +17,7 @@ namespace SOS.Business.DependencyResolvers.Ninject
             Bind<IEventManager>().To<EventManager>().InSingletonScope();
             //Bind<IEventService>().To<EventService>().InSingletonScope();
 
-            //Bind<IUnitOfWork>().To<UnitOfWork>().InSingletonScope();
+            Bind<IUnitOfWork>().To<UnitOfWork>().InSingletonScope();
 
         }
     }
