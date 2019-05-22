@@ -16,6 +16,22 @@ namespace SOS.API.Controllers
             _userService = userService;
         }
 
+        [Authorize]
+        [HttpGet]
+        [Route("api/User/AuthTest")]
+        public IHttpActionResult AuthTest()
+        {
+            var identity = User.Identity as System.Security.Claims.ClaimsIdentity;
+
+            var result = identity.Claims.Select(c => new
+            {
+                Type = c.Type,
+                Value = c.Value
+            });
+
+            return Ok(result);
+        }
+
         // GET: api/User
         public IEnumerable<string> Get()
         {
