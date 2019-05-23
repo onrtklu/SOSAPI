@@ -1,4 +1,6 @@
 ﻿using Microsoft.Owin.Security.OAuth;
+using SOS.Business.Account;
+using SOS.Business.DependencyResolvers.Ninject;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,6 +12,11 @@ namespace SOS.API.OAuth.Providers
 {
     public class AuthorizationServerProvider : OAuthAuthorizationServerProvider
     {
+        private IAccountManager _accountManager;
+        public AuthorizationServerProvider()
+        {
+            _accountManager = InstanceFactory.GetInstance<IAccountManager>();
+        }
         // OAuthAuthorizationServerProvider sınıfının client erişimine izin verebilmek için ilgili ValidateClientAuthentication metotunu override ediyoruz.
         public override async System.Threading.Tasks.Task ValidateClientAuthentication(OAuthValidateClientAuthenticationContext context)
         {
@@ -23,7 +30,7 @@ namespace SOS.API.OAuth.Providers
             context.OwinContext.Response.Headers.Add("Access-Control-Allow-Origin", new[] { "*" });
 
             // Kullanıcının access_token alabilmesi için gerekli validation işlemlerini yapıyoruz.
-            if (context.UserName == "Onur" && context.Password == "123456")
+            if (_accountManager.Login(context.UserName, context.Password))
             {
                 var identity = new ClaimsIdentity(context.Options.AuthenticationType);
 

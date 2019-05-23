@@ -1,4 +1,5 @@
 ﻿using Ninject.Modules;
+using SOS.Business.Account;
 using SOS.Business.Event;
 using SOS.DataAccess.DapperDal.EventDal;
 using SOS.DataAccess.UOW;
@@ -16,6 +17,8 @@ namespace SOS.Business.DependencyResolvers.Ninject
         {
             Bind<IEventManager>().To<EventManager>().InSingletonScope();
             //Bind<IEventService>().To<EventService>().InSingletonScope();
+
+            Bind<IAccountManager>().To<AccountManager>().InSingletonScope();
 
             Bind<IUnitOfWork>().To<UnitOfWork>().InSingletonScope();
 
