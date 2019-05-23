@@ -32,6 +32,9 @@ namespace SOS.API.Controllers
         [Route("api/Event/Detail")]
         public List<EventDetailDto> GetDetailList()
         {
+            //var msg = new HttpResponseMessage(HttpStatusCode.Unauthorized) { ReasonPhrase = "Oops!!!" };
+            //throw new HttpResponseException(msg);
+
             return _eventManager.GetEventDetailList();
         }
 
