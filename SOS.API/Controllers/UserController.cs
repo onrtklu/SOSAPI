@@ -1,4 +1,6 @@
 ﻿using SOS.API.Service;
+using SOS.DataObjects.Entities;
+using SOS.DataObjects.Response;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -19,17 +21,27 @@ namespace SOS.API.Controllers
         [Authorize]
         [HttpGet]
         [Route("api/User/AuthTest")]
-        public IHttpActionResult AuthTest()
+        public SosResult<IEnumerable<KeyValuePair<string,string>>> AuthTest()
         {
             var identity = User.Identity as System.Security.Claims.ClaimsIdentity;
 
-            var result = identity.Claims.Select(c => new
-            {
-                Type = c.Type,
-                Value = c.Value
-            });
+            //var result = identity.Claims.Select(c => new
+            //{
+            //    Type = c.Type,
+            //    Value = c.Value
+            //});
 
-            return Ok(result);
+            var sosResult = identity.Claims.Select(
+                s => new KeyValuePair<string, string>(s.Type, s.Value)
+            );
+
+            SosResult<IEnumerable<KeyValuePair<string, string>>> r = new SosResult<IEnumerable<KeyValuePair<string, string>>>()
+            {
+                StatusCode = HttpStatusCode.OK,
+                Data = sosResult
+            };
+
+            return r;
         }
 
         // GET: api/User

@@ -1,5 +1,6 @@
 ﻿using SOS.Business.Event;
 using SOS.DataObjects.ComplexTypes.Event;
+using SOS.DataObjects.Response;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -30,12 +31,14 @@ namespace SOS.API.Controllers
         }
 
         [Route("api/Event/Detail")]
-        public List<EventDetailDto> GetDetailList()
+        public SosResult<List<EventDetailDto>> GetDetailList()
         {
             //var msg = new HttpResponseMessage(HttpStatusCode.Unauthorized) { ReasonPhrase = "Oops!!!" };
             //throw new HttpResponseException(msg);
 
             return _eventManager.GetEventDetailList();
+
+            //return _eventManager.GetEventDetailList();
         }
 
         // POST: api/Event
@@ -52,5 +55,8 @@ namespace SOS.API.Controllers
         public void Delete(int id)
         {
         }
+
+
+
     }
 }

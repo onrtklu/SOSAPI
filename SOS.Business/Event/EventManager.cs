@@ -1,9 +1,12 @@
-﻿using SOS.DataAccess.DapperDal.EventDal;
+﻿using SOS.Business.Utilities.Response;
+using SOS.DataAccess.DapperDal.EventDal;
 using SOS.DataAccess.UOW;
 using SOS.DataObjects.ComplexTypes.Event;
+using SOS.DataObjects.Response;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -29,7 +32,7 @@ namespace SOS.Business.Event
             return _uow.EventService.GetEventDetails();
         }
 
-        public List<EventDetailDto> GetEventDetailList()
+        public SosResult<List<EventDetailDto>> GetEventDetailList()
         {
             //DataObjects.Entities.Event @event = new DataObjects.Entities.Event()
             //{
@@ -46,7 +49,8 @@ namespace SOS.Business.Event
 
             //_uow.Commit();
 
-            return _uow.EventService.GetEventDetailList();
+            return Response.SosError<List<EventDetailDto>>("message", HttpStatusCode.BadRequest);
+            return Response.SosResult(_uow.EventService.GetEventDetailList(), HttpStatusCode.OK, "nullable message");
         }
     }
 }

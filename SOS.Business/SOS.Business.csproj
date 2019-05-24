@@ -51,6 +51,7 @@
     <Compile Include="Event\EventManager.cs" />
     <Compile Include="Event\IEventManager.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Utilities\Response\Response.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
