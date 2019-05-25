@@ -1,5 +1,5 @@
 ﻿using SOS.DataObjects.ComplexTypes.Event;
-using SOS.DataObjects.Response;
+using SOS.DataObjects.ResponseType;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,8 +10,8 @@ namespace SOS.Business.Event
 {
     public interface IEventManager
     {
-        IList<string> GetEventDetails();
-        string GetEvent(int id);
-        SosResult<List<EventDetailDto>> GetEventDetailList();
+        ISosResult GetEventDetails();
+        ISosResult GetEvent(int id);
+        ISosResult GetEventDetailList();
     }
 }

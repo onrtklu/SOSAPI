@@ -16,19 +16,16 @@ namespace SOS.DataAccess.DapperDal.EventDal
     {
         public EventService(IDbTransaction transaction) : base(transaction){}
 
-        public string GetEvent(int id)
+        public Event GetEvent(int id)
         {
-            var result = _connection.Query("select * from dbo.Event", transaction: _transaction);
-            return "get event";
+            var result = _connection.QuerySingleOrDefault<Event>("select * from dbo.Event where ID = @id",new { id = id }, transaction: _transaction);
+            return result;
         }
 
-        public IList<string> GetEventDetails()
+        public List<Event> GetEventList()
         {
-            return new List<string>()
-            {
-                "onur",
-                "toklu"
-            };
+            var result = _connection.Query<Event>("select * from dbo.Event", transaction: _transaction).ToList();
+            return result;
         }
 
         public List<EventDetailDto> GetEventDetailList()

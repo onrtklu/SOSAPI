@@ -12,8 +12,8 @@ namespace SOS.DataAccess.DapperDal.EventDal
 {
     public interface IEventService : IGenericRepository<Event>
     {
-        IList<string> GetEventDetails();
-        string GetEvent(int id);
+        List<Event> GetEventList();
+        Event GetEvent(int id);
         List<EventDetailDto> GetEventDetailList();
     }
 }

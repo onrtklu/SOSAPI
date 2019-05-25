@@ -44,6 +44,9 @@
     <Compile Include="ComplexTypes\Event\EventDetailDto.cs" />
     <Compile Include="Entities\Event.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ResponseType\ISosResult.cs" />
+    <Compile Include="ResponseType\SosErrorResult.cs" />
+    <Compile Include="ResponseType\SosOpResult.cs" />
     <Compile Include="ResponseType\SosResult.cs" />
   </ItemGroup>
   <ItemGroup>

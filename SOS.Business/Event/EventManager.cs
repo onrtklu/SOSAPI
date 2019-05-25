@@ -2,7 +2,7 @@
 using SOS.DataAccess.DapperDal.EventDal;
 using SOS.DataAccess.UOW;
 using SOS.DataObjects.ComplexTypes.Event;
-using SOS.DataObjects.Response;
+using SOS.DataObjects.ResponseType;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -20,19 +20,19 @@ namespace SOS.Business.Event
             _uow = uow;
         }
 
-        public string GetEvent(int id)
+        public ISosResult GetEvent(int id)
         {
-            return _uow.EventService.GetEvent(id);
+            return Response.SosResult(_uow.EventService.GetEvent(id), HttpStatusCode.OK);
         }
 
-        public IList<string> GetEventDetails()
+        public ISosResult GetEventDetails()
         {
             //uow.EventService.insert();
             //_uow.Commit();
-            return _uow.EventService.GetEventDetails();
+            return Response.SosResult(_uow.EventService.GetEventList(),HttpStatusCode.OK);
         }
 
-        public SosResult<List<EventDetailDto>> GetEventDetailList()
+        public ISosResult GetEventDetailList()
         {
             //DataObjects.Entities.Event @event = new DataObjects.Entities.Event()
             //{
@@ -48,8 +48,8 @@ namespace SOS.Business.Event
             //_uow.EventService.Add(@event);
 
             //_uow.Commit();
-
-            return Response.SosError<List<EventDetailDto>>("message", HttpStatusCode.BadRequest);
+            //throw new DivideByZeroException();
+           // return Response.SosError(HttpStatusCode.Unauthorized, "message");
             return Response.SosResult(_uow.EventService.GetEventDetailList(), HttpStatusCode.OK, "nullable message");
         }
     }

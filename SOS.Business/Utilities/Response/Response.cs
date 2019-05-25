@@ -1,4 +1,4 @@
-﻿using SOS.DataObjects.Response;
+﻿using SOS.DataObjects.ResponseType;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,10 +17,42 @@ namespace SOS.Business.Utilities.Response
             Message = message
         };
 
-        public static SosResult<T> SosError<T>(string message, HttpStatusCode code) => new SosResult<T>()
+        private static SosErrorResult _sosError;
+        public static SosErrorResult SosError(HttpStatusCode code, string message = null)
         {
-            StatusCode = code,
-            Message = message
-        };
+            if(_sosError == null)
+                _sosError = new SosErrorResult()
+                {
+                    StatusCode = code,
+                    Message = message
+                };
+            else
+            {
+                _sosError.StatusCode = code;
+                _sosError.Message = message;
+            }
+
+            return _sosError;
+        }
+
+        private static SosOpResult _SosOp;
+        public static SosOpResult sosOpResult(HttpStatusCode code, int? id, string message = null)
+        {
+            if (_SosOp == null)
+                _SosOp = new SosOpResult()
+                {
+                    StatusCode = code,
+                    Id = id,
+                    Message = message
+                };
+            else
+            {
+                _SosOp.StatusCode = code;
+                _SosOp.Id = id;
+                _SosOp.Message = message;
+            }
+
+            return _SosOp;
+        }
     }
 }

@@ -1,6 +1,6 @@
 ﻿using SOS.API.Service;
 using SOS.DataObjects.Entities;
-using SOS.DataObjects.Response;
+using SOS.DataObjects.ResponseType;
 using System;
 using System.Collections.Generic;
 using System.Linq;
