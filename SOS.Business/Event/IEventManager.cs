@@ -10,7 +10,7 @@ namespace SOS.Business.Event
 {
     public interface IEventManager
     {
-        ISosResult GetEventDetails();
+        ISosResult GetEvent();
         ISosResult GetEvent(int id);
         ISosResult GetEventDetailList();
     }

@@ -1,4 +1,5 @@
-﻿using SOS.Business.Utilities.Response;
+﻿using SOS.Business.DependencyResolvers.Ninject;
+using SOS.Business.Utilities.Response;
 using SOS.Core.Uow;
 using SOS.DataAccess.Dal;
 using SOS.DataAccess.DapperDal.EventDal;
@@ -21,28 +22,20 @@ namespace SOS.Business.Event
         {
             using (DalSession dalSession = new DalSession())
             {
-                //Your database code here
-                _eventService = new EventService(dalSession.UnitOfWork);//UoW have no effect here as Begin() is not called.
+                _eventService = InstanceFactory.GetService<IEventService>(dalSession.UnitOfWork);
 
                 return Response.SosResult(_eventService.GetEvent(id), HttpStatusCode.OK);
             }
-
-            //return Response.SosResult(_uow.EventService.GetEvent(id), HttpStatusCode.OK);
         }
 
-        public ISosResult GetEventDetails()
+        public ISosResult GetEvent()
         {
             using (DalSession dalSession = new DalSession())
             {
-                //Your database code here
-                _eventService = new EventService(dalSession.UnitOfWork);//UoW have no effect here as Begin() is not called.
+                _eventService = InstanceFactory.GetService<IEventService>(dalSession.UnitOfWork);
 
                 return Response.SosResult(_eventService.GetEventList(), HttpStatusCode.OK);
             }
-
-            //uow.EventService.insert();
-            //_uow.Commit();
-           // return Response.SosResult(_uow.EventService.GetEventList(),HttpStatusCode.OK);
         }
 
         public ISosResult GetEventDetailList()
@@ -53,7 +46,7 @@ namespace SOS.Business.Event
                 unitOfWork.Begin();
                 try
                 {
-                    _eventService = new EventService(unitOfWork);
+                    _eventService = InstanceFactory.GetService<IEventService>(unitOfWork);
                     //_eventService.Insert(myPoco);
 
                     unitOfWork.Commit();

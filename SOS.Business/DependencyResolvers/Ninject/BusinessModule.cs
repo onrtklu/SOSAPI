@@ -16,7 +16,7 @@ namespace SOS.Business.DependencyResolvers.Ninject
         public override void Load()
         {
             Bind<IEventManager>().To<EventManager>().InSingletonScope();
-            //Bind<IEventService>().To<EventService>().InSingletonScope();
+            Bind<IEventService>().To<EventService>().InSingletonScope();
 
             Bind<IAccountManager>().To<AccountManager>().InSingletonScope();
 

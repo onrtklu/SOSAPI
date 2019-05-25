@@ -27,7 +27,7 @@ namespace SOS.API.Controllers
         [SwaggerResponse(HttpStatusCode.OK,Description ="get event list", Type= typeof(SosResult<IEnumerable<Event>>))]
         public IHttpActionResult Get()
         {
-            return response(_eventManager.GetEventDetails());
+            return response(_eventManager.GetEvent());
         }
 
         // GET: api/Event/5
