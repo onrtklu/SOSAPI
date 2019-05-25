@@ -1,5 +1,6 @@
 ﻿using DapperExtensions;
 using SOS.Core.Entities;
+using SOS.Core.Uow;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -12,54 +13,53 @@ namespace SOS.Core.DataAccess.Dapper
 {
     public class DapperGenericRepository<T> : IGenericRepository<T> where T : class, IEntity, new()
     {
-        protected IDbTransaction _transaction { get; private set; }
-        protected IDbConnection _connection => _transaction.Connection;
+        protected IUnitOfWork _uow;
 
-        public DapperGenericRepository(IDbTransaction transaction)
+        public DapperGenericRepository(IUnitOfWork uow)
         {
-            _transaction = transaction;
+            _uow = uow;
         }
 
         public List<T> GetList()
         {
-            return _connection.GetList<T>(transaction: _transaction).ToList();
+            return _uow.Connection.GetList<T>(transaction: _uow.Transaction).ToList();
         }
 
         public List<T> GetList(IList<ISort> sort)
         {
-            return _connection.GetList<T>(transaction: _transaction, sort: sort).ToList();
+            return _uow.Connection.GetList<T>(transaction: _uow.Transaction, sort: sort).ToList();
         }
 
         public List<T> GetList(Expression<Func<T, object>> filter, Operator op, object value, IList<ISort> sort = null)
         {
             var predicate = Predicates.Field(filter, op, value);
-            return _connection.GetList<T>(predicate, transaction: _transaction, sort: sort).ToList();
+            return _uow.Connection.GetList<T>(predicate, transaction: _uow.Transaction, sort: sort).ToList();
         }
 
         public T Get(int id)
         {
-            return _connection.Get<T>(id, transaction: _transaction);
+            return _uow.Connection.Get<T>(id, transaction: _uow.Transaction);
         }
 
         public int Add(T entity)
         {
-            return _connection.Insert(entity, transaction: _transaction);
+            return _uow.Connection.Insert(entity, transaction: _uow.Transaction);
         }
 
         public bool Update(T entity)
         {
-            return _connection.Update(entity, transaction: _transaction);
+            return _uow.Connection.Update(entity, transaction: _uow.Transaction);
         }
 
         public bool Delete(T entity)
         {
-            return _connection.Delete(entity, transaction: _transaction);
+            return _uow.Connection.Delete(entity, transaction: _uow.Transaction);
         }
 
         public bool Delete(Expression<Func<T, object>> filter, Operator op, object value)
         {
             var predicate = Predicates.Field(filter, op, value);
-            return _connection.Delete(predicate, transaction: _transaction);
+            return _uow.Connection.Delete(predicate, transaction: _uow.Transaction);
         }
     }
 }

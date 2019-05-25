@@ -1,5 +1,4 @@
 ﻿using SOS.Core.DataAccess;
-using SOS.DataAccess.UOW;
 using SOS.DataObjects.ComplexTypes.Event;
 using SOS.DataObjects.Entities;
 using System;

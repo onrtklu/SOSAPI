@@ -1,6 +1,7 @@
 ﻿using SOS.Business.Utilities.Response;
+using SOS.Core.Uow;
+using SOS.DataAccess.Dal;
 using SOS.DataAccess.DapperDal.EventDal;
-using SOS.DataAccess.UOW;
 using SOS.DataObjects.ComplexTypes.Event;
 using SOS.DataObjects.ResponseType;
 using System;
@@ -14,26 +15,58 @@ namespace SOS.Business.Event
 {
     public class EventManager : IEventManager
     {
-        private IUnitOfWork _uow;
-        public EventManager(IUnitOfWork uow)
-        {
-            _uow = uow;
-        }
+        private IEventService _eventService;
 
         public ISosResult GetEvent(int id)
         {
-            return Response.SosResult(_uow.EventService.GetEvent(id), HttpStatusCode.OK);
+            using (DalSession dalSession = new DalSession())
+            {
+                //Your database code here
+                _eventService = new EventService(dalSession.UnitOfWork);//UoW have no effect here as Begin() is not called.
+
+                return Response.SosResult(_eventService.GetEvent(id), HttpStatusCode.OK);
+            }
+
+            //return Response.SosResult(_uow.EventService.GetEvent(id), HttpStatusCode.OK);
         }
 
         public ISosResult GetEventDetails()
         {
+            using (DalSession dalSession = new DalSession())
+            {
+                //Your database code here
+                _eventService = new EventService(dalSession.UnitOfWork);//UoW have no effect here as Begin() is not called.
+
+                return Response.SosResult(_eventService.GetEventList(), HttpStatusCode.OK);
+            }
+
             //uow.EventService.insert();
             //_uow.Commit();
-            return Response.SosResult(_uow.EventService.GetEventList(),HttpStatusCode.OK);
+           // return Response.SosResult(_uow.EventService.GetEventList(),HttpStatusCode.OK);
         }
 
         public ISosResult GetEventDetailList()
         {
+            using (DalSession dalSession = new DalSession())
+            {
+                UnitOfWork unitOfWork = dalSession.UnitOfWork;
+                unitOfWork.Begin();
+                try
+                {
+                    _eventService = new EventService(unitOfWork);
+                    //_eventService.Insert(myPoco);
+
+                    unitOfWork.Commit();
+
+                    return Response.SosResult(_eventService.GetEventDetailList(), HttpStatusCode.OK);
+                }
+                catch
+                {
+                    unitOfWork.Rollback();
+                    throw;
+                }
+            }
+
             //DataObjects.Entities.Event @event = new DataObjects.Entities.Event()
             //{
             //    EventDate = DateTime.Now,
@@ -49,8 +82,8 @@ namespace SOS.Business.Event
 
             //_uow.Commit();
             //throw new DivideByZeroException();
-           // return Response.SosError(HttpStatusCode.Unauthorized, "message");
-            return Response.SosResult(_uow.EventService.GetEventDetailList(), HttpStatusCode.OK, "nullable message");
+            // return Response.SosError(HttpStatusCode.Unauthorized, "message");
+            //return Response.SosResult(_uow.EventService.GetEventDetailList(), HttpStatusCode.OK, "nullable message");
         }
     }
 }

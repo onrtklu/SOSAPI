@@ -1,8 +1,8 @@
 ﻿using Ninject.Modules;
 using SOS.Business.Account;
 using SOS.Business.Event;
+using SOS.Core.Uow;
 using SOS.DataAccess.DapperDal.EventDal;
-using SOS.DataAccess.UOW;
 using System;
 using System.Collections.Generic;
 using System.Linq;
