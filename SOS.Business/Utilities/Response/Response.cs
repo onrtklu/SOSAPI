@@ -8,9 +8,9 @@ using System.Threading.Tasks;
 
 namespace SOS.Business.Utilities.Response
 {
-    public class Response
+    public static class Response
     {
-        public static SosResult<T> SosResult<T>(T data, HttpStatusCode code, string message = null) => new SosResult<T>()
+        public static SosResult<T> SosResult<T>(this T data, HttpStatusCode code = HttpStatusCode.OK, string message = null) => new SosResult<T>()
         {
             StatusCode = code,
             Data = data,
@@ -18,7 +18,7 @@ namespace SOS.Business.Utilities.Response
         };
 
         private static SosErrorResult _sosError;
-        public static SosErrorResult SosError(HttpStatusCode code, string message = null)
+        public static SosErrorResult SosErrorResult(this HttpStatusCode code, string message = null)
         {
             if(_sosError == null)
                 _sosError = new SosErrorResult()
@@ -36,7 +36,7 @@ namespace SOS.Business.Utilities.Response
         }
 
         private static SosOpResult _SosOp;
-        public static SosOpResult sosOpResult(HttpStatusCode code, int? id, string message = null)
+        public static SosOpResult SosOpResult(this HttpStatusCode code, int? id, string message = null)
         {
             if (_SosOp == null)
                 _SosOp = new SosOpResult()

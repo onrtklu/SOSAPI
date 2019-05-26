@@ -1,4 +1,4 @@
-﻿using SOS.Business.Event;
+﻿using SOS.Business.Manager.Event;
 using SOS.Business.Utilities.Response;
 using SOS.DataObjects.ComplexTypes.Event;
 using SOS.DataObjects.Entities;
@@ -59,21 +59,21 @@ namespace SOS.API.Controllers
         [SwaggerResponse(HttpStatusCode.OK,Description ="insert a event", Type= typeof(SosOpResult))]
         public IHttpActionResult Post([FromBody]Event value)
         {
-            return response(Response.sosOpResult(HttpStatusCode.Created, 1, "mes"));
+            return response(_eventManager.InsertEvent(value));
         }
 
         // PUT: api/Event/5
         [SwaggerResponse(HttpStatusCode.OK,Description ="update a event", Type= typeof(SosOpResult))]
         public IHttpActionResult Put(int id, [FromBody]Event value)
         {
-            return response(Response.sosOpResult(HttpStatusCode.Forbidden, 1, "dont"));
+            return response(_eventManager.UpdateEvent(value));
         }
 
         // DELETE: api/Event/5
         [SwaggerResponse(HttpStatusCode.OK,Description ="delete a event", Type= typeof(SosOpResult))]
         public IHttpActionResult Delete(int id)
         {
-            return response(Response.sosOpResult(HttpStatusCode.Accepted, 1, "dont"));
+            return response(_eventManager.DeleteEvent(id));
         }
 
 

@@ -1,7 +1,8 @@
 ﻿using Ninject.Modules;
 using SOS.Business.Account;
-using SOS.Business.Event;
+using SOS.Business.Manager.Event;
 using SOS.Core.Uow;
+using SOS.DataAccess.Dal;
 using SOS.DataAccess.DapperDal.EventDal;
 using System;
 using System.Collections.Generic;
@@ -21,6 +22,7 @@ namespace SOS.Business.DependencyResolvers.Ninject
             Bind<IAccountManager>().To<AccountManager>().InSingletonScope();
 
             Bind<IUnitOfWork>().To<UnitOfWork>().InSingletonScope();
+            Bind<IDalSession>().To<DalSession>().InSingletonScope();
 
         }
     }

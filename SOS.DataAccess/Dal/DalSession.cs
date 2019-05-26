@@ -10,10 +10,10 @@ using System.Threading.Tasks;
 
 namespace SOS.DataAccess.Dal
 {
-    public sealed class DalSession : IDisposable
+    public sealed class DalSession : IDalSession
     {
         IDbConnection _connection = null;
-        UnitOfWork _unitOfWork = null;
+        IUnitOfWork _unitOfWork = null;
 
         public DalSession()
         {
@@ -25,7 +25,7 @@ namespace SOS.DataAccess.Dal
         }
 
 
-        public UnitOfWork UnitOfWork
+        public IUnitOfWork UnitOfWork
         {
             get { return _unitOfWork; }
         }

@@ -47,6 +47,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Dal\DalSession.cs" />
+    <Compile Include="Dal\IDalSession.cs" />
     <Compile Include="DapperDal\EventDal\EventService.cs" />
     <Compile Include="DapperDal\EventDal\IEventService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
