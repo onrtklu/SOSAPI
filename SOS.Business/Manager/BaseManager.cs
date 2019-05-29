@@ -1,5 +1,4 @@
 ﻿using SOS.Business.DependencyResolvers.Ninject;
-using SOS.DataAccess.Dal;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,9 +9,5 @@ namespace SOS.Business.Manager
 {
     public class BaseManager
     {
-        protected IDalSession InstanceDalSession()
-        {
-            return InstanceFactory.GetDalSession();
-        }
     }
 }

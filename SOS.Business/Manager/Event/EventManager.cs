@@ -1,8 +1,7 @@
 ﻿using SOS.Business.DependencyResolvers.Ninject;
 using SOS.Business.Utilities.Response;
-using SOS.Core.Uow;
-using SOS.DataAccess.Dal;
 using SOS.DataAccess.DapperDal.EventDal;
+using SOS.DataAccess.Uow;
 using SOS.DataObjects.ResponseType;
 using System;
 using System.Collections.Generic;
@@ -15,125 +14,71 @@ namespace SOS.Business.Manager.Event
 {
     public class EventManager : BaseManager, IEventManager
     {
-        private IEventService _eventService;
+        private IUnitOfWork _uow;
+        public EventManager(IUnitOfWork uow)
+        {
+            _uow = uow;
+        }
 
         public ISosResult GetEvent(int id)
         {
-            using (IDalSession dalSession = InstanceDalSession())
-            {
-                _eventService = InstanceFactory.GetService<IEventService>(dalSession.UnitOfWork);
-
-                var modEvent = _eventService.GetEvent(id);
-
-                //if (modEvent == null)
-                //    return HttpStatusCode.NoContent.SosErrorResult();
-
-                return modEvent.SosResult();
-            }
+            return _uow.EventService.GetEvent(id).SosResult();
         }
 
         public ISosResult GetEvent()
         {
-            using (IDalSession dalSession = InstanceDalSession())
-            {
-                _eventService = InstanceFactory.GetService<IEventService>(dalSession.UnitOfWork);
-
-                return _eventService.GetEventList().SosResult();
-            }
+            return _uow.EventService.GetEventList().SosResult();
         }
 
         public ISosResult GetEventDetailList()
         {
-            using (IDalSession dalSession = InstanceDalSession())
-            {
-                IUnitOfWork unitOfWork = dalSession.UnitOfWork;
-                unitOfWork.Begin();
-                try
-                {
-                    _eventService = InstanceFactory.GetService<IEventService>(unitOfWork);
-                    //_eventService.Insert(myPoco);
-
-                    unitOfWork.Commit();
-
-                    return _eventService.GetEventDetailList().SosResult();
-                }
-                catch
-                {
-                    unitOfWork.Rollback();
-                    return HttpStatusCode.BadRequest.SosErrorResult();
-                    //return Response.SosError(HttpStatusCode.BadRequest);
-                }
-            }
-
-            //DataObjects.Entities.Event @event = new DataObjects.Entities.Event()
-            //{
-            //    EventDate = DateTime.Now,
-            //    HallID = 1,
-            //    PlayID = 1
-            //};
-
-            //int newID = _uow.EventService.Add(@event);
-
-            //_uow.Commit();
-
-            //_uow.EventService.Add(@event);
-
-            //_uow.Commit();
-            //throw new DivideByZeroException();
-            // return Response.SosError(HttpStatusCode.Unauthorized, "message");
-            //return Response.SosResult(_uow.EventService.GetEventDetailList(), HttpStatusCode.OK, "nullable message");
+            return _uow.EventService.GetEventDetailList().SosResult();
         }
 
         public ISosResult InsertEvent(DataObjects.Entities.Event @event)
         {
-            using (IDalSession dalSession = InstanceDalSession())
-            {
-                _eventService = InstanceFactory.GetService<IEventService>(dalSession.UnitOfWork);
+            if (@event == null)
+                return HttpStatusCode.NoContent.SosErrorResult();
 
-                if (@event == null)
-                    return HttpStatusCode.NoContent.SosErrorResult();
+            int scopeId = _uow.EventService.Add(@event);
+            _uow.Commit();
 
-                int scopeId = _eventService.Add(@event);
-                return HttpStatusCode.Created.SosOpResult(scopeId);
-            }
+            return HttpStatusCode.Created.SosOpResult(scopeId);
         }
 
         public ISosResult UpdateEvent(DataObjects.Entities.Event @event)
         {
-            using (IDalSession dalSession = InstanceDalSession())
+            if (@event == null)
+                return HttpStatusCode.NoContent.SosErrorResult();
+
+            bool result = _uow.EventService.Update(@event);
+            if (result)
             {
-                _eventService = InstanceFactory.GetService<IEventService>(dalSession.UnitOfWork);
-
-                if (@event == null)
-                    return HttpStatusCode.NoContent.SosErrorResult();
-
-                bool result = _eventService.Update(@event);
-                if (result)
-                    return HttpStatusCode.OK.SosOpResult(@event.ID);
-                else
-                    return HttpStatusCode.BadRequest.SosErrorResult();
+                _uow.Commit();
+                return HttpStatusCode.OK.SosOpResult(@event.ID);
             }
+            else
+                return HttpStatusCode.BadRequest.SosErrorResult();
         }
 
         public ISosResult DeleteEvent(int id)
         {
-            using (IDalSession dalSession = InstanceDalSession())
+            var modEvent = _uow.EventService.Get(id);
+
+            if (modEvent == null)
+                //    return HttpStatusCode.NoContent.SosErrorResult();
+                return HttpStatusCode.OK.SosOpResult(id, "already no data");
+
+            bool result = _uow.EventService.Delete(modEvent);
+
+            if (result)
             {
-                _eventService = InstanceFactory.GetService<IEventService>(dalSession.UnitOfWork);
-
-                var modEvent = _eventService.Get(id);
-
-                if (modEvent == null)
-                    //    return HttpStatusCode.NoContent.SosErrorResult();
-                    return HttpStatusCode.OK.SosOpResult(id, "already no data");
-
-                bool result = _eventService.Delete(modEvent);
-
-                if (result)
-                    return HttpStatusCode.OK.SosOpResult(id, "succeed");
-                else
-                    return HttpStatusCode.BadRequest.SosErrorResult();
+                _uow.Commit();
+                return HttpStatusCode.OK.SosOpResult(id, "succeed");
             }
+            else
+                return HttpStatusCode.BadRequest.SosErrorResult();
+
         }
 
     }

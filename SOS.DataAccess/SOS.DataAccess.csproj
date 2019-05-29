@@ -46,11 +46,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Dal\DalSession.cs" />
-    <Compile Include="Dal\IDalSession.cs" />
     <Compile Include="DapperDal\EventDal\EventService.cs" />
     <Compile Include="DapperDal\EventDal\IEventService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Uow\IUnitOfWork.cs" />
+    <Compile Include="Uow\UnitOfWork.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
