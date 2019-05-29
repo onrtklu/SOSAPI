@@ -23,7 +23,9 @@ namespace SOS.Business.Account
         //}
         public bool Login(string userName, string password)
         {
-            throw new NotImplementedException();
+            if (userName == "Onur" && password == "123456")
+                return true;
+            else return false;
         }
     }
 }

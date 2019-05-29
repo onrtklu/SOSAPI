@@ -124,12 +124,13 @@ namespace SOS.Business.Manager.Event
                 var modEvent = _eventService.Get(id);
 
                 if (modEvent == null)
-                    return HttpStatusCode.NoContent.SosErrorResult();
+                    //    return HttpStatusCode.NoContent.SosErrorResult();
+                    return HttpStatusCode.OK.SosOpResult(id, "already no data");
 
                 bool result = _eventService.Delete(modEvent);
 
                 if (result)
-                    return HttpStatusCode.OK.SosOpResult(id);
+                    return HttpStatusCode.OK.SosOpResult(id, "succeed");
                 else
                     return HttpStatusCode.BadRequest.SosErrorResult();
             }
