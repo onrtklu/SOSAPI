@@ -9,8 +9,8 @@ namespace SOS.DataObjects.Entities
 {
     public class Event : BaseEntity
     {
-        public int HallID { get; set; }
-        public int PlayID { get; set; }
+        public int? HallID { get; set; }
+        public int? PlayID { get; set; }
         public DateTime EventDate { get; set; }
     }
 }

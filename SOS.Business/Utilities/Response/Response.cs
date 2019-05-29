@@ -10,8 +10,9 @@ namespace SOS.Business.Utilities.Response
 {
     public static class Response
     {
-        public static SosResult<T> SosResult<T>(this T data, HttpStatusCode code = HttpStatusCode.OK, string message = null) => new SosResult<T>()
+        public static SosResult<T> SosResult<T>(this T data, HttpStatusCode code = HttpStatusCode.OK, bool statu = true, string message = null) => new SosResult<T>()
         {
+            Statu = statu,
             StatusCode = code,
             Data = data,
             Message = message
@@ -23,11 +24,13 @@ namespace SOS.Business.Utilities.Response
             if(_sosError == null)
                 _sosError = new SosErrorResult()
                 {
+                    Statu = false,
                     StatusCode = code,
                     Message = message
                 };
             else
             {
+                _sosError.Statu = false;
                 _sosError.StatusCode = code;
                 _sosError.Message = message;
             }
@@ -36,17 +39,19 @@ namespace SOS.Business.Utilities.Response
         }
 
         private static SosOpResult _SosOp;
-        public static SosOpResult SosOpResult(this HttpStatusCode code, int? id, string message = null)
+        public static SosOpResult SosOpResult(this HttpStatusCode code, int? id, string message = null, bool statu = true)
         {
             if (_SosOp == null)
                 _SosOp = new SosOpResult()
                 {
+                    Statu = statu,
                     StatusCode = code,
                     Id = id,
                     Message = message
                 };
             else
             {
+                _SosOp.Statu = statu;
                 _SosOp.StatusCode = code;
                 _SosOp.Id = id;
                 _SosOp.Message = message;

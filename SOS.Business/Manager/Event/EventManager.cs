@@ -22,7 +22,12 @@ namespace SOS.Business.Manager.Event
 
         public ISosResult GetEvent(int id)
         {
-            return _uow.EventService.GetEvent(id).SosResult();
+            var result = _uow.EventService.GetEvent(id);
+
+            if (result == null)
+                return HttpStatusCode.BadRequest.SosErrorResult();
+
+            return result.SosResult();
         }
 
         public ISosResult GetEvent()

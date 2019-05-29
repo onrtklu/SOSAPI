@@ -43,7 +43,12 @@
   <ItemGroup>
     <Compile Include="ComplexTypes\Event\EventDetailDto.cs" />
     <Compile Include="Entities\Event.cs" />
+    <Compile Include="HateoasType\ILink.cs" />
+    <Compile Include="HateoasType\Link.cs" />
+    <Compile Include="HateoasType\LinkHelper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ResponseType\ISosOkResult.cs" />
+    <Compile Include="ResponseType\ISosOpResult.cs" />
     <Compile Include="ResponseType\ISosResult.cs" />
     <Compile Include="ResponseType\SosErrorResult.cs" />
     <Compile Include="ResponseType\SosOpResult.cs" />
