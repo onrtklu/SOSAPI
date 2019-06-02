@@ -1,6 +1,9 @@
 ﻿using AutoMapper;
+using FluentValidation.Results;
 using SOS.Business.DependencyResolvers.Ninject;
 using SOS.Business.Utilities.Response;
+using SOS.Business.Utilities.Validation;
+using SOS.Business.ValidationRules.FluentValidation;
 using SOS.DataAccess.DapperDal.EventDal;
 using SOS.DataAccess.Uow;
 using SOS.DataObjects.ResponseType;
@@ -58,6 +61,8 @@ namespace SOS.Business.Manager.Event
 
             var mod = _mapper.Map<DataObjects.Entities.Event>(@event);
 
+            Validate<EventValidatior, DataObjects.Entities.Event>.Valid(mod);
+            
             object scopeId = _uow.EventService.Insert(mod);
             if (scopeId == null)
                 return HttpStatusCode.BadRequest.SosErrorResult();
