@@ -1,5 +1,6 @@
 ﻿using FluentValidation;
 using FluentValidation.Results;
+using SOS.Core.Utilities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,7 +13,7 @@ namespace SOS.Business.Utilities.Validation
     {
         public static void Valid(K model)
         {
-            T validator = new T();
+            T validator = Singleton<T>.Instance;
             ValidationResult validationResult = validator.Validate(model);
             if (!validationResult.IsValid)
                 throw new ValidationException(validationResult.Errors);
