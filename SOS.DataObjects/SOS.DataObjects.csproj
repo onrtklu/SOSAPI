@@ -42,6 +42,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ComplexTypes\Event\EventDetailDto.cs" />
+    <Compile Include="ComplexTypes\Event\EventDto.cs" />
     <Compile Include="Entities\Event.cs" />
     <Compile Include="Entities\InPlacedOrder.cs" />
     <Compile Include="Entities\MenuCategory.cs" />

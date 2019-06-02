@@ -1,4 +1,5 @@
 ﻿using SOS.API.ExcHand;
+using SOS.Business.DependencyResolvers.Ninject;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -23,7 +24,7 @@ namespace SOS.API
 
 
             //Mapping
-            SOS.Business.Mapping.Dommel.Register.RegisterMapping();
+            Business.Mapping.Dommel.Register.RegisterMapping();
         }
     }
 }

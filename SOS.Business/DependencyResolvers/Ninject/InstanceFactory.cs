@@ -13,13 +13,17 @@ namespace SOS.Business.DependencyResolvers.Ninject
     {
         private static StandardKernel _standartKernel = null;
 
-        private static StandardKernel StandartKernel => _standartKernel ?? new StandardKernel(Singleton<BusinessModule>.Instance);
+        private static StandardKernel StandartKernel => _standartKernel ??
+            new StandardKernel(
+                Singleton<BusinessModule>.Instance,
+                Singleton<AutoMapperModule>.Instance
+            );
 
         public static T GetInstance<T>()
         {
             var kernel = StandartKernel;
             return kernel.Get<T>();
         }
-        
+
     }
 }

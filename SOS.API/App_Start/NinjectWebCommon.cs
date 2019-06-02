@@ -11,6 +11,7 @@ namespace SOS.API.App_Start
     using Ninject;
     using Ninject.Web.Common;
     using SOS.API.Service;
+    using SOS.Business.DependencyResolvers.Ninject;
 
     public static class NinjectWebCommon 
     {
@@ -62,7 +63,7 @@ namespace SOS.API.App_Start
         /// <param name="kernel">The kernel.</param>
         private static void RegisterServices(IKernel kernel)
         {
-            kernel.Load(new Business.DependencyResolvers.Ninject.BusinessModule());
+            kernel.Load(new BusinessModule(), new AutoMapperModule());
 
             kernel.Bind<IUserService>().To<UserService>();
         }        

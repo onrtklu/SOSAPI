@@ -1,4 +1,5 @@
-﻿using SOS.Business.DependencyResolvers.Ninject;
+﻿using AutoMapper;
+using SOS.Business.DependencyResolvers.Ninject;
 using SOS.Business.Utilities.Response;
 using SOS.DataAccess.DapperDal.EventDal;
 using SOS.DataAccess.Uow;
@@ -15,9 +16,12 @@ namespace SOS.Business.Manager.Event
     public class EventManager : BaseManager, IEventManager
     {
         private IUnitOfWork _uow;
-        public EventManager(IUnitOfWork uow)
+        private readonly IMapper _mapper;
+
+        public EventManager(IUnitOfWork uow, IMapper mapper)
         {
             _uow = uow;
+            _mapper = mapper;
         }
 
         public ISosResult GetEvent(int id)
@@ -45,14 +49,16 @@ namespace SOS.Business.Manager.Event
             return _uow.EventService.GetEventDetailList().SosResult();
         }
 
-        public ISosResult InsertEvent(DataObjects.Entities.Event @event)
+        public ISosResult InsertEvent(DataObjects.ComplexTypes.Event.EventInsertDto @event)
         {
             _uow.BeginTransaction();
 
             if (@event == null)
                 return HttpStatusCode.NoContent.SosErrorResult();
 
-            object scopeId = _uow.EventService.Insert(@event);
+            var mod = _mapper.Map<DataObjects.Entities.Event>(@event);
+
+            object scopeId = _uow.EventService.Insert(mod);
             if (scopeId == null)
                 return HttpStatusCode.BadRequest.SosErrorResult();
 

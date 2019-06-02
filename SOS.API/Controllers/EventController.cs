@@ -120,7 +120,7 @@ namespace SOS.API.Controllers
         // POST: api/Event
         [Route("", Name = "PostEvent")]
         [SwaggerResponse(HttpStatusCode.OK, Description = "insert a event", Type = typeof(SosOpResult))]
-        public IHttpActionResult Post([FromBody]Event value)
+        public IHttpActionResult Post([FromBody]EventInsertDto value)
         {
             return response(_eventManager.InsertEvent(value));
         }

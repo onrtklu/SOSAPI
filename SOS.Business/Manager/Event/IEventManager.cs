@@ -13,7 +13,7 @@ namespace SOS.Business.Manager.Event
         ISosResult GetEvent(int id);
         ISosResult GetEventPredicate();
         ISosResult GetEventDetailList();
-        ISosResult InsertEvent(DataObjects.Entities.Event @event);
+        ISosResult InsertEvent(DataObjects.ComplexTypes.Event.EventInsertDto @event);
         ISosResult UpdateEvent(DataObjects.Entities.Event @event);
         ISosResult DeleteEvent(int id);
     }
