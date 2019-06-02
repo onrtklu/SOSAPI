@@ -13,7 +13,6 @@ namespace SOS.DataObjects.ResponseType
         bool Statu { get; set; }
         HttpStatusCode StatusCode { get; set; }
         string Status { get; }
-
         string Message { get; set; }
 
         IList<ILink> Links { get; set; }

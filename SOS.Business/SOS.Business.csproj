@@ -51,6 +51,7 @@
     <Compile Include="Manager\BaseManager.cs" />
     <Compile Include="Manager\Event\EventManager.cs" />
     <Compile Include="Manager\Event\IEventManager.cs" />
+    <Compile Include="Mapping\Dommel\Register.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Utilities\Response\Response.cs" />
   </ItemGroup>

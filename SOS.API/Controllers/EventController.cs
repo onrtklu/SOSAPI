@@ -34,7 +34,7 @@ namespace SOS.API.Controllers
 
         // GET: api/Event/5
         [Route("", Name = "GetById")]
-        [SwaggerResponse(HttpStatusCode.OK, Description = "get a event", Type = typeof(SosResult<IEnumerable<EventDetailDto>>))]
+        [SwaggerResponse(HttpStatusCode.OK, Description = "get a event", Type = typeof(SosResult<IEnumerable<Event>>))]
         public IHttpActionResult Get(int id)
         {
             var item = _eventManager.GetEvent(id);
@@ -45,6 +45,13 @@ namespace SOS.API.Controllers
             {
                 Href = Url.Link("GetAll", null),
                 Rel = "get-all-event",
+                method = "GET"
+            });
+
+            item.Links.Add(new Link
+            {
+                Href = Url.Link("GetPredicate", null),
+                Rel = "get-predicate",
                 method = "GET"
             });
 
@@ -79,6 +86,15 @@ namespace SOS.API.Controllers
             return response(item);
 
             //return response(_eventManager.GetEvent(id));
+        }
+        
+        [Route("predicate", Name = "GetPredicate")]
+        [SwaggerResponse(HttpStatusCode.OK, Description = "get a event", Type = typeof(SosResult<IEnumerable<Event>>))]
+        public IHttpActionResult GetPredicate()
+        {
+            var item = _eventManager.GetEventPredicate();
+
+            return response(item);
         }
 
         [Route("detail", Name = "GetDetail")]

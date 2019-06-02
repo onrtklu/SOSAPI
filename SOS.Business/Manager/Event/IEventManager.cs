@@ -11,6 +11,7 @@ namespace SOS.Business.Manager.Event
     {
         ISosResult GetEvent();
         ISosResult GetEvent(int id);
+        ISosResult GetEventPredicate();
         ISosResult GetEventDetailList();
         ISosResult InsertEvent(DataObjects.Entities.Event @event);
         ISosResult UpdateEvent(DataObjects.Entities.Event @event);

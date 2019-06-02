@@ -13,8 +13,8 @@ namespace SOS.API
         public static void Register(HttpConfiguration config)
         {
             // Web API configuration and services
-            //config.Formatters.JsonFormatter.SerializerSettings =
-            //    new Newtonsoft.Json.JsonSerializerSettings { NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore };
+            config.Formatters.JsonFormatter.SerializerSettings =
+                new Newtonsoft.Json.JsonSerializerSettings { NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore };
 
             // Web API routes
             config.MapHttpAttributeRoutes();
@@ -30,6 +30,7 @@ namespace SOS.API
 
             config.Services.Replace(typeof(IExceptionLogger), new UnhandledExceptionLogger());
             config.Services.Replace(typeof(IExceptionHandler), new GlobalExceptionHandler());
+
         }
     }
 }

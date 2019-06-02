@@ -10,13 +10,10 @@ namespace SOS.DataObjects.ResponseType
 {
     public class SosErrorResult : ISosResult
     {
+        public bool Statu { get; set; }
         public HttpStatusCode StatusCode { get; set; }
         public string Status => StatusCode.ToString();
-
-        private string message;
-
-        public string Message { get => message; set => message = value; }
-        public bool Statu { get; set; }
+        public string Message { get; set; }
 
         public IList<ILink> Links { get; set; }
     }

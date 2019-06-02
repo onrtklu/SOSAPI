@@ -1,0 +1,528 @@
+using SOS.Core.Entities;
+using System;
+using System.Collections.Generic;
+using System.Data;
+using System.Linq;
+using System.Linq.Expressions;
+using System.Text;
+using System.Threading.Tasks;
+using Dapper;
+using SOS.Core.Utilities.Extensions;
+using SQLinq;
+using SQLinq.Dapper;
+
+namespace SOS.Core.DataAccess.Dapper
+{
+    public class DapperGenericRepository<T> : IGenericRepository<T> where T : class, IEntity, new()
+    {
+        protected IDbTransaction _transaction { get; private set; }
+        protected IDbConnection _connection => _transaction.Connection;
+
+        public DapperGenericRepository(IDbTransaction transaction)
+        {
+            _transaction = transaction;
+        }
+
+        #region Properties
+        
+        #endregion
+
+        #region IRepository
+
+        #region Get
+
+        /// <summary>
+        /// Gets the specified identifier.
+        /// </summary>
+        /// <param name="id">The identifier.</param>
+        /// <returns></returns>
+        public T Get(object id)
+        {
+            return _connection.Get<T>(id, transaction: _transaction);
+        }
+
+        /// <summary>
+        /// Gets the asynchronous.
+        /// </summary>
+        /// <param name="id">The identifier.</param>
+        /// <returns></returns>
+        public Task<T> GetAsync(object id)
+        {
+            return _connection.GetAsync<T>(id, transaction: _transaction);
+        }
+
+        #endregion
+
+        #region Save
+
+        /// <summary>
+        /// Updates the specified entity to update.
+        /// </summary>
+        /// <param name="entity">The entity to update.</param>
+        /// <returns></returns>
+        public int Save(T entity)
+        {
+            var key = entity.GetType().GetProperties().FirstOrDefault(p => p.GetCustomAttributes(typeof(KeyAttribute), true).Length != 0);
+            var objectId = key.GetValue(entity, null);
+
+            if (objectId.ToInt() == 0)
+                objectId = Insert(entity).ToInt(0);
+            else
+                Update(entity);
+
+            return objectId.ToInt(0);
+        }
+
+        /// <summary>
+        /// Updates the specified entity to update.
+        /// </summary>
+        /// <param name="entity">The entity to update.</param>
+        /// <returns></returns>
+        public Task<int?> SaveAsync(T entity)
+        {
+            var key = entity.GetType().GetProperties().FirstOrDefault(p => p.GetCustomAttributes(typeof(KeyAttribute), true).Length != 0);
+            var objectId = key.GetValue(entity, null);
+
+            return objectId.ToInt() == 0 ? InsertAsync(entity) : UpdateAsync(entity);
+        }
+
+        #endregion
+
+        #region Insert
+
+        /// <summary>
+        /// Inserts the specified entity to insert.
+        /// </summary>
+        /// <param name="entityToInsert">The entity to insert.</param>
+        /// <returns></returns>
+        public int? Insert(object entityToInsert)
+        {
+            return _connection.Insert(entityToInsert, transaction: _transaction);
+        }
+
+        /// <summary>
+        /// Inserts the specified entity to insert.
+        /// </summary>
+        /// <typeparam name="TKey">The type of the key.</typeparam>
+        /// <param name="entityToInsert">The entity to insert.</param>
+        /// <returns></returns>
+        public TKey Insert<TKey,K>(K entityToInsert)
+        {
+            return _connection.Insert<TKey,K>(entityToInsert, transaction: _transaction);
+        }
+
+        /// <summary>
+        /// Inserts the asynchronous.
+        /// </summary>
+        /// <param name="entityToInsert">The entity to insert.</param>
+        /// <returns></returns>
+        public async Task<int?> InsertAsync(T entityToInsert)
+        {
+            return await _connection.InsertAsync<T>(entityToInsert, transaction: _transaction);
+        }
+
+        /// <summary>
+        /// Inserts the asynchronous.
+        /// </summary>
+        /// <typeparam name="TKey">The type of the key.</typeparam>
+        /// <param name="entityToInsert">The entity to insert.</param>
+        /// <returns></returns>
+        public async Task<TKey> InsertAsync<TKey,K>(K entityToInsert)
+        {
+            return await _connection.InsertAsync<TKey,K>(entityToInsert, transaction: _transaction);
+        }
+
+        #endregion
+
+        #region Update
+
+        /// <summary>
+        /// Updates the specified entity to update.
+        /// </summary>
+        /// <param name="entityToUpdate">The entity to update.</param>
+        public int Update(object entityToUpdate)
+        {
+            return _connection.Update(entityToUpdate, transaction: _transaction);
+        }
+
+        /// <summary>
+        /// Updates the asynchronous.
+        /// </summary>
+        /// <param name="entityToUpdate">The entity to update.</param>
+        /// <returns></returns>
+        public async Task<int?> UpdateAsync(object entityToUpdate)
+        {
+            return await _connection.UpdateAsync(entityToUpdate, transaction: _transaction);
+        }
+
+        #endregion
+
+        #region Delete
+
+        /// <summary>
+        /// Deletes the specified entity to delete.
+        /// </summary>
+        /// <param name="entityToDelete">The entity to delete.</param>
+        /// <returns></returns>
+        public int Delete(T entityToDelete)
+        {
+            if (entityToDelete == null)
+                throw new ArgumentNullException("entityToDelete");
+
+            return _connection.Delete(entityToDelete, transaction: _transaction);
+        }
+
+        /// <summary>
+        /// Deletes the specified identifier.
+        /// </summary>
+        /// <param name="id">The identifier.</param>
+        /// <returns></returns>
+        public int Delete(object id)
+        {
+            if (id.ToInt(0) <= 0)
+                throw new ArgumentOutOfRangeException(id.ToString());
+
+            return _connection.Delete(id, transaction: _transaction);
+        }
+
+        /// <summary>
+        /// Deletes the list.
+        /// </summary>
+        /// <param name="whereConditions">The where conditions.</param>
+        /// <returns></returns>
+        public int DeleteList(object whereConditions)
+        {
+            if (whereConditions == null)
+                throw new ArgumentNullException("whereConditions");
+
+            return _connection.DeleteList<T>(whereConditions, transaction: _transaction);
+        }
+
+        /// <summary>
+        /// Deletes the list.
+        /// </summary>
+        /// <param name="conditions">The conditions.</param>
+        /// <returns></returns>
+        public int DeleteList(string conditions)
+        {
+            if (String.IsNullOrEmpty((conditions ?? String.Empty).Trim()))
+                throw new ArgumentException("conditions");
+
+            return _connection.DeleteList<T>(conditions, transaction: _transaction);
+        }
+
+        /// <summary>
+        /// Deletes the list asynchronous.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="whereConditions">The where conditions.</param>
+        /// <returns></returns>
+        public Task<int> DeleteListAsync(object whereConditions)
+        {
+            if (whereConditions == null)
+                throw new ArgumentNullException("whereConditions");
+
+            return _connection.DeleteListAsync<T>(whereConditions, transaction: _transaction);
+        }
+
+        /// <summary>
+        /// Deletes the asynchronous.
+        /// </summary>
+        /// <param name="entityToDelete">The entity to delete.</param>
+        /// <returns></returns>
+        public Task<int> DeleteAsync(T entityToDelete)
+        {
+            if (entityToDelete == null)
+                throw new ArgumentNullException("entityToDelete");
+
+            return _connection.DeleteAsync(entityToDelete, transaction: _transaction);
+        }
+
+        /// <summary>
+        /// Deletes the asynchronous.
+        /// </summary>
+        /// <param name="id">The identifier.</param>
+        /// <returns></returns>
+        public Task<int> DeleteAsync(object id)
+        {
+            if (id.ToInt(0) <= 0)
+                throw new ArgumentOutOfRangeException(id.ToString());
+
+            return _connection.DeleteAsync<T>(id, transaction: _transaction);
+        }
+
+        /// <summary>
+        /// Deletes the asynchronous.
+        /// </summary>
+        /// <param name="entitiesToDelete">The entities to delete.</param>
+        /// <returns></returns>
+        public IEnumerable<Task<int>> DeleteListAsync(List<T> entitiesToDelete)
+        {
+            if (entitiesToDelete.Any())
+                throw new ArgumentException("Empty collection " + entitiesToDelete);
+
+            return entitiesToDelete.Select(DeleteAsync);
+        }
+
+        #endregion
+
+        #region Query
+
+        /// <summary>
+        /// Queries the specified query.
+        /// </summary>
+        /// <param name="query">The query.</param>
+        /// <returns></returns>
+        public IEnumerable<T> Query(SQLinq<T> query)
+        {
+            return _connection.Query(query, transaction: _transaction);
+        }
+
+
+        /// <summary>
+        /// Queries the specified query.
+        /// </summary>
+        /// <param name="query">The query.</param>
+        /// <param name="param">The parameter.</param>
+        /// <returns></returns>
+        public IEnumerable<T> Query(string query, object param = null)
+        {
+            return _connection.Query<T>(query, param, transaction: _transaction);
+        }
+
+        /// <summary>
+        /// Queries the specified query.
+        /// </summary>
+        /// <typeparam name="K"></typeparam>
+        /// <param name="query">The query.</param>
+        /// <param name="param">The parameter.</param>
+        /// <returns></returns>
+        public IEnumerable<K> Query<K>(string query, object param = null)
+        {
+            return _connection.Query<K>(query, param, transaction: _transaction);
+        }
+
+        /// <summary>
+        /// Queries the specified query.
+        /// </summary>
+        /// <typeparam name="K"></typeparam>
+        /// <param name="query">The query.</param>
+        /// <param name="param">The parameter.</param>
+        /// <param name="commandTimeout">The command timeout.</param>
+        /// <returns></returns>
+        public IEnumerable<K> Query<K>(string query,int commandTimeout, object param = null)
+        {
+            return _connection.Query<K>(query, param, transaction: _transaction, commandTimeout: commandTimeout);
+        }
+
+        /// <summary>
+        /// Queries the specified SQL.
+        /// </summary>
+        /// <param name="sql">The SQL.</param>
+        /// <param name="map">The map.</param>
+        /// <param name="param">The parameter.</param>
+        /// <returns></returns>
+        public IEnumerable<T> Query(string sql, Func<T, T, T> map, object param = null)
+        {
+            return _connection.Query(sql, map, param, transaction: _transaction).AsQueryable();
+        }
+
+        /// <summary>
+        /// Queries the dynamic.
+        /// </summary>
+        /// <param name="query">The query.</param>
+        /// <param name="param">The param.</param>
+        /// <returns></returns>
+        public IEnumerable<dynamic> QueryDynamic(string query, object param)
+        {
+            return _connection.Query(query, param, transaction: _transaction);
+        }
+
+        /// <summary>
+        /// Gets the list.
+        /// </summary>
+        /// <returns></returns>
+        public IEnumerable<T> GetList()
+        {
+            return _connection.GetList<T>(null, transaction: _transaction);
+        }
+
+        /// <summary>
+        /// Gets the list.
+        /// </summary>
+        /// <param name="whereConditions">The where conditions.</param>
+        /// <returns></returns>
+        public IEnumerable<T> GetList(object whereConditions)
+        {
+            return _connection.GetList<T>(whereConditions, transaction: _transaction);
+        }
+
+        /// <summary>
+        /// Gets the list.
+        /// </summary>
+        /// <param name="conditions">The conditions.</param>
+        /// <returns></returns>
+        public IEnumerable<T> GetList(string conditions)
+        {
+            return _connection.GetList<T>(conditions, transaction: _transaction);
+        }
+
+        /// <summary>
+        /// Gets the list paged.
+        /// </summary>
+        /// <param name="pageNumber">The page number.</param>
+        /// <param name="rowsPerPage">The rows per page.</param>
+        /// <param name="conditions">The conditions.</param>
+        /// <param name="orderby">The orderby.</param>
+        /// <returns></returns>
+        public IEnumerable<T> GetListPaged(int pageNumber, int rowsPerPage, string conditions, string @orderby)
+        {
+            return _connection.GetListPaged<T>(pageNumber, rowsPerPage, conditions, orderby, transaction: _transaction);
+        }
+
+        /// <summary>
+        /// Gets the list asynchronous.
+        /// </summary>
+        /// <returns></returns>
+        public Task<IEnumerable<T>> GetListAsync()
+        {
+            return _connection.GetListAsync<T>(null, transaction: _transaction);
+        }
+
+        /// <summary>
+        /// Gets the list asynchronous.
+        /// </summary>
+        /// <param name="whereConditions">The where conditions.</param>
+        /// <returns></returns>
+        public Task<IEnumerable<T>> GetListAsync(object whereConditions)
+        {
+            return _connection.GetListAsync<T>(whereConditions, transaction: _transaction);
+        }
+
+        /// <summary>
+        /// Gets the list asynchronous.
+        /// </summary>
+        /// <param name="conditions">The conditions.</param>
+        /// <returns></returns>
+        public Task<IEnumerable<T>> GetListAsync(string conditions)
+        {
+            return _connection.GetListAsync<T>(conditions, transaction: _transaction);
+        }
+
+        /// <summary>
+        /// Gets the list paged asynchronous.
+        /// </summary>
+        /// <param name="pageNumber">The page number.</param>
+        /// <param name="rowsPerPage">The rows per page.</param>
+        /// <param name="conditions">The conditions.</param>
+        /// <param name="orderby">The orderby.</param>
+        /// <returns></returns>
+        public Task<IEnumerable<T>> GetListPagedAsync(int pageNumber, int rowsPerPage, string conditions, string orderby)
+        {
+            return _connection.GetListPagedAsync<T>(pageNumber, rowsPerPage, conditions, orderby);
+        }
+
+        /// <summary>
+        /// Records the count.
+        /// </summary>
+        /// <param name="conditions">The conditions.</param>
+        /// <returns></returns>
+        public int RecordCount(string conditions = "")
+        {
+            return _connection.RecordCount<T>(conditions, transaction: _transaction);
+        }
+
+        /// <summary>
+        /// Records the count asynchronous.
+        /// </summary>
+        /// <param name="conditions">The conditions.</param>
+        /// <returns></returns>
+        public async Task<int> RecordCountAsync(string conditions)
+        {
+            return await _connection.RecordCountAsync<T>(conditions, transaction: _transaction);
+        }
+
+        /// <summary>
+        /// Executes the sp.
+        /// </summary>
+        /// <param name="spName">Name of the sp.</param>
+        /// <param name="whereConditions">The where conditions.</param>
+        /// <returns></returns>
+        public dynamic ExecuteSp(string spName, object whereConditions = null)
+        {
+            return _connection.Query(spName, whereConditions, transaction: _transaction, commandType: CommandType.StoredProcedure).First();
+        }
+
+        /// <summary>
+        /// Executes the scalar.
+        /// </summary>
+        /// <typeparam name="K"></typeparam>
+        /// <param name="sql">The SQL.</param>
+        /// <param name="param">The parameter.</param>
+        /// <returns></returns>
+        public K ExecuteScalar<K>(string sql, object param = null)
+        {
+            return _connection.ExecuteScalar<K>(sql, param, transaction: _transaction);
+        }
+
+        #endregion
+
+        #endregion
+    }
+}
+
+
+
+using SOS.Core.Entities;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using Dapper;
+using System.Linq.Expressions;
+using SQLinq;
+
+namespace SOS.Core.DataAccess
+{
+    public interface IGenericRepository<T> where T : class, IEntity, new()
+    {
+        T Get(object id);
+        Task<T> GetAsync(object id);
+        int Save(T entity);
+        Task<int?> SaveAsync(T entity);
+        int? Insert(object entityToInsert);
+        TKey Insert<TKey, K>(K entityToInsert);
+        Task<int?> InsertAsync(T entityToInsert);
+        Task<TKey> InsertAsync<TKey, K>(K entityToInsert);
+        int Update(object entityToUpdate);
+        Task<int?> UpdateAsync(object entityToUpdate);
+        int Delete(T entityToDelete);
+        int Delete(object id);
+        int DeleteList(object whereConditions);
+        int DeleteList(string conditions);
+        Task<int> DeleteListAsync(object whereConditions);
+        Task<int> DeleteAsync(T entityToDelete);
+        Task<int> DeleteAsync(object id);
+        IEnumerable<Task<int>> DeleteListAsync(List<T> entitiesToDelete);
+        IEnumerable<T> Query(SQLinq<T> query);
+        IEnumerable<T> Query(string query, object param = null);
+        IEnumerable<K> Query<K>(string query, object param = null);
+        IEnumerable<K> Query<K>(string query, int commandTimeout, object param = null);
+        IEnumerable<T> Query(string sql, Func<T, T, T> map, object param = null);
+        IEnumerable<dynamic> QueryDynamic(string query, object param);
+        IEnumerable<T> GetList();
+        IEnumerable<T> GetList(object whereConditions);
+        IEnumerable<T> GetList(string conditions);
+        IEnumerable<T> GetListPaged(int pageNumber, int rowsPerPage, string conditions, string @orderby);
+        Task<IEnumerable<T>> GetListAsync();
+        Task<IEnumerable<T>> GetListAsync(object whereConditions);
+        Task<IEnumerable<T>> GetListAsync(string conditions);
+        Task<IEnumerable<T>> GetListPagedAsync(int pageNumber, int rowsPerPage, string conditions, string orderby);
+        int RecordCount(string conditions = "");
+        Task<int> RecordCountAsync(string conditions);
+        dynamic ExecuteSp(string spName, object whereConditions = null);
+        K ExecuteScalar<K>(string sql, object param = null);
+
+    }
+}

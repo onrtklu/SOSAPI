@@ -13,9 +13,7 @@ namespace SOS.DataObjects.ResponseType
         public bool Statu { get ; set; }
         public HttpStatusCode StatusCode { get; set; }
         public string Status => StatusCode.ToString();
-
-        private string message;
-        public string Message { get => message; set => message = value; }
+        public string Message { get; set; }
 
         public int? Id { get; set; }
 

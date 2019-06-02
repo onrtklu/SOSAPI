@@ -11,6 +11,7 @@ namespace SOS.DataAccess.Uow
     {
         IEventService EventService { get; }
 
+        void BeginTransaction();
         void Commit();
     }
 }

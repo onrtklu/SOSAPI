@@ -1,4 +1,5 @@
 ﻿using SOS.DataAccess.DapperDal.EventDal;
+using SOS.DataAccess.Mapping.Dommel;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -22,6 +23,11 @@ namespace SOS.DataAccess.Uow
             string connectionString = ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString;
             _connection = new SqlConnection(connectionString);
             _connection.Open();
+            _transaction = null;
+        }
+
+        public void BeginTransaction()
+        {
             _transaction = _connection.BeginTransaction();
         }
 
@@ -32,6 +38,9 @@ namespace SOS.DataAccess.Uow
 
         public void Commit()
         {
+            if (_transaction == null)
+                return;
+
             try
             {
                 _transaction.Commit();
@@ -44,7 +53,7 @@ namespace SOS.DataAccess.Uow
             finally
             {
                 _transaction.Dispose();
-                _transaction = _connection.BeginTransaction();
+                //_transaction = _connection.BeginTransaction();
                 resetRepositories();
             }
         }

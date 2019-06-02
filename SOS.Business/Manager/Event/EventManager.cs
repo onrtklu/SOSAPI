@@ -32,7 +32,12 @@ namespace SOS.Business.Manager.Event
 
         public ISosResult GetEvent()
         {
-            return _uow.EventService.GetEventList().SosResult();
+            return _uow.EventService.GetAll().SosResult();
+        }
+
+        public ISosResult GetEventPredicate()
+        {
+            return _uow.EventService.Select(s=>s.PlayID == 1).SosResult();
         }
 
         public ISosResult GetEventDetailList()
@@ -42,13 +47,18 @@ namespace SOS.Business.Manager.Event
 
         public ISosResult InsertEvent(DataObjects.Entities.Event @event)
         {
+            _uow.BeginTransaction();
+
             if (@event == null)
                 return HttpStatusCode.NoContent.SosErrorResult();
 
-            int scopeId = _uow.EventService.Add(@event);
+            object scopeId = _uow.EventService.Insert(@event);
+            if (scopeId == null)
+                return HttpStatusCode.BadRequest.SosErrorResult();
+
             _uow.Commit();
 
-            return HttpStatusCode.Created.SosOpResult(scopeId);
+            return HttpStatusCode.Created.SosOpResult(Convert.ToInt32(scopeId));
         }
 
         public ISosResult UpdateEvent(DataObjects.Entities.Event @event)
