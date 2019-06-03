@@ -8,6 +8,6 @@ namespace SOS.Core.Entities
 {
     public interface IEntity
     {
-        int ID { get; set; }
+        int Id { get; set; }
     }
 }

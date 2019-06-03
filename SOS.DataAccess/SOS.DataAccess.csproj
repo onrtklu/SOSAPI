@@ -59,6 +59,9 @@
     <Compile Include="DapperDal\EventDal\IEventService.cs" />
     <Compile Include="Mapping\Dommel\EventMap.cs" />
     <Compile Include="Mapping\Dommel\RegisterMappings.cs" />
+    <Compile Include="Mapping\Dommel\Users\AuthorityMap.cs" />
+    <Compile Include="Mapping\Dommel\Users\RestaurantUserMap.cs" />
+    <Compile Include="Mapping\Dommel\Users\UsersMap.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Uow\IUnitOfWork.cs" />
     <Compile Include="Uow\UnitOfWork.cs" />

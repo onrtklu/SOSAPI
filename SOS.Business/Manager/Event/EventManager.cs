@@ -81,7 +81,7 @@ namespace SOS.Business.Manager.Event
             if (result)
             {
                 _uow.Commit();
-                return HttpStatusCode.OK.SosOpResult(@event.ID);
+                return HttpStatusCode.OK.SosOpResult(@event.Id);
             }
             else
                 return HttpStatusCode.BadRequest.SosErrorResult();
