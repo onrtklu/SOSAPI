@@ -1,0 +1,10 @@
+---MenuItem
+- Yemek sepetinde içindekiler kýsmý açýklamaya yazýlmýþ. bizde içindekiler alanýna gerek var mý?
+- Receipe nedir?
+
+---Kredi
+- Kredi bölümünde örnek olarak ilk sipariþ kredisi olacak diyelim. kredilerin süre sýnýrlamasý aktif pasif alaný yok. boyle bir alanýn deðiþebileceði alan yok. olan krediler her zaman geçerli olacaklar.
+
+--City
+-City tablosunda zipcode var. bu posta kodu deðil mi? postakodunda ilçe kodlarý dahil olacak mý? 34 mü? 34188 mi? nerede kullanýlacak.
+
