@@ -57,8 +57,19 @@
   <ItemGroup>
     <Compile Include="DapperDal\EventDal\EventService.cs" />
     <Compile Include="DapperDal\EventDal\IEventService.cs" />
+    <Compile Include="DapperDal\MenuItemDal\IMenuItemService.cs" />
+    <Compile Include="DapperDal\MenuItemDal\MenuItemService.cs" />
+    <Compile Include="DapperDal\RestaurantDal\IRestaurantService.cs" />
+    <Compile Include="DapperDal\RestaurantDal\RestaurantService.cs" />
+    <Compile Include="Mapping\Dommel\Constant\CityMap.cs" />
     <Compile Include="Mapping\Dommel\EventMap.cs" />
     <Compile Include="Mapping\Dommel\RegisterMappings.cs" />
+    <Compile Include="Mapping\Dommel\Restaurant\MenuCategoryMap.cs" />
+    <Compile Include="Mapping\Dommel\Restaurant\MenuItemMap.cs" />
+    <Compile Include="Mapping\Dommel\Restaurant\RateMap.cs" />
+    <Compile Include="Mapping\Dommel\Restaurant\RestaurantDetailMap.cs" />
+    <Compile Include="Mapping\Dommel\Restaurant\RestaurantMap.cs" />
+    <Compile Include="Mapping\Dommel\Restaurant\RestaurantTypeMap.cs" />
     <Compile Include="Mapping\Dommel\Users\AuthorityMap.cs" />
     <Compile Include="Mapping\Dommel\Users\RestaurantUserMap.cs" />
     <Compile Include="Mapping\Dommel\Users\UsersMap.cs" />
@@ -79,5 +90,6 @@
       <Name>SOS.DataObjects</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

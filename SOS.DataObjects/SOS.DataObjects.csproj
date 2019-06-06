@@ -32,6 +32,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Security" />
@@ -45,6 +46,8 @@
   <ItemGroup>
     <Compile Include="ComplexTypes\Event\EventDetailDto.cs" />
     <Compile Include="ComplexTypes\Event\EventDto.cs" />
+    <Compile Include="ComplexTypes\MenuItem\MenuItemDto.cs" />
+    <Compile Include="ComplexTypes\Menu\MenuDto.cs" />
     <Compile Include="Entities\ConstantSchema\City.cs" />
     <Compile Include="Entities\CreditSchema\Credit.cs" />
     <Compile Include="Entities\CreditSchema\CustomerCredit.cs" />

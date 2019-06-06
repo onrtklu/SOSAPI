@@ -64,6 +64,8 @@
     <Compile Include="Manager\BaseManager.cs" />
     <Compile Include="Manager\Event\EventManager.cs" />
     <Compile Include="Manager\Event\IEventManager.cs" />
+    <Compile Include="Manager\Menu\IMenuManager.cs" />
+    <Compile Include="Manager\Menu\MenuManager.cs" />
     <Compile Include="Mapping\AutoMapper\BusinessProfile.cs" />
     <Compile Include="Mapping\Dommel\Register.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

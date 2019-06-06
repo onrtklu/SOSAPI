@@ -15,7 +15,7 @@ namespace SOS.DataObjects.Entities.RestaurantSchema
         
         public string ItemName { get; set; }
 
-        public int? Category_Id { get; set; }
+        public int? MenuCategoryId { get; set; }
 
         public string Description { get; set; }
 

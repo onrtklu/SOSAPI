@@ -1,4 +1,5 @@
 ﻿using SOS.DataAccess.DapperDal.EventDal;
+using SOS.DataAccess.DapperDal.MenuItemDal;
 using SOS.DataAccess.Mapping.Dommel;
 using System;
 using System.Collections.Generic;
@@ -15,8 +16,12 @@ namespace SOS.DataAccess.Uow
     {
         private IDbConnection _connection;
         private IDbTransaction _transaction;
-        private IEventService _eventService;
+
         private bool _disposed;
+
+        private IEventService _eventService;
+        private IMenuItemService _menuItemService;
+
 
         public UnitOfWork()
         {
@@ -26,15 +31,10 @@ namespace SOS.DataAccess.Uow
             _transaction = null;
         }
 
-        public void BeginTransaction()
-        {
-            _transaction = _connection.BeginTransaction();
-        }
+        public IEventService EventService => _eventService ?? (_eventService = new EventService(_transaction));
+        public IMenuItemService MenuItemService => _menuItemService ?? (_menuItemService = new MenuItemService(_transaction));
 
-        public IEventService EventService
-        {
-            get { return _eventService ?? (_eventService = new EventService(_transaction)); }
-        }
+        public void BeginTransaction() => _transaction = _connection.BeginTransaction();
 
         public void Commit()
         {

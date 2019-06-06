@@ -4,7 +4,33 @@
 
 ---Kredi
 - Kredi bölümünde örnek olarak ilk sipariþ kredisi olacak diyelim. kredilerin süre sýnýrlamasý aktif pasif alaný yok. boyle bir alanýn deðiþebileceði alan yok. olan krediler her zaman geçerli olacaklar.
+- OrderCredit tablosu ne iþe yarýyor. oradaki order_Id ne zaman kayýt edilecek? sipariþ verildikten sonra kredi verilirse krediyi nasýl kullanacak?
 
---City
--City tablosunda zipcode var. bu posta kodu deðil mi? postakodunda ilçe kodlarý dahil olacak mý? 34 mü? 34188 mi? nerede kullanýlacak.
+---City
+- City tablosunda zipcode var. bu posta kodu deðil mi? postakodunda ilçe kodlarý dahil olacak mý? 34 mü? 34188 mi? nerede kullanýlacak.
 
+---Örnek neler olabilir?
+-PaymentType
+-PaymentStatus
+-OrderStatus
+-RestaurantType
+
+---Garson Çaðýr / Sipariþ Ver
+-Garson çaðýr ya da sipariþ ver denilince loglanýp bir yerde tutulacak mý?
+
+---Zeplin Menü Resmi
+- https://zpl.io/Vx0M3og 
+- kahve, yemek, kahvaltý yazýsýnýn geleceði restaurant açýklama tarzý alan yok.
+- buradaki resimde 50TL'nin üstü çizili altýnda 35TL yazýyor. Üstü çizili fiyatý veritabanýnda nasýl tutacaz? Ýndirim kredilerinden bakýlýp yapýlabilir mi? Veri çekme konusunda sýkýntý yaþanýr kullanýþsýz olur. MenuItem'a önceki fiyat alaný koyulabilir.
+- restaurant rate kýsmýný rate tablosundan ortalama deðerini çekersek eðer rate->restaurantComments->Order->Resturant yolundan restaurantý bulup kaç tane varsa da ortalamasýný alýp göstermemiz gerekecek. Veri çekme konusunda yine sýkýntý yaþarýz. RestaurantDetail'a ortalama puaný her puanda update edebiliriz.
+- restaurant ortalama süresinin yazdýðý bir alanýmýz yok. 
+
+---Zeplin Sepete Ekleme Resmi
+- https://zpl.io/2ZrpM8J 
+- buradaki resimde yemek notu ekle alaný var. veritabanýnda böyle bir alanýmýz yok. olacak mý?
+
+
+---Order
+- OrderDetail tablosundaki paymentTypeId alaný Order tablosunda olmasý gerekmiyor mu?
+- [EstimatedDeliveryTime] nereden hesaplanýyor?
+- Order ve Offer için kredi kullanýlýrsa hangi kredi kullanýldýðýný gösteren bir alan yok. sadece indirim deðeri var. Olacaksa birden fazla kredi kullanabilecek mi? bu nerde tutulacak?

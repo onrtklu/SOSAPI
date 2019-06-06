@@ -1,7 +1,9 @@
 ﻿using Ninject.Modules;
 using SOS.Business.Account;
 using SOS.Business.Manager.Event;
+using SOS.Business.Manager.Menu;
 using SOS.DataAccess.DapperDal.EventDal;
+using SOS.DataAccess.DapperDal.MenuItemDal;
 using SOS.DataAccess.Uow;
 using System;
 using System.Collections.Generic;
@@ -16,7 +18,10 @@ namespace SOS.Business.DependencyResolvers.Ninject
         public override void Load()
         {
             Bind<IEventManager>().To<EventManager>().InSingletonScope();
-            Bind<IEventService>().To<EventService>().InSingletonScope();
+            Bind<IEventService>().To<EventService>().InSingletonScope(); //
+
+            Bind<IMenuManager>().To<MenuManager>().InSingletonScope();
+            Bind<IMenuItemService>().To<MenuItemService>().InSingletonScope(); //
 
             Bind<IAccountManager>().To<AccountManager>().InSingletonScope();
 
