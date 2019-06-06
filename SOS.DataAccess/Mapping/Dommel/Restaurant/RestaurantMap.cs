@@ -13,6 +13,8 @@ namespace SOS.DataAccess.Mapping.Dommel.Restaurant
         {
             ToTable("Restaurant", "Restaurant");
 
+            Map(s => s.RestaurantTypeId).ToColumn("RestaurantType_Id");
+
             Map(s => s.OrderCredit).Ignore();
             Map(s => s.Orders).Ignore();
             Map(s => s.MenuCategory).Ignore();

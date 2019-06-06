@@ -1,4 +1,5 @@
 ﻿using SOS.Business.Manager.Menu;
+using SOS.DataObjects.ComplexTypes.Menu;
 using SOS.DataObjects.ComplexTypes.MenuItem;
 using SOS.DataObjects.HateoasType;
 using SOS.DataObjects.ResponseType;
@@ -35,6 +36,24 @@ namespace SOS.API.Controllers
             //    Rel = "get-all-event",
             //    method = "GET"
             //});
+
+            return response(item);
+        }
+
+        [Route("menu-list", Name ="MenuList")]
+        [SwaggerResponse(HttpStatusCode.OK,"Menu item list and restaurant info", typeof(SosResult<MenuDto>))]
+        public IHttpActionResult GetList(int Restaurant_Id)
+        {
+            var item = _menuManager.GetMenuList(Restaurant_Id);
+
+            item.Links = new List<ILink>();
+
+            item.Links.Add(new Link
+            {
+                Href = Url.Link("MenuItem", new { id = 0 }),
+                Rel = "get-item",
+                method = "GET"
+            });
 
             return response(item);
         }

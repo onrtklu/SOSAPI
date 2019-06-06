@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using SOS.Business.Utilities.Response;
 using SOS.DataAccess.Uow;
+using SOS.DataObjects.ComplexTypes.Menu;
 using SOS.DataObjects.ComplexTypes.MenuItem;
 using SOS.DataObjects.ResponseType;
 using System;
@@ -36,6 +37,27 @@ namespace SOS.Business.Manager.Menu
         }
 
         public ISosResult GetMenuList(int Restaurant_Id)
+        {
+            var restaurant = _uow.RestaurantService.GetRestaurant(Restaurant_Id);
+
+            var menuItems = _uow.MenuItemService.Select(s => s.Restaurant_Id == Restaurant_Id);
+
+            if (restaurant == null || menuItems == null)
+                return HttpStatusCode.BadRequest.SosErrorResult();
+
+            var mappedRestaurant = _mapper.Map<RestaurantDto>(restaurant);
+            var mappedMenuItems = _mapper.Map<List<Menu_MenuItemDto>>(menuItems);
+
+            MenuDto menuDto = new MenuDto()
+            {
+                Restaurant = mappedRestaurant,
+                MenuItems = mappedMenuItems
+            };
+
+            return menuDto.SosResult();
+        }
+
+        public ISosResult GetMenuCategoryList(int Restaurant_Id)
         {
             throw new NotImplementedException();
         }

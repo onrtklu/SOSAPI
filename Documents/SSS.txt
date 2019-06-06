@@ -24,6 +24,8 @@
 - buradaki resimde 50TL'nin üstü çizili altında 35TL yazıyor. Üstü çizili fiyatı veritabanında nasıl tutacaz? İndirim kredilerinden bakılıp yapılabilir mi? Veri çekme konusunda sıkıntı yaşanır kullanışsız olur. MenuItem'a önceki fiyat alanı koyulabilir.
 - restaurant rate kısmını rate tablosundan ortalama değerini çekersek eğer rate->restaurantComments->Order->Resturant yolundan restaurantı bulup kaç tane varsa da ortalamasını alıp göstermemiz gerekecek. Veri çekme konusunda yine sıkıntı yaşarız. RestaurantDetail'a ortalama puanı her puanda update edebiliriz.
 - restaurant ortalama süresinin yazdığı bir alanımız yok. 
+- Menunün üst tarafında kapak resmi var ve sağ üstte restaurantın logosu var. Kapak resmi restaurantta cover'ı true olan alan ise, logo resmi hangisi? veritabanında bunu anlayacağımız alan yok.
+- Restorant adı altındaki açıklama kısmı restaurant açıklaması mı yoksa kısa açıklama mı?
 
 ---Zeplin Sepete Ekleme Resmi
 - https://zpl.io/2ZrpM8J 

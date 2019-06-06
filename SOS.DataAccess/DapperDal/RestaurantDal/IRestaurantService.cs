@@ -10,5 +10,6 @@ namespace SOS.DataAccess.DapperDal.RestaurantDal
 {
     public interface IRestaurantService : IGenericRepository<Restaurant>
     {
+        Restaurant GetRestaurant(int id);
     }
 }

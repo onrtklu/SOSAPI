@@ -5,7 +5,7 @@ namespace SOS.DataObjects.Entities.RestaurantSchema
 
     public class RestaurantDetail : BaseEntity
     {
-        public int? Restaurant_Id { get; set; }
+        public int? RestaurantId { get; set; }
 
         public string Description { get; set; }
 

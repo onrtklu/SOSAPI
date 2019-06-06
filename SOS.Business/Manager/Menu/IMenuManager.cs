@@ -10,6 +10,7 @@ namespace SOS.Business.Manager.Menu
     public interface IMenuManager
     {
         ISosResult GetMenuList(int Restaurant_Id);
+        ISosResult GetMenuCategoryList(int Restaurant_Id);
         ISosResult GetMenuItem(int Id);
     }
 }

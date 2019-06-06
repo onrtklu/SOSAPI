@@ -12,7 +12,7 @@ namespace SOS.DataObjects.Entities.RestaurantSchema
 
         public bool? IsActive { get; set; }
 
-        public int Restaurant_Id { get; set; }
+        public int RestaurantId { get; set; }
 
         public virtual Restaurant Restaurant { get; set; }
     }

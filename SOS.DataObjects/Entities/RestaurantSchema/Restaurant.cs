@@ -16,8 +16,8 @@ namespace SOS.DataObjects.Entities.RestaurantSchema
             Orders = new HashSet<Orders>();
             MenuCategory = new HashSet<MenuCategory>();
             MenuItem = new HashSet<MenuItem>();
-            RestaurantDetail = new HashSet<RestaurantDetail>();
             RestaurantUser = new HashSet<RestaurantUser>();
+            RestaurantPicture = new HashSet<RestaurantPicture>();
         }
         
         public string RestaurantName { get; set; }
@@ -32,7 +32,7 @@ namespace SOS.DataObjects.Entities.RestaurantSchema
 
         public string ConfirmationKey { get; set; }
 
-        public int? RestaurantType_Id { get; set; }
+        public int? RestaurantTypeId { get; set; }
 
         public DateTime? Datetime { get; set; }
 
@@ -48,8 +48,10 @@ namespace SOS.DataObjects.Entities.RestaurantSchema
 
         public virtual RestaurantType RestaurantType { get; set; }
 
-        public virtual ICollection<RestaurantDetail> RestaurantDetail { get; set; }
+        public virtual RestaurantDetail RestaurantDetail { get; set; }
 
         public virtual ICollection<RestaurantUser> RestaurantUser { get; set; }
+
+        public virtual ICollection<RestaurantPicture> RestaurantPicture { get; set; }
     }
 }

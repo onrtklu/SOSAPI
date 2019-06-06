@@ -1,4 +1,5 @@
-﻿using SOS.Core.DataAccess.Dapper;
+﻿using Dommel;
+using SOS.Core.DataAccess.Dapper;
 using SOS.DataObjects.Entities.RestaurantSchema;
 using System;
 using System.Collections.Generic;
@@ -12,5 +13,17 @@ namespace SOS.DataAccess.DapperDal.RestaurantDal
     public class RestaurantService : DapperGenericRepository<Restaurant>, IRestaurantService
     {
         public RestaurantService(IDbTransaction transaction) : base(transaction) { }
+
+        public Restaurant GetRestaurant(int id)
+        {
+            var item = _connection.Get<Restaurant, RestaurantDetail, Restaurant>(id, (restaurant, detail) =>
+            {
+                restaurant.RestaurantDetail = detail;
+                //restaurant.RestaurantPicture.Add(picture);
+                return restaurant;
+            });
+
+            return item;
+        }
     }
 }

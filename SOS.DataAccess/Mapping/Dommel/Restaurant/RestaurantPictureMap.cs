@@ -8,15 +8,13 @@ using System.Threading.Tasks;
 
 namespace SOS.DataAccess.Mapping.Dommel.Restaurant
 {
-    public class RestaurantDetailMap : DommelEntityMap<RestaurantDetail>
+    public class RestaurantPictureMap : DommelEntityMap<RestaurantPicture>
     {
-        public RestaurantDetailMap()
+        public RestaurantPictureMap()
         {
-            ToTable("RestaurantDetail", "Restaurant");
+            ToTable("RestaurantPicture", "Restaurant");
 
             Map(s => s.RestaurantId).ToColumn("Restaurant_Id");
-
-            Map(s => s.Restaurant).Ignore();
         }
     }
 }

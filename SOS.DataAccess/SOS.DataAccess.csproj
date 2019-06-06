@@ -69,6 +69,7 @@
     <Compile Include="Mapping\Dommel\Restaurant\RateMap.cs" />
     <Compile Include="Mapping\Dommel\Restaurant\RestaurantDetailMap.cs" />
     <Compile Include="Mapping\Dommel\Restaurant\RestaurantMap.cs" />
+    <Compile Include="Mapping\Dommel\Restaurant\RestaurantPictureMap.cs" />
     <Compile Include="Mapping\Dommel\Restaurant\RestaurantTypeMap.cs" />
     <Compile Include="Mapping\Dommel\Users\AuthorityMap.cs" />
     <Compile Include="Mapping\Dommel\Users\RestaurantUserMap.cs" />
