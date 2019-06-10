@@ -22,9 +22,10 @@ namespace SOS.API.Controllers
             _menuManager = menuManager;
         }
 
+        [HttpGet]
         [Route("menu-item", Name = "MenuItem" )]
         [SwaggerResponse(HttpStatusCode.OK,"When click a menu item", typeof(SosResult<MenuItemDto>))]
-        public IHttpActionResult Get(int id)
+        public IHttpActionResult MenuItem(int id)
         {
             var item = _menuManager.GetMenuItem(id);
 
@@ -40,11 +41,50 @@ namespace SOS.API.Controllers
             return response(item);
         }
 
-        [Route("menu-list", Name ="MenuList")]
+        [HttpGet]
+        [Route("menu-item-list", Name ="MenuItemList")]
         [SwaggerResponse(HttpStatusCode.OK,"Menu item list and restaurant info", typeof(SosResult<MenuDto>))]
-        public IHttpActionResult GetList(int Restaurant_Id)
+        public IHttpActionResult MenuItemList(int Restaurant_Id)
         {
-            var item = _menuManager.GetMenuList(Restaurant_Id);
+            var item = _menuManager.GetMenuItemList(Restaurant_Id);
+
+            item.Links = new List<ILink>();
+
+            item.Links.Add(new Link
+            {
+                Href = Url.Link("MenuItem", new { id = 0 }),
+                Rel = "get-item",
+                method = "GET"
+            });
+
+            return response(item);
+        }
+
+        [HttpGet]
+        [Route("menu-category-list", Name = "MenuCategoryList")]
+        [SwaggerResponse(HttpStatusCode.OK, "Category list and restaurant info", typeof(SosResult<MenuCategoriesDto>))]
+        public IHttpActionResult MenuCategoryList(int Restaurant_Id)
+        {
+            var item = _menuManager.GetMenuCategoryList(Restaurant_Id);
+
+            item.Links = new List<ILink>();
+
+            item.Links.Add(new Link
+            {
+                Href = Url.Link("MenuItemListByCategory", new { id = 0 }),
+                Rel = "get-item-by-category",
+                method = "GET"
+            });
+
+            return response(item);
+        }
+
+        [HttpGet]
+        [Route("menu-item-list-by-category", Name = "MenuItemListByCategory")]
+        [SwaggerResponse(HttpStatusCode.OK, "Menu item list by category and restaurant info", typeof(SosResult<MenuItemByCategoryDto>))]
+        public IHttpActionResult MenuItemListByCategory(int Category_Id)
+        {
+            var item = _menuManager.GetMenuItemListByCategory(Category_Id);
 
             item.Links = new List<ILink>();
 

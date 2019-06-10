@@ -57,6 +57,8 @@
   <ItemGroup>
     <Compile Include="DapperDal\EventDal\EventService.cs" />
     <Compile Include="DapperDal\EventDal\IEventService.cs" />
+    <Compile Include="DapperDal\MenuCategoryDal\IMenuCategoryService.cs" />
+    <Compile Include="DapperDal\MenuCategoryDal\MenuCategoryService.cs" />
     <Compile Include="DapperDal\MenuItemDal\IMenuItemService.cs" />
     <Compile Include="DapperDal\MenuItemDal\MenuItemService.cs" />
     <Compile Include="DapperDal\RestaurantDal\IRestaurantService.cs" />

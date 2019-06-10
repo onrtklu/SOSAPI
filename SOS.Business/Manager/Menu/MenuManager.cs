@@ -36,7 +36,7 @@ namespace SOS.Business.Manager.Menu
             return mapped.SosResult();
         }
 
-        public ISosResult GetMenuList(int Restaurant_Id)
+        public ISosResult GetMenuItemList(int Restaurant_Id)
         {
             var restaurant = _uow.RestaurantService.GetRestaurant(Restaurant_Id);
 
@@ -59,7 +59,51 @@ namespace SOS.Business.Manager.Menu
 
         public ISosResult GetMenuCategoryList(int Restaurant_Id)
         {
-            throw new NotImplementedException();
+            var restaurant = _uow.RestaurantService.GetRestaurant(Restaurant_Id);
+
+            var categoryList = _uow.MenuCategoryService.Select(s => s.Restaurant_Id == Restaurant_Id);
+
+            if (restaurant == null || categoryList == null)
+                return HttpStatusCode.BadRequest.SosErrorResult();
+
+            var mappedRestaurant = _mapper.Map<RestaurantDto>(restaurant);
+            var mappedCategoryItems = _mapper.Map<List<Menu_CategoryDto>>(categoryList);
+
+            MenuCategoriesDto menuDto = new MenuCategoriesDto()
+            {
+                Restaurant = mappedRestaurant,
+                CategoryItems = mappedCategoryItems
+            };
+
+            return menuDto.SosResult();
+        }
+
+        public ISosResult GetMenuItemListByCategory(int Category_Id)
+        {
+            var category = _uow.MenuCategoryService.Get(Category_Id);
+
+            if (category == null)
+                return HttpStatusCode.BadRequest.SosErrorResult();
+
+            var restaurant = _uow.RestaurantService.GetRestaurant(category.Restaurant_Id);
+
+            var menuItems = _uow.MenuItemService.Select(s => s.MenuCategoryId == Category_Id);
+
+            if (restaurant == null || menuItems == null)
+                return HttpStatusCode.BadRequest.SosErrorResult();
+
+            var mappedRestaurant = _mapper.Map<RestaurantDto>(restaurant);
+            var mappedCategory = _mapper.Map<Menu_CategoryDto>(category);
+            var mappedMenuItems = _mapper.Map<List<Menu_MenuItemDto>>(menuItems);
+
+            MenuItemByCategoryDto menuDto = new MenuItemByCategoryDto()
+            {
+                Restaurant = mappedRestaurant,
+                Category = mappedCategory,
+                MenuItems = mappedMenuItems
+            };
+
+            return menuDto.SosResult();
         }
     }
 }

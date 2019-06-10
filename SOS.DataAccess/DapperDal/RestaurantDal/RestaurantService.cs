@@ -7,6 +7,7 @@ using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Dapper;
 
 namespace SOS.DataAccess.DapperDal.RestaurantDal
 {
@@ -16,14 +17,22 @@ namespace SOS.DataAccess.DapperDal.RestaurantDal
 
         public Restaurant GetRestaurant(int id)
         {
-            var item = _connection.Get<Restaurant, RestaurantDetail, Restaurant>(id, (restaurant, detail) =>
-            {
-                restaurant.RestaurantDetail = detail;
-                //restaurant.RestaurantPicture.Add(picture);
-                return restaurant;
-            });
+            var item = _connection.QueryMultiple("Restaurant.GetMenuRestaurant", 
+                new { Id = id }, 
+                _transaction, 
+                commandType: CommandType.StoredProcedure);
 
-            return item;
+            var restaurant = item.Read<Restaurant, RestaurantType, RestaurantDetail, Restaurant>((res, typ, det) => 
+            {
+                res.RestaurantType = typ;
+                res.RestaurantDetail = det;
+                return res;
+            }).SingleOrDefault();
+            
+            if(restaurant != null)
+                restaurant.RestaurantPicture = item.Read<RestaurantPicture>().ToList();
+
+            return restaurant;
         }
     }
 }

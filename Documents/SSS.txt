@@ -36,3 +36,7 @@
 - OrderDetail tablosundaki paymentTypeId alaný Order tablosunda olmasý gerekmiyor mu?
 - [EstimatedDeliveryTime] nereden hesaplanýyor?
 - Order ve Offer için kredi kullanýlýrsa hangi kredi kullanýldýðýný gösteren bir alan yok. sadece indirim deðeri var. Olacaksa birden fazla kredi kullanabilecek mi? bu nerde tutulacak?
+
+--- Zeplin Menü Kategori Resmi
+- https://zpl.io/bWjL4XP
+- Bu resimde categoriye týklandýktan sonra ne çýkacak. sadece o menünün yemekleri mi yoksa açýlýr kapanýr menü mü?

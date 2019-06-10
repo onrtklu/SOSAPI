@@ -32,8 +32,8 @@ namespace SOS.DataObjects.ComplexTypes.Menu
         public int Id { get; set; }
         public string ItemName { get; set; }
         public string ItemDescription { get; set; }
-        public int StrikethroughPrice { get; set; }
-        public int Price { get; set; }
+        public decimal StrikethroughPrice { get; set; }
+        public decimal Price { get; set; }
     }
 
     /// <summary>
@@ -42,13 +42,23 @@ namespace SOS.DataObjects.ComplexTypes.Menu
     public class MenuCategoriesDto
     {
         public RestaurantDto Restaurant { get; set; }
-        public int MyProperty { get; set; }
+        public IEnumerable<Menu_CategoryDto> CategoryItems { get; set; }
     }
 
     public class Menu_CategoryDto
     {
         public int Id { get; set; }
         public string CategoryName { get; set; }
-        public string CategoryUrl { get; set; }
+        public string CategoryImageUrl { get; set; }
+    }
+
+    /// <summary>
+    /// Menu items by category
+    /// </summary>
+    public class MenuItemByCategoryDto
+    {
+        public RestaurantDto Restaurant { get; set; }
+        public Menu_CategoryDto Category { get; set; }
+        public IEnumerable<Menu_MenuItemDto> MenuItems { get; set; }
     }
 }

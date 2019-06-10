@@ -32,6 +32,9 @@ namespace SOS.Business.Mapping.AutoMapper
             CreateMap<MenuItem, Menu_MenuItemDto>()
                 .ForMember(dest => dest.ItemName, opts => opts.MapFrom(src => src.ItemName.Trim()))
                 .ForMember(dest => dest.ItemDescription, opts => opts.MapFrom(src => src.Description.Trim()));
+
+            CreateMap<MenuCategory, Menu_CategoryDto>()
+                .ForMember(dest => dest.CategoryImageUrl, opts => opts.MapFrom(src => src.ImageUrl));
         }
     }
 }

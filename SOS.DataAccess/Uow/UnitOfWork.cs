@@ -1,4 +1,5 @@
 ﻿using SOS.DataAccess.DapperDal.EventDal;
+using SOS.DataAccess.DapperDal.MenuCategoryDal;
 using SOS.DataAccess.DapperDal.MenuItemDal;
 using SOS.DataAccess.DapperDal.RestaurantDal;
 using SOS.DataAccess.Mapping.Dommel;
@@ -23,6 +24,7 @@ namespace SOS.DataAccess.Uow
         private IEventService _eventService;
         private IMenuItemService _menuItemService;
         private IRestaurantService _restaurantService;
+        private IMenuCategoryService _menuCategoryService;
 
 
         public UnitOfWork()
@@ -36,6 +38,7 @@ namespace SOS.DataAccess.Uow
         public IEventService EventService => _eventService ?? (_eventService = new EventService(_transaction));
         public IMenuItemService MenuItemService => _menuItemService ?? (_menuItemService = new MenuItemService(_transaction));
         public IRestaurantService RestaurantService => _restaurantService ?? (_restaurantService = new RestaurantService(_transaction));
+        public IMenuCategoryService MenuCategoryService => _menuCategoryService ?? (_menuCategoryService = new MenuCategoryService(_transaction));
 
         public void BeginTransaction() => _transaction = _connection.BeginTransaction();
 

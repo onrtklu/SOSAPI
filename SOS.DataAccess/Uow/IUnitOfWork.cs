@@ -1,4 +1,5 @@
 ﻿using SOS.DataAccess.DapperDal.EventDal;
+using SOS.DataAccess.DapperDal.MenuCategoryDal;
 using SOS.DataAccess.DapperDal.MenuItemDal;
 using SOS.DataAccess.DapperDal.RestaurantDal;
 using System;
@@ -14,6 +15,7 @@ namespace SOS.DataAccess.Uow
         IEventService EventService { get; }
         IMenuItemService MenuItemService { get; }
         IRestaurantService RestaurantService { get; }
+        IMenuCategoryService MenuCategoryService { get; }
 
         void BeginTransaction();
         void Commit();
