@@ -17,7 +17,7 @@ namespace SOS.DataObjects.Entities.OfferSchema
 
         public DateTime? FinishOfferDatetime { get; set; }
 
-        public int? OfferPaymentType_Id { get; set; }
+        public int? OfferPaymentTypeId { get; set; }
 
         public int? Customer_Id { get; set; }
 

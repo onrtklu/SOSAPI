@@ -6,9 +6,9 @@ namespace SOS.DataObjects.Entities.OfferSchema
 
     public partial class OfferDetail : BaseEntity
     {
-        public int? Offer_Id { get; set; }
+        public int? OfferId { get; set; }
 
-        public int? MenuItem_Id { get; set; }
+        public int? MenuItemId { get; set; }
 
         public int? Quantity { get; set; }
 

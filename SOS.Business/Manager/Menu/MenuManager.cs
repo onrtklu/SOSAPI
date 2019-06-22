@@ -3,6 +3,7 @@ using SOS.Business.Utilities.Response;
 using SOS.DataAccess.Uow;
 using SOS.DataObjects.ComplexTypes.Menu;
 using SOS.DataObjects.ComplexTypes.MenuItem;
+using SOS.DataObjects.Entities.RestaurantSchema;
 using SOS.DataObjects.ResponseType;
 using System;
 using System.Collections.Generic;
@@ -26,7 +27,12 @@ namespace SOS.Business.Manager.Menu
 
         public ISosResult GetMenuItem(int Id)
         {
-            var result = _uow.MenuItemService.GetWithCategory(Id);
+            MenuItem result;
+
+            if (_uow.OfferDetailService.IsMenuItemAdded(Id, 1))
+                result = _uow.OfferDetailService.GetMenuItemFromOffer(Id, 1);
+            else
+                result = _uow.MenuItemService.GetWithCategory(Id);
 
             if (result == null)
                 return HttpStatusCode.BadRequest.SosErrorResult();
@@ -104,6 +110,15 @@ namespace SOS.Business.Manager.Menu
             };
 
             return menuDto.SosResult();
+        }
+
+
+
+        public int? GetCategoryIdByMenuItem(int menuItem_Id)
+        {
+            var item = _uow.MenuItemService.Get(menuItem_Id);
+
+            return item.MenuCategoryId;
         }
     }
 }

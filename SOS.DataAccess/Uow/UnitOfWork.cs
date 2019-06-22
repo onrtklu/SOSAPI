@@ -1,6 +1,8 @@
 ﻿using SOS.DataAccess.DapperDal.EventDal;
 using SOS.DataAccess.DapperDal.MenuCategoryDal;
 using SOS.DataAccess.DapperDal.MenuItemDal;
+using SOS.DataAccess.DapperDal.Offer.OfferDal;
+using SOS.DataAccess.DapperDal.Offer.OfferDetailDal;
 using SOS.DataAccess.DapperDal.RestaurantDal;
 using SOS.DataAccess.Mapping.Dommel;
 using System;
@@ -25,7 +27,8 @@ namespace SOS.DataAccess.Uow
         private IMenuItemService _menuItemService;
         private IRestaurantService _restaurantService;
         private IMenuCategoryService _menuCategoryService;
-
+        private IOfferService _offerService;
+        private IOfferDetailService _offerDetailService;
 
         public UnitOfWork()
         {
@@ -39,6 +42,8 @@ namespace SOS.DataAccess.Uow
         public IMenuItemService MenuItemService => _menuItemService ?? (_menuItemService = new MenuItemService(_transaction));
         public IRestaurantService RestaurantService => _restaurantService ?? (_restaurantService = new RestaurantService(_transaction));
         public IMenuCategoryService MenuCategoryService => _menuCategoryService ?? (_menuCategoryService = new MenuCategoryService(_transaction));
+        public IOfferService OfferService => _offerService ?? (_offerService = new OfferService(_transaction));
+        public IOfferDetailService OfferDetailService => _offerDetailService ?? (_offerDetailService = new OfferDetailService(_transaction));
 
         public void BeginTransaction() => _transaction = _connection.BeginTransaction();
 
@@ -67,7 +72,13 @@ namespace SOS.DataAccess.Uow
         private void resetRepositories()
         {
             _eventService = null;
-        }
+            _eventService = null;
+            _menuItemService = null;
+            _restaurantService = null;
+            _menuCategoryService = null;
+            _offerService = null;
+            _offerDetailService = null;
+    }
 
         public void Dispose()
         {

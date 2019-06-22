@@ -7,11 +7,12 @@ using System.Threading.Tasks;
 namespace SOS.DataObjects.ComplexTypes.Menu
 {
     /// <summary>
-    /// Menu with menu items
+    /// Menu items by category
     /// </summary>
-    public class MenuDto
+    public class MenuItemByCategoryDto
     {
         public RestaurantDto Restaurant { get; set; }
+        public Menu_CategoryDto Category { get; set; }
         public IEnumerable<Menu_MenuItemDto> MenuItems { get; set; }
     }
 }

@@ -29,14 +29,50 @@ namespace SOS.API.Controllers
         {
             var item = _menuManager.GetMenuItem(id);
 
-            //item.Links = new List<ILink>();
+            item.Links = new List<ILink>();
 
-            //item.Links.Add(new Link
-            //{
-            //    Href = Url.Link("GetAll", null),
-            //    Rel = "get-all-event",
-            //    method = "GET"
-            //});
+            item.Links.Add(new Link
+            {
+                Href = Url.Link("MenuItemList", null),
+                Rel = "get-all-menu-item",
+                method = "GET"
+            });
+
+            var category_Id = _menuManager.GetCategoryIdByMenuItem(id);
+            item.Links.Add(new Link
+            {
+                Href = Url.Link("MenuItemListByCategory", new { category_Id }),
+                Rel = "get-item-by-category",
+                method = "GET"
+            });
+
+            item.Links.Add(new Link
+            {
+                Href = Url.Link("OfferList", null),
+                Rel = "get-list-in-offer",
+                method = "GET"
+            });
+
+            item.Links.Add(new Link
+            {
+                Href = Url.Link("AddMenuItem", new { id = id }),
+                Rel = "add-item-to-offer",
+                method = "POST"
+            });
+
+            item.Links.Add(new Link
+            {
+                Href = Url.Link("UpdateMenuItem", new { id = id }),
+                Rel = "update-item-to-offer",
+                method = "PUT"
+            });
+
+            item.Links.Add(new Link
+            {
+                Href = Url.Link("DeleteMenuItem", new { id = id }),
+                Rel = "delete-item-to-offer",
+                method = "DELETE"
+            });
 
             return response(item);
         }
@@ -44,8 +80,10 @@ namespace SOS.API.Controllers
         [HttpGet]
         [Route("menu-item-list", Name ="MenuItemList")]
         [SwaggerResponse(HttpStatusCode.OK,"Menu item list and restaurant info", typeof(SosResult<MenuDto>))]
-        public IHttpActionResult MenuItemList(int Restaurant_Id)
+        public IHttpActionResult MenuItemList()
         {
+            int Restaurant_Id = 1;
+
             var item = _menuManager.GetMenuItemList(Restaurant_Id);
 
             item.Links = new List<ILink>();
@@ -56,6 +94,12 @@ namespace SOS.API.Controllers
                 Rel = "get-item",
                 method = "GET"
             });
+            item.Links.Add(new Link
+            {
+                Href = Url.Link("AddMenuItem", new { id = 0 }),
+                Rel = "add-item-to-offer",
+                method = "POST"
+            });
 
             return response(item);
         }
@@ -63,15 +107,17 @@ namespace SOS.API.Controllers
         [HttpGet]
         [Route("menu-category-list", Name = "MenuCategoryList")]
         [SwaggerResponse(HttpStatusCode.OK, "Category list and restaurant info", typeof(SosResult<MenuCategoriesDto>))]
-        public IHttpActionResult MenuCategoryList(int Restaurant_Id)
+        public IHttpActionResult MenuCategoryList()
         {
+            int Restaurant_Id = 1;
+
             var item = _menuManager.GetMenuCategoryList(Restaurant_Id);
 
             item.Links = new List<ILink>();
 
             item.Links.Add(new Link
             {
-                Href = Url.Link("MenuItemListByCategory", new { id = 0 }),
+                Href = Url.Link("MenuItemListByCategory", new { category_Id = 0 }),
                 Rel = "get-item-by-category",
                 method = "GET"
             });
@@ -82,9 +128,9 @@ namespace SOS.API.Controllers
         [HttpGet]
         [Route("menu-item-list-by-category", Name = "MenuItemListByCategory")]
         [SwaggerResponse(HttpStatusCode.OK, "Menu item list by category and restaurant info", typeof(SosResult<MenuItemByCategoryDto>))]
-        public IHttpActionResult MenuItemListByCategory(int Category_Id)
+        public IHttpActionResult MenuItemListByCategory(int category_Id)
         {
-            var item = _menuManager.GetMenuItemListByCategory(Category_Id);
+            var item = _menuManager.GetMenuItemListByCategory(category_Id);
 
             item.Links = new List<ILink>();
 
@@ -93,6 +139,12 @@ namespace SOS.API.Controllers
                 Href = Url.Link("MenuItem", new { id = 0 }),
                 Rel = "get-item",
                 method = "GET"
+            });
+            item.Links.Add(new Link
+            {
+                Href = Url.Link("AddMenuItem", new { id = 0 }),
+                Rel = "add-item-to-offer",
+                method = "POST"
             });
 
             return response(item);

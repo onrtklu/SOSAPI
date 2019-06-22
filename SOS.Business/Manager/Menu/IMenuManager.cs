@@ -13,5 +13,7 @@ namespace SOS.Business.Manager.Menu
         ISosResult GetMenuItemList(int Restaurant_Id);
         ISosResult GetMenuCategoryList(int Restaurant_Id);
         ISosResult GetMenuItemListByCategory(int Category_Id);
+
+        int? GetCategoryIdByMenuItem(int menuItem_Id);
     }
 }

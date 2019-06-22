@@ -35,6 +35,7 @@ namespace SOS.Business.Mapping.AutoMapper
 
             CreateMap<MenuCategory, Menu_CategoryDto>()
                 .ForMember(dest => dest.CategoryImageUrl, opts => opts.MapFrom(src => src.ImageUrl));
+
         }
     }
 }

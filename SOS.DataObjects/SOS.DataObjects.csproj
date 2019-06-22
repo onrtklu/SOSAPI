@@ -47,7 +47,14 @@
     <Compile Include="ComplexTypes\Event\EventDetailDto.cs" />
     <Compile Include="ComplexTypes\Event\EventDto.cs" />
     <Compile Include="ComplexTypes\MenuItem\MenuItemDto.cs" />
+    <Compile Include="ComplexTypes\Menu\MenuCategoriesDto.cs" />
     <Compile Include="ComplexTypes\Menu\MenuDto.cs" />
+    <Compile Include="ComplexTypes\Menu\MenuItemByCategoryDto.cs" />
+    <Compile Include="ComplexTypes\Menu\Menu_CategoryDto.cs" />
+    <Compile Include="ComplexTypes\Menu\Menu_MenuItemDto.cs" />
+    <Compile Include="ComplexTypes\Menu\RestaurantDto.cs" />
+    <Compile Include="ComplexTypes\Offer\OfferDto.cs" />
+    <Compile Include="ComplexTypes\Offer\OfferMenuItemList.cs" />
     <Compile Include="Entities\ConstantSchema\City.cs" />
     <Compile Include="Entities\CreditSchema\Credit.cs" />
     <Compile Include="Entities\CreditSchema\CustomerCredit.cs" />
