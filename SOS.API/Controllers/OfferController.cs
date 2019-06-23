@@ -42,21 +42,21 @@ namespace SOS.API.Controllers
 
             item.Links.Add(new Link
             {
-                Href = Url.Link("AddMenuItem", new { id = 0 }),
+                Href = Url.Link("AddMenuItem", null),
                 Rel = "add-item",
                 method = "POST"
             });
 
             item.Links.Add(new Link
             {
-                Href = Url.Link("UpdateMenuItem", new { id = 0 }),
+                Href = Url.Link("UpdateMenuItem", null),
                 Rel = "update-item",
                 method = "PUT"
             });
 
             item.Links.Add(new Link
             {
-                Href = Url.Link("DeleteMenuItem", new { id = 0 }),
+                Href = Url.Link("DeleteMenuItem", null),
                 Rel = "delete-item",
                 method = "DELETE"
             });
@@ -122,7 +122,7 @@ namespace SOS.API.Controllers
         [HttpDelete]
         [Route("delete-menu-item", Name = "DeleteMenuItem")]
         [SwaggerResponse(HttpStatusCode.OK, Description = "delete a menu item to the offer", Type = typeof(SosOpResult))]
-        public IHttpActionResult Put([FromBody]int menuItem_Id)
+        public IHttpActionResult Delete([FromBody]int menuItem_Id)
         {
             int customer_Id = 1;
 

@@ -6,6 +6,8 @@ using System.Text;
 using System.Threading.Tasks;
 using AutoMapper;
 using SOS.Business.Utilities.Response;
+using SOS.Business.Utilities.Validation;
+using SOS.Business.ValidationRules.FluentValidation.OfferValidation;
 using SOS.DataAccess.Uow;
 using SOS.DataObjects.ComplexTypes.MenuItem;
 using SOS.DataObjects.ComplexTypes.Offer;
@@ -44,48 +46,71 @@ namespace SOS.Business.Manager.Offer
 
         public ISosResult AddOfferItem(MenuItemDtoInsert menuItem, int customer_Id)
         {
+            Validate<OfferInsertValidatior, MenuItemDtoInsert>.Valid(menuItem);
 
-            if(menuItem == null)
+            if (menuItem == null)
                 return HttpStatusCode.NoContent.SosErrorResult();
-                       
+
             int? offerId = GetOffer(customer_Id);
 
-            if (offerId == null)
+            var item = _uow.OfferDetailService.Select(w => w.MenuItemId == menuItem.Id && w.OfferId == offerId); // is there a item like this
+
+            _uow.BeginTransaction();
+                       
+            if (offerId == null) // if there is no record in the offer for the customer, insert the offer
                 offerId = (int)_uow.OfferService.Insert(new DataObjects.Entities.OfferSchema.Offer()
                 {
                     StartOfferDatetime = DateTime.Now,
                     Customer_Id = customer_Id
                 });
 
-
-            _uow.BeginTransaction();
-
-            OfferDetail offerDetail = new OfferDetail()
+            if(item.Count() == 0) // insert
             {
-                OfferId = offerId,
-                MenuItemId = menuItem.Id,
-                Quantity = menuItem.Quantity,
-                Datetime = DateTime.Now
-            };
+                OfferDetail offerDetail = new OfferDetail()
+                {
+                    OfferId = offerId,
+                    MenuItemId = menuItem.Id,
+                    Quantity = menuItem.Quantity,
+                    Datetime = DateTime.Now
+                };
 
-            var scopeId = _uow.OfferDetailService.Insert(offerDetail);
-            if (scopeId == null)
-                return HttpStatusCode.BadRequest.SosErrorResult();
+                var scopeId = _uow.OfferDetailService.Insert(offerDetail);
+                if (scopeId == null)
+                    return HttpStatusCode.BadRequest.SosErrorResult();
+            }
+            else // update
+            {
+                OfferDetail offerDetail = new OfferDetail()
+                {
+                    Id = item.First().Id,
+                    OfferId = offerId,
+                    MenuItemId = menuItem.Id,
+                    Quantity = item.First().Quantity + menuItem.Quantity, // if item is not null, add quantity to old quantity
+                    Datetime = DateTime.Now
+                };
+
+                bool result = _uow.OfferDetailService.Update(offerDetail);
+                if (result == false)
+                    return HttpStatusCode.BadRequest.SosErrorResult();
+            }
 
             _uow.Commit();
 
-
-            return HttpStatusCode.Created.SosOpResult(Convert.ToInt32(menuItem.Id));
+            return HttpStatusCode.Created.SosOpResult(menuItem.Id, "Kayıt başarılı");
 
         }
 
         public ISosResult UpdateOfferItem(MenuItemDtoUpdate menuItem, int customer_Id)
         {
+            Validate<OfferUpdateValidatior, MenuItemDtoUpdate>.Valid(menuItem);
 
             if (menuItem == null)
                 return HttpStatusCode.NoContent.SosErrorResult();
 
             int? offerId = GetOffer(customer_Id);
+
+            if (offerId == null)
+                return HttpStatusCode.BadRequest.SosErrorResult("Offer item bulunamadı");
 
             var oldOfferDetail = _uow.OfferDetailService.Select(s => s.OfferId == offerId && s.MenuItemId == menuItem.Id);
             if (oldOfferDetail == null)
@@ -108,18 +133,23 @@ namespace SOS.Business.Manager.Offer
 
             _uow.Commit();
 
-            return HttpStatusCode.OK.SosOpResult(menuItem.Id);
+            return HttpStatusCode.OK.SosOpResult(menuItem.Id, "Kayıt güncellendi");
         }
 
         public ISosResult DeleteOfferItem(int menuItem_Id, int customer_Id)
         {
             int? offerId = GetOffer(customer_Id);
 
-            bool result = _uow.OfferDetailService.DeleteMultiple(s => s.OfferId == offerId && s.MenuItemId == menuItem_Id);
-            if (result == false)
-                return HttpStatusCode.BadRequest.SosErrorResult();
-            
-            return HttpStatusCode.OK.SosOpResult(menuItem_Id);
+            if (offerId == null)
+                return HttpStatusCode.BadRequest.SosErrorResult("Offer item bulunamadı");
+
+            _uow.BeginTransaction();
+
+            _uow.OfferDetailService.OfferDetailDelete((int)offerId, menuItem_Id);
+
+            _uow.Commit();
+
+            return HttpStatusCode.OK.SosOpResult(menuItem_Id, "Kayıt silindi");
         }
 
 
@@ -128,7 +158,7 @@ namespace SOS.Business.Manager.Offer
         private int? GetOffer(int customer_Id)
         {
             var item = _uow.OfferService.Select(s => s.Customer_Id == customer_Id).FirstOrDefault();
-
+            
             return item?.Id;
         }
 

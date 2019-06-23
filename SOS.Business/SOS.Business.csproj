@@ -74,6 +74,8 @@
     <Compile Include="Utilities\Response\Response.cs" />
     <Compile Include="Utilities\Validation\Validate.cs" />
     <Compile Include="ValidationRules\FluentValidation\EventValidatior.cs" />
+    <Compile Include="ValidationRules\FluentValidation\OfferValidation\OfferInsertValidatior.cs" />
+    <Compile Include="ValidationRules\FluentValidation\OfferValidation\OfferUpdateValidatior.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

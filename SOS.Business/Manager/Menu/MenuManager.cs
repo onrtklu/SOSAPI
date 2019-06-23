@@ -118,7 +118,7 @@ namespace SOS.Business.Manager.Menu
         {
             var item = _uow.MenuItemService.Get(menuItem_Id);
 
-            return item.MenuCategoryId;
+            return item?.MenuCategoryId;
         }
     }
 }

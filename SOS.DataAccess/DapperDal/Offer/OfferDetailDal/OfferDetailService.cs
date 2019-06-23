@@ -47,5 +47,21 @@ namespace SOS.DataAccess.DapperDal.Offer.OfferDetailDal
             
             return item;
         }
+
+        public void OfferDetailDelete(int offer_Id, int menuItem_Id)
+        {
+            this.DeleteMultiple(s => s.OfferId == offer_Id && s.MenuItemId == menuItem_Id);
+
+            int offerDetailCount = _connection.ExecuteScalar<int>("SELECT COUNT(Id) FROM Offer.OfferDetail WHERE Offer_Id = @Offer_Id",
+                new { Offer_Id = offer_Id },
+                transaction: _transaction);
+
+            if (offerDetailCount == 0)
+            {
+                _connection.Execute("DELETE FROM Offer.Offer WHERE Id = @Offer_Id",
+                    new { Offer_Id = offer_Id },
+                    transaction: _transaction);
+            }
+        }
     }
 }

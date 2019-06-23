@@ -15,5 +15,6 @@ namespace SOS.DataAccess.DapperDal.Offer.OfferDetailDal
         bool IsMenuItemAdded(int menuItemId, int customerId);
         MenuItem GetMenuItemFromOffer(int menuItemId, int customerId);
         IEnumerable<OfferMenuItemList> GetOfferMenuItemList(int customerId);
+        void OfferDetailDelete(int offer_Id, int menuItem_Id);
     }
 }

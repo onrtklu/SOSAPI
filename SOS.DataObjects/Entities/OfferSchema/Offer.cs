@@ -8,11 +8,6 @@ namespace SOS.DataObjects.Entities.OfferSchema
 
     public partial class Offer : BaseEntity
     {
-        public Offer()
-        {
-            OfferDetail = new HashSet<OfferDetail>();
-        }
-
         public DateTime? StartOfferDatetime { get; set; }
 
         public DateTime? FinishOfferDatetime { get; set; }
@@ -25,6 +20,6 @@ namespace SOS.DataObjects.Entities.OfferSchema
 
         public virtual PaymentType PaymentType { get; set; }
 
-        public virtual ICollection<OfferDetail> OfferDetail { get; set; }
+        public virtual OfferDetail OfferDetail { get; set; }
     }
 }

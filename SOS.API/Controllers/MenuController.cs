@@ -41,7 +41,7 @@ namespace SOS.API.Controllers
             var category_Id = _menuManager.GetCategoryIdByMenuItem(id);
             item.Links.Add(new Link
             {
-                Href = Url.Link("MenuItemListByCategory", new { category_Id }),
+                Href = Url.Link("MenuItemListByCategory", new { category_Id = category_Id ?? 0 }),
                 Rel = "get-item-by-category",
                 method = "GET"
             });
@@ -55,21 +55,21 @@ namespace SOS.API.Controllers
 
             item.Links.Add(new Link
             {
-                Href = Url.Link("AddMenuItem", new { id = id }),
+                Href = Url.Link("AddMenuItem", null),
                 Rel = "add-item-to-offer",
                 method = "POST"
             });
 
             item.Links.Add(new Link
             {
-                Href = Url.Link("UpdateMenuItem", new { id = id }),
+                Href = Url.Link("UpdateMenuItem", null),
                 Rel = "update-item-to-offer",
                 method = "PUT"
             });
 
             item.Links.Add(new Link
             {
-                Href = Url.Link("DeleteMenuItem", new { id = id }),
+                Href = Url.Link("DeleteMenuItem", null),
                 Rel = "delete-item-to-offer",
                 method = "DELETE"
             });
@@ -96,7 +96,7 @@ namespace SOS.API.Controllers
             });
             item.Links.Add(new Link
             {
-                Href = Url.Link("AddMenuItem", new { id = 0 }),
+                Href = Url.Link("AddMenuItem", null),
                 Rel = "add-item-to-offer",
                 method = "POST"
             });
@@ -142,7 +142,7 @@ namespace SOS.API.Controllers
             });
             item.Links.Add(new Link
             {
-                Href = Url.Link("AddMenuItem", new { id = 0 }),
+                Href = Url.Link("AddMenuItem", null),
                 Rel = "add-item-to-offer",
                 method = "POST"
             });
