@@ -1,0 +1,125 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="4.0">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <Name>SOS.Database</Name>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectVersion>4.1</ProjectVersion>
+    <ProjectGuid>{441227b1-9e8a-4780-a046-f721312b6bb1}</ProjectGuid>
+    <DSP>Microsoft.Data.Tools.Schema.Sql.Sql130DatabaseSchemaProvider</DSP>
+    <OutputType>Database</OutputType>
+    <RootPath>
+    </RootPath>
+    <RootNamespace>SOS.Database</RootNamespace>
+    <AssemblyName>SOS.Database</AssemblyName>
+    <ModelCollation>1055,CI</ModelCollation>
+    <DefaultFileStructure>BySchemaAndSchemaType</DefaultFileStructure>
+    <DeployToDatabase>True</DeployToDatabase>
+    <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
+    <TargetLanguage>CS</TargetLanguage>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <SqlServerVerification>False</SqlServerVerification>
+    <IncludeCompositeObjects>True</IncludeCompositeObjects>
+    <TargetDatabaseSet>True</TargetDatabaseSet>
+    <DefaultCollation>Turkish_CI_AS</DefaultCollation>
+    <DefaultFilegroup>PRIMARY</DefaultFilegroup>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <OutputPath>bin\Release\</OutputPath>
+    <BuildScriptName>$(MSBuildProjectName).sql</BuildScriptName>
+    <TreatWarningsAsErrors>False</TreatWarningsAsErrors>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <DefineDebug>false</DefineDebug>
+    <DefineTrace>true</DefineTrace>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <OutputPath>bin\Debug\</OutputPath>
+    <BuildScriptName>$(MSBuildProjectName).sql</BuildScriptName>
+    <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <DefineDebug>true</DefineDebug>
+    <DefineTrace>true</DefineTrace>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">11.0</VisualStudioVersion>
+    <!-- Default to the v11.0 targets path if the targets file for the current VS version is not found -->
+    <SSDTExists Condition="Exists('$(MSBuildExtensionsPath)\Microsoft\VisualStudio\v$(VisualStudioVersion)\SSDT\Microsoft.Data.Tools.Schema.SqlTasks.targets')">True</SSDTExists>
+    <VisualStudioVersion Condition="'$(SSDTExists)' == ''">11.0</VisualStudioVersion>
+  </PropertyGroup>
+  <Import Condition="'$(SQLDBExtensionsRefPath)' != ''" Project="$(SQLDBExtensionsRefPath)\Microsoft.Data.Tools.Schema.SqlTasks.targets" />
+  <Import Condition="'$(SQLDBExtensionsRefPath)' == ''" Project="$(MSBuildExtensionsPath)\Microsoft\VisualStudio\v$(VisualStudioVersion)\SSDT\Microsoft.Data.Tools.Schema.SqlTasks.targets" />
+  <ItemGroup>
+    <Folder Include="Properties" />
+    <Folder Include="Constant\" />
+    <Folder Include="Constant\Tables\" />
+    <Folder Include="Restaurant\" />
+    <Folder Include="Restaurant\Tables\" />
+    <Folder Include="dbo\" />
+    <Folder Include="dbo\Tables\" />
+    <Folder Include="Offer\" />
+    <Folder Include="Offer\Tables\" />
+    <Folder Include="Orders\" />
+    <Folder Include="Orders\Tables\" />
+    <Folder Include="Credit\" />
+    <Folder Include="Credit\Tables\" />
+    <Folder Include="Users\" />
+    <Folder Include="Users\Tables\" />
+    <Folder Include="Customer\" />
+    <Folder Include="Customer\Tables\" />
+    <Folder Include="Restaurant\Stored Procedures\" />
+    <Folder Include="Offer\Stored Procedures\" />
+    <Folder Include="Security\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Build Include="Constant\Tables\City.sql" />
+    <Build Include="Restaurant\Tables\Restaurant.sql" />
+    <Build Include="dbo\Tables\Event.sql" />
+    <Build Include="dbo\Tables\Hall.sql" />
+    <Build Include="dbo\Tables\Ticket.sql" />
+    <Build Include="dbo\Tables\User.sql" />
+    <Build Include="dbo\Tables\Play.sql" />
+    <Build Include="Offer\Tables\Offer.sql" />
+    <Build Include="Offer\Tables\OfferDetail.sql" />
+    <Build Include="Restaurant\Tables\RestaurantType.sql" />
+    <Build Include="Restaurant\Tables\RestaurantComments.sql" />
+    <Build Include="Restaurant\Tables\Rate.sql" />
+    <Build Include="Restaurant\Tables\RestaurantPicture.sql" />
+    <Build Include="Orders\Tables\PaymentStatus.sql" />
+    <Build Include="Orders\Tables\PaymentType.sql" />
+    <Build Include="Restaurant\Tables\MenuCategory.sql" />
+    <Build Include="Orders\Tables\Orders.sql" />
+    <Build Include="Orders\Tables\OrderDetail.sql" />
+    <Build Include="Orders\Tables\OnlinePaymentOrders.sql" />
+    <Build Include="Restaurant\Tables\MenuItem.sql" />
+    <Build Include="Restaurant\Tables\RestaurantDetail.sql" />
+    <Build Include="Credit\Tables\Credit.sql" />
+    <Build Include="Credit\Tables\OrderCredit.sql" />
+    <Build Include="Users\Tables\Users.sql" />
+    <Build Include="Credit\Tables\CustomerCredit.sql" />
+    <Build Include="Users\Tables\Authority.sql" />
+    <Build Include="Users\Tables\RestaurantUser.sql" />
+    <Build Include="Customer\Tables\Customers.sql" />
+    <Build Include="Customer\Tables\SocialMedia.sql" />
+    <Build Include="Orders\Tables\OrderStatus.sql" />
+    <Build Include="Restaurant\Stored Procedures\GetMenuRestaurant.sql" />
+    <Build Include="Offer\Stored Procedures\IsMenuItemAdded.sql" />
+    <Build Include="Offer\Stored Procedures\GetMenuItem.sql" />
+    <Build Include="Offer\Stored Procedures\GetOfferMenuItemList.sql" />
+    <Build Include="Security\Constant.sql" />
+    <Build Include="Security\Credit.sql" />
+    <Build Include="Security\Customer.sql" />
+    <Build Include="Security\Offer.sql" />
+    <Build Include="Security\Orders.sql" />
+    <Build Include="Security\Restaurant.sql" />
+    <Build Include="Security\Users.sql" />
+  </ItemGroup>
+</Project>

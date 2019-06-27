@@ -1,0 +1,3 @@
+﻿CREATE SCHEMA [Credit]
+    AUTHORIZATION [dbo];
+

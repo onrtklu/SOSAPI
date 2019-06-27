@@ -85,7 +85,7 @@ namespace SOS.Business.Manager.Offer
                     Id = item.First().Id,
                     OfferId = offerId,
                     MenuItemId = menuItem.Id,
-                    Quantity = item.First().Quantity + menuItem.Quantity, // if item is not null, add quantity to old quantity
+                    Quantity = menuItem.Quantity,
                     Datetime = DateTime.Now
                 };
 
