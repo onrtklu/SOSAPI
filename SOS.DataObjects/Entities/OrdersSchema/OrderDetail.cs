@@ -11,6 +11,8 @@ namespace SOS.DataObjects.Entities.OrdersSchema
 
         public int? Quantity { get; set; }
 
+        public string OrderNote { get; set; }
+
         public decimal? ItemPrice { get; set; }
 
         public decimal? TotalPrice { get; set; }

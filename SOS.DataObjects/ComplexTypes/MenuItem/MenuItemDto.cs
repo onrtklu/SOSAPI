@@ -25,11 +25,13 @@ namespace SOS.DataObjects.ComplexTypes.MenuItem
     {
         public int Id { get; set; }
         public int Quantity { get; set; }
+        public string OfferNote { get; set; }
     }
 
     public class MenuItemDtoUpdate
     {
         public int Id { get; set; }
         public int Quantity { get; set; }
+        public string OfferNote { get; set; }
     }
 }

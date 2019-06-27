@@ -49,7 +49,7 @@ namespace SOS.Business.Manager.Offer
             Validate<OfferInsertValidatior, MenuItemDtoInsert>.Valid(menuItem);
 
             if (menuItem == null)
-                return HttpStatusCode.NoContent.SosErrorResult();
+                return HttpStatusCode.BadRequest.SosErrorResult();
 
             int? offerId = GetOffer(customer_Id);
 
@@ -71,6 +71,7 @@ namespace SOS.Business.Manager.Offer
                     OfferId = offerId,
                     MenuItemId = menuItem.Id,
                     Quantity = menuItem.Quantity,
+                    OfferNote = menuItem.OfferNote,
                     Datetime = DateTime.Now
                 };
 
@@ -86,6 +87,7 @@ namespace SOS.Business.Manager.Offer
                     OfferId = offerId,
                     MenuItemId = menuItem.Id,
                     Quantity = menuItem.Quantity,
+                    OfferNote = menuItem.OfferNote,
                     Datetime = DateTime.Now
                 };
 
@@ -105,25 +107,26 @@ namespace SOS.Business.Manager.Offer
             Validate<OfferUpdateValidatior, MenuItemDtoUpdate>.Valid(menuItem);
 
             if (menuItem == null)
-                return HttpStatusCode.NoContent.SosErrorResult();
+                return HttpStatusCode.BadRequest.SosErrorResult();
 
             int? offerId = GetOffer(customer_Id);
 
             if (offerId == null)
                 return HttpStatusCode.BadRequest.SosErrorResult("Offer item bulunamadı");
 
-            var oldOfferDetail = _uow.OfferDetailService.Select(s => s.OfferId == offerId && s.MenuItemId == menuItem.Id);
+            var oldOfferDetail = _uow.OfferDetailService.Select(s => s.OfferId == offerId && s.MenuItemId == menuItem.Id).SingleOrDefault();
             if (oldOfferDetail == null)
-                return HttpStatusCode.NoContent.SosErrorResult();
+                return HttpStatusCode.BadRequest.SosErrorResult("Menu item bulunamadı");
 
             _uow.BeginTransaction();
 
             OfferDetail offerDetail = new OfferDetail()
             {
-                Id = oldOfferDetail.First().Id,
+                Id = oldOfferDetail.Id,
                 OfferId = offerId,
                 MenuItemId = menuItem.Id,
                 Quantity = menuItem.Quantity,
+                OfferNote = menuItem.OfferNote,
                 Datetime = DateTime.Now
             };
 

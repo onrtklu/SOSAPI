@@ -12,6 +12,8 @@ namespace SOS.DataObjects.Entities.OfferSchema
 
         public int? Quantity { get; set; }
 
+        public string OfferNote { get; set; }
+
         public DateTime? Datetime { get; set; }
 
         public virtual Offer Offer { get; set; }

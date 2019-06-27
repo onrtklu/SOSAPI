@@ -17,6 +17,7 @@ BEGIN
 	mi.Id as MenuItem_Id,
 	mi.ItemName,
 	mi.Description as ItemDescription,
+	od.OfferNote,
 	mi.Price,
 	od.Quantity
 	from Offer.Offer o

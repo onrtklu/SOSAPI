@@ -11,6 +11,7 @@ namespace SOS.DataObjects.ComplexTypes.Offer
         public int MenuItem_Id { get; set; }
         public string ItemName { get; set; }
         public string ItemDescription { get; set; }
+        public string OfferNote { get; set; }
         public decimal Price { get; set; }
         public int Quantity { get; set; }
     }
