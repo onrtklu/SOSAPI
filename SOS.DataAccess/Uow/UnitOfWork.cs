@@ -3,6 +3,8 @@ using SOS.DataAccess.DapperDal.MenuCategoryDal;
 using SOS.DataAccess.DapperDal.MenuItemDal;
 using SOS.DataAccess.DapperDal.Offer.OfferDal;
 using SOS.DataAccess.DapperDal.Offer.OfferDetailDal;
+using SOS.DataAccess.DapperDal.Order.OrderDal;
+using SOS.DataAccess.DapperDal.Order.OrderDetailDal;
 using SOS.DataAccess.DapperDal.RestaurantDal;
 using SOS.DataAccess.Mapping.Dommel;
 using System;
@@ -24,11 +26,17 @@ namespace SOS.DataAccess.Uow
         private bool _disposed;
 
         private IEventService _eventService;
-        private IMenuItemService _menuItemService;
+
         private IRestaurantService _restaurantService;
+
+        private IMenuItemService _menuItemService;
         private IMenuCategoryService _menuCategoryService;
+
         private IOfferService _offerService;
         private IOfferDetailService _offerDetailService;
+
+        private IOrderService _orderService;
+        private IOrderDetailService _orderDetailService;
 
         public UnitOfWork()
         {
@@ -39,11 +47,17 @@ namespace SOS.DataAccess.Uow
         }
 
         public IEventService EventService => _eventService ?? (_eventService = new EventService(_transaction));
-        public IMenuItemService MenuItemService => _menuItemService ?? (_menuItemService = new MenuItemService(_transaction));
+
         public IRestaurantService RestaurantService => _restaurantService ?? (_restaurantService = new RestaurantService(_transaction));
+
+        public IMenuItemService MenuItemService => _menuItemService ?? (_menuItemService = new MenuItemService(_transaction));
         public IMenuCategoryService MenuCategoryService => _menuCategoryService ?? (_menuCategoryService = new MenuCategoryService(_transaction));
+
         public IOfferService OfferService => _offerService ?? (_offerService = new OfferService(_transaction));
         public IOfferDetailService OfferDetailService => _offerDetailService ?? (_offerDetailService = new OfferDetailService(_transaction));
+
+        public IOrderService OrderService => _orderService ?? (_orderService = new OrderService(_transaction));
+        public IOrderDetailService OrderDetailService => _orderDetailService ?? (_orderDetailService = new OrderDetailService(_transaction));
 
         public void BeginTransaction() => _transaction = _connection.BeginTransaction();
 
@@ -72,12 +86,17 @@ namespace SOS.DataAccess.Uow
         private void resetRepositories()
         {
             _eventService = null;
-            _eventService = null;
-            _menuItemService = null;
+
             _restaurantService = null;
+
+            _menuItemService = null;
             _menuCategoryService = null;
+
             _offerService = null;
             _offerDetailService = null;
+
+            _orderService = null;
+            _orderDetailService = null;
     }
 
         public void Dispose()

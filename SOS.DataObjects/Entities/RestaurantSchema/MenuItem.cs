@@ -21,7 +21,7 @@ namespace SOS.DataObjects.Entities.RestaurantSchema
 
         public string Ingredients { get; set; }
 
-        public string Receipe { get; set; }
+        public int EstimatedDeliveryTime { get; set; }
 
         public decimal? Price { get; set; }
 

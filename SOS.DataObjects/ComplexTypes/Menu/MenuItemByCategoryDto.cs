@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SOS.DataObjects.ComplexTypes.Restaurant;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;

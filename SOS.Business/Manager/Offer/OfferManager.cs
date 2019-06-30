@@ -28,64 +28,72 @@ namespace SOS.Business.Manager.Offer
             _mapper = mapper;
         }
 
-        public ISosResult GetOfferList(int customer_Id)
+        public ISosResult GetOfferList(int customer_Id, int restaurant_Id)
         {
-            var offerMenuItems = _uow.OfferDetailService.GetOfferMenuItemList(customer_Id);
+            var offerMenuItems = _uow.OfferDetailService.GetOfferMenuItemList(customer_Id, restaurant_Id); // OfferMenuItemList
 
-            if (offerMenuItems == null)
-                HttpStatusCode.BadRequest.SosErrorResult();
+            if (offerMenuItems.Count() == 0)
+                return HttpStatusCode.BadRequest.SosErrorResult();
 
             OfferDto offerDto = new OfferDto()
             {
                 MenuItems = offerMenuItems,
-                TotalPrice = offerMenuItems.Sum(s => s.Price * s.Quantity)
+                TotalPrice = offerMenuItems.Sum(s => s.Price * s.Quantity),
+                EstimatedDeliveryTime = offerMenuItems.Max(s=>s.EstimatedDeliveryTime)
             };
 
             return offerDto.SosResult();
         }
 
-        public ISosResult AddOfferItem(MenuItemDtoInsert menuItem, int customer_Id)
+        public ISosResult AddOfferItem(MenuItemDtoInsert menuItem, int customer_Id, int restaurant_Id)
         {
-            Validate<OfferInsertValidatior, MenuItemDtoInsert>.Valid(menuItem);
+            // Validation kontrolü
+            Validate<OfferInsertValidatior, MenuItemDtoInsert>.Valid(menuItem); 
 
             if (menuItem == null)
                 return HttpStatusCode.BadRequest.SosErrorResult();
 
-            int? offerId = GetOffer(customer_Id);
+            // Offer tablosunda kayıt varsa id'sini al
+            int? offerId = _uow.OfferService.GetOffer(customer_Id, restaurant_Id);
 
-            var item = _uow.OfferDetailService.Select(w => w.MenuItemId == menuItem.Id && w.OfferId == offerId); // is there a item like this
+            // OfferDetail tablosunda kayıt varsa onu alır
+            var item = _uow.OfferDetailService.Select(w => w.MenuItemId == menuItem.MenuItem_Id && w.OfferId == offerId); 
 
             _uow.BeginTransaction();
-                       
-            if (offerId == null) // if there is no record in the offer for the customer, insert the offer
+
+            // Offer tablosunda kayıt yoksa Offer tablosuna kayıt eder
+            if (offerId == null) 
                 offerId = (int)_uow.OfferService.Insert(new DataObjects.Entities.OfferSchema.Offer()
                 {
+                    Restaurant_Id = restaurant_Id,
                     StartOfferDatetime = DateTime.Now,
                     Customer_Id = customer_Id
                 });
 
-            if(item.Count() == 0) // insert
+            // Offer tablosunda kayıt yoksa OfferDetail tablosuna kayıt eder
+            if (item.Count() == 0) 
             {
                 OfferDetail offerDetail = new OfferDetail()
                 {
                     OfferId = offerId,
-                    MenuItemId = menuItem.Id,
+                    MenuItemId = menuItem.MenuItem_Id,
                     Quantity = menuItem.Quantity,
                     OfferNote = menuItem.OfferNote,
                     Datetime = DateTime.Now
                 };
 
-                var scopeId = _uow.OfferDetailService.Insert(offerDetail);
+                // Kaydın id'sini alır
+                var scopeId = _uow.OfferDetailService.Insert(offerDetail); 
                 if (scopeId == null)
                     return HttpStatusCode.BadRequest.SosErrorResult();
             }
-            else // update
+            else // Offer tablosunda kayıt varsa kaydı günceller
             {
                 OfferDetail offerDetail = new OfferDetail()
                 {
                     Id = item.First().Id,
                     OfferId = offerId,
-                    MenuItemId = menuItem.Id,
+                    MenuItemId = menuItem.MenuItem_Id,
                     Quantity = menuItem.Quantity,
                     OfferNote = menuItem.OfferNote,
                     Datetime = DateTime.Now
@@ -98,23 +106,27 @@ namespace SOS.Business.Manager.Offer
 
             _uow.Commit();
 
-            return HttpStatusCode.Created.SosOpResult(menuItem.Id, "Kayıt başarılı");
+            // Kayıt edilen id'yi döndürür
+            return HttpStatusCode.Created.SosOpResult(menuItem.MenuItem_Id, "Kayıt başarılı"); 
 
         }
 
-        public ISosResult UpdateOfferItem(MenuItemDtoUpdate menuItem, int customer_Id)
+        public ISosResult UpdateOfferItem(MenuItemDtoUpdate menuItem, int customer_Id, int restaurant_Id)
         {
-            Validate<OfferUpdateValidatior, MenuItemDtoUpdate>.Valid(menuItem);
+            // Validation kontrolü
+            Validate<OfferUpdateValidatior, MenuItemDtoUpdate>.Valid(menuItem); 
 
             if (menuItem == null)
                 return HttpStatusCode.BadRequest.SosErrorResult();
 
-            int? offerId = GetOffer(customer_Id);
+            // Offer tablosunda kayıt varsa id'sini al
+            int? offerId = _uow.OfferService.GetOffer(customer_Id, restaurant_Id);
 
             if (offerId == null)
                 return HttpStatusCode.BadRequest.SosErrorResult("Offer item bulunamadı");
 
-            var oldOfferDetail = _uow.OfferDetailService.Select(s => s.OfferId == offerId && s.MenuItemId == menuItem.Id).SingleOrDefault();
+            // OfferDetail tablosundaki kaydı alır
+            var oldOfferDetail = _uow.OfferDetailService.Select(s => s.OfferId == offerId && s.MenuItemId == menuItem.MenuItem_Id).SingleOrDefault(); 
             if (oldOfferDetail == null)
                 return HttpStatusCode.BadRequest.SosErrorResult("Menu item bulunamadı");
 
@@ -124,7 +136,7 @@ namespace SOS.Business.Manager.Offer
             {
                 Id = oldOfferDetail.Id,
                 OfferId = offerId,
-                MenuItemId = menuItem.Id,
+                MenuItemId = menuItem.MenuItem_Id,
                 Quantity = menuItem.Quantity,
                 OfferNote = menuItem.OfferNote,
                 Datetime = DateTime.Now
@@ -136,12 +148,14 @@ namespace SOS.Business.Manager.Offer
 
             _uow.Commit();
 
-            return HttpStatusCode.OK.SosOpResult(menuItem.Id, "Kayıt güncellendi");
+            //Güncellenen edilen id'yi döndürür
+            return HttpStatusCode.OK.SosOpResult(menuItem.MenuItem_Id, "Kayıt güncellendi");
         }
 
-        public ISosResult DeleteOfferItem(int menuItem_Id, int customer_Id)
+        public ISosResult DeleteOfferItem(int menuItem_Id, int customer_Id, int restaurant_Id)
         {
-            int? offerId = GetOffer(customer_Id);
+            // Offer tablosunda kaydın id'sini al
+            int? offerId = _uow.OfferService.GetOffer(customer_Id, restaurant_Id);
 
             if (offerId == null)
                 return HttpStatusCode.BadRequest.SosErrorResult("Offer item bulunamadı");
@@ -154,18 +168,6 @@ namespace SOS.Business.Manager.Offer
 
             return HttpStatusCode.OK.SosOpResult(menuItem_Id, "Kayıt silindi");
         }
-
-
-        #region Method
-
-        private int? GetOffer(int customer_Id)
-        {
-            var item = _uow.OfferService.Select(s => s.Customer_Id == customer_Id).FirstOrDefault();
-            
-            return item?.Id;
-        }
-
-        #endregion
 
     }
 }

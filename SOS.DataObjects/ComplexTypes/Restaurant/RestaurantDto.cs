@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SOS.DataObjects.ComplexTypes.Menu
+namespace SOS.DataObjects.ComplexTypes.Restaurant
 {
     public class RestaurantDto
     {
@@ -15,6 +15,5 @@ namespace SOS.DataObjects.ComplexTypes.Menu
         public string RestaurantLogoImageUrl { get; set; }
         public decimal Rate { get; set; }
         public string RestaurantTypeName { get; set; }
-        public int EstimatedServiceTime { get; set; }
     }
 }

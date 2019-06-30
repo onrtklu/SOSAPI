@@ -40,3 +40,20 @@
 --- Zeplin Menü Kategori Resmi
 - https://zpl.io/bWjL4XP
 - Bu resimde categoriye týklandýktan sonra ne çýkacak. sadece o menünün yemekleri mi yoksa açýlýr kapanýr menü mü?
+
+--- Menu Item
+- https://zpl.io/2ZrpM8J
+- sil butonu olacak mý?
+
+--- Menu Categori
+- https://zpl.io/bWjL4XP
+- category listesi ve category listesine göre menuItem listesi olacak mý
+
+-- Ana Sayfa
+- Üstte sepetim butonu olmalý
+- Üstte Sipariþlerim butonu olmalý
+
+-- Order 
+- isSuccess ne iþe yarýyor?
+- Commentleri nerede girecek?
+- Oylama nerede olacak?

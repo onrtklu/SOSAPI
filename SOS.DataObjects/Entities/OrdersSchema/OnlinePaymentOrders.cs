@@ -23,7 +23,7 @@ namespace SOS.DataObjects.Entities.OrdersSchema
 
         public bool? PaymentValidate { get; set; }
 
-        public virtual Orders Orders { get; set; }
+        public virtual Order Orders { get; set; }
 
         public virtual PaymentStatus PaymentStatus { get; set; }
     }

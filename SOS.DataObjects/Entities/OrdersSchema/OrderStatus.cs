@@ -7,11 +7,11 @@ namespace SOS.DataObjects.Entities.OrdersSchema
     {
         public OrderStatus()
         {
-            Orders = new HashSet<Orders>();
+            Orders = new HashSet<Order>();
         }
 
         public string OrderStatusName { get; set; }
 
-        public virtual ICollection<Orders> Orders { get; set; }
+        public virtual ICollection<Order> Orders { get; set; }
     }
 }

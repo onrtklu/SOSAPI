@@ -7,9 +7,9 @@ namespace SOS.DataObjects.Entities.OrdersSchema
     using System;
     using System.Collections.Generic;
 
-    public class Orders : BaseEntity
+    public class Order : BaseEntity
     {
-        public Orders()
+        public Order()
         {
             OrderCredit = new HashSet<OrderCredit>();
             OnlinePaymentOrders = new HashSet<OnlinePaymentOrders>();
@@ -21,7 +21,7 @@ namespace SOS.DataObjects.Entities.OrdersSchema
 
         public DateTime? OrderTime { get; set; }
 
-        public DateTime? EstimatedDeliveryTime { get; set; }
+        public int? EstimatedDeliveryTime { get; set; }
 
         public DateTime? ActualDeliveryTime { get; set; }
 
@@ -39,6 +39,8 @@ namespace SOS.DataObjects.Entities.OrdersSchema
 
         public int? OrderStatus_Id { get; set; }
 
+        public int? PaymentType_Id { get; set; }
+
         public DateTime? Datetime { get; set; }
 
         public virtual ICollection<OrderCredit> OrderCredit { get; set; }
@@ -54,5 +56,7 @@ namespace SOS.DataObjects.Entities.OrdersSchema
         public virtual Restaurant Restaurant { get; set; }
 
         public virtual ICollection<RestaurantComments> RestaurantComments { get; set; }
+
+        public virtual PaymentType PaymentType { get; set; }
     }
 }

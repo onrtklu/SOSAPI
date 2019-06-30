@@ -14,5 +14,13 @@ namespace SOS.DataAccess.DapperDal.Offer.OfferDal
         public OfferService(IDbTransaction transaction) : base(transaction)
         {
         }
+
+        // Offer tablosunda kayıt varsa id'sini döndürür
+        public int? GetOffer(int customer_Id, int restaurant_Id)
+        {
+            var item = this.Select(s => s.Customer_Id == customer_Id && s.Restaurant_Id == restaurant_Id).FirstOrDefault();
+
+            return item?.Id;
+        }
     }
 }

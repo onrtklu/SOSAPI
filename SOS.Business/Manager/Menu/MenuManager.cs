@@ -3,6 +3,7 @@ using SOS.Business.Utilities.Response;
 using SOS.DataAccess.Uow;
 using SOS.DataObjects.ComplexTypes.Menu;
 using SOS.DataObjects.ComplexTypes.MenuItem;
+using SOS.DataObjects.ComplexTypes.Restaurant;
 using SOS.DataObjects.Entities.RestaurantSchema;
 using SOS.DataObjects.ResponseType;
 using System;
@@ -27,19 +28,25 @@ namespace SOS.Business.Manager.Menu
 
         public ISosResult GetMenuItem(int Id)
         {
-            MenuItem result;
+            MenuItem resultMenuItem;
+            MenuItemDto resultMenuItemDto;
 
-            if (_uow.OfferDetailService.IsMenuItemAdded(Id, 1))
-                result = _uow.OfferDetailService.GetMenuItemFromOffer(Id, 1);
+            if (_uow.OfferDetailService.IsMenuItemAdded(Id, 1)) // offer'a ekli olup olmadığına bakılır
+            {
+                resultMenuItemDto = _uow.OfferDetailService.GetMenuItemFromOffer(Id, 1); //offer'da varsa offer'dan getirir
+                if (resultMenuItemDto == null)
+                    return HttpStatusCode.BadRequest.SosErrorResult();
+            }
             else
-                result = _uow.MenuItemService.GetWithCategory(Id);
+            {
+                resultMenuItem = _uow.MenuItemService.GetWithCategory(Id); // offer'da yoksa menuItem'dan getirir
+                if (resultMenuItem == null)
+                    return HttpStatusCode.BadRequest.SosErrorResult();
 
-            if (result == null)
-                return HttpStatusCode.BadRequest.SosErrorResult();
+                resultMenuItemDto = _mapper.Map<MenuItemDto>(resultMenuItem);
+            }
 
-            var mapped = _mapper.Map<MenuItemDto>(result);
-
-            return mapped.SosResult();
+            return resultMenuItemDto.SosResult();
         }
 
         public ISosResult GetMenuItemList(int Restaurant_Id)

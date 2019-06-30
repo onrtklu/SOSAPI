@@ -52,9 +52,14 @@
     <Compile Include="ComplexTypes\Menu\MenuItemByCategoryDto.cs" />
     <Compile Include="ComplexTypes\Menu\Menu_CategoryDto.cs" />
     <Compile Include="ComplexTypes\Menu\Menu_MenuItemDto.cs" />
-    <Compile Include="ComplexTypes\Menu\RestaurantDto.cs" />
     <Compile Include="ComplexTypes\Offer\OfferDto.cs" />
     <Compile Include="ComplexTypes\Offer\OfferMenuItemList.cs" />
+    <Compile Include="ComplexTypes\Offer\OfferPageCreditListDto.cs" />
+    <Compile Include="ComplexTypes\Order\OrderDto.cs" />
+    <Compile Include="ComplexTypes\Order\OrderListDto.cs" />
+    <Compile Include="ComplexTypes\Order\OrderMenuItemList.cs" />
+    <Compile Include="ComplexTypes\Order\OrderPageCreditListDto.cs" />
+    <Compile Include="ComplexTypes\Restaurant\RestaurantDto.cs" />
     <Compile Include="Entities\ConstantSchema\City.cs" />
     <Compile Include="Entities\CreditSchema\Credit.cs" />
     <Compile Include="Entities\CreditSchema\CustomerCredit.cs" />
@@ -67,7 +72,7 @@
     <Compile Include="Entities\OrdersSchema\OnlinePaymentOrders.cs" />
     <Compile Include="Entities\CreditSchema\OrderCredit.cs" />
     <Compile Include="Entities\OrdersSchema\OrderDetail.cs" />
-    <Compile Include="Entities\OrdersSchema\Orders.cs" />
+    <Compile Include="Entities\OrdersSchema\Order.cs" />
     <Compile Include="Entities\OrdersSchema\OrderStatus.cs" />
     <Compile Include="Entities\OrdersSchema\PaymentStatus.cs" />
     <Compile Include="Entities\OrdersSchema\PaymentType.cs" />
@@ -81,6 +86,9 @@
     <Compile Include="Entities\UsersSchema\Authority.cs" />
     <Compile Include="Entities\UsersSchema\RestaurantUser.cs" />
     <Compile Include="Entities\UsersSchema\Users.cs" />
+    <Compile Include="Enums\OrderStatus.cs" />
+    <Compile Include="Enums\PaymentStatus.cs" />
+    <Compile Include="Enums\PaymentType.cs" />
     <Compile Include="HateoasType\ILink.cs" />
     <Compile Include="HateoasType\Link.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -97,8 +105,6 @@
       <Name>SOS.Core</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="ComplexTypes\Restaurant\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

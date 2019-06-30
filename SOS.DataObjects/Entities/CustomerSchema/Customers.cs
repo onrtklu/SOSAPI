@@ -17,7 +17,7 @@ namespace SOS.DataObjects.Entities.CustomerSchema
             OrderCredit = new HashSet<OrderCredit>();
             SocialMedia = new HashSet<SocialMedia>();
             Offer = new HashSet<Offer>();
-            Orders = new HashSet<Orders>();
+            Orders = new HashSet<Order>();
             RestaurantComments = new HashSet<RestaurantComments>();
         }
 
@@ -51,7 +51,7 @@ namespace SOS.DataObjects.Entities.CustomerSchema
 
         public virtual ICollection<Offer> Offer { get; set; }
 
-        public virtual ICollection<Orders> Orders { get; set; }
+        public virtual ICollection<Order> Orders { get; set; }
 
         public virtual ICollection<RestaurantComments> RestaurantComments { get; set; }
     }

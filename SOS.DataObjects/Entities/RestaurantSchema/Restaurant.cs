@@ -13,7 +13,7 @@ namespace SOS.DataObjects.Entities.RestaurantSchema
         public Restaurant()
         {
             OrderCredit = new HashSet<OrderCredit>();
-            Orders = new HashSet<Orders>();
+            Orders = new HashSet<Order>();
             MenuCategory = new HashSet<MenuCategory>();
             MenuItem = new HashSet<MenuItem>();
             RestaurantUser = new HashSet<RestaurantUser>();
@@ -34,13 +34,15 @@ namespace SOS.DataObjects.Entities.RestaurantSchema
 
         public int? RestaurantTypeId { get; set; }
 
+        public string LogoUrl { get; set; }
+
         public DateTime? Datetime { get; set; }
 
         public virtual City City { get; set; }
 
         public virtual ICollection<OrderCredit> OrderCredit { get; set; }
 
-        public virtual ICollection<Orders> Orders { get; set; }
+        public virtual ICollection<Order> Orders { get; set; }
 
         public virtual ICollection<MenuCategory> MenuCategory { get; set; }
 

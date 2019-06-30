@@ -10,12 +10,12 @@ namespace SOS.Business.Manager.Offer
 {
     public interface IOfferManager
     {
-        ISosResult GetOfferList(int customer_Id);
+        ISosResult GetOfferList(int customer_Id, int restaurant_Id);
 
-        ISosResult AddOfferItem(MenuItemDtoInsert menuItem, int customer_Id);
+        ISosResult AddOfferItem(MenuItemDtoInsert menuItem, int customer_Id, int restaurant_Id);
 
-        ISosResult UpdateOfferItem(MenuItemDtoUpdate menuItem, int customer_Id);
+        ISosResult UpdateOfferItem(MenuItemDtoUpdate menuItem, int customer_Id, int restaurant_Id);
 
-        ISosResult DeleteOfferItem(int menuItem_Id, int customer_Id);
+        ISosResult DeleteOfferItem(int menuItem_Id, int customer_Id, int restaurant_Id);
     }
 }

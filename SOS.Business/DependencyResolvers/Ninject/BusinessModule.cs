@@ -3,10 +3,13 @@ using SOS.Business.Account;
 using SOS.Business.Manager.Event;
 using SOS.Business.Manager.Menu;
 using SOS.Business.Manager.Offer;
+using SOS.Business.Manager.Order;
 using SOS.DataAccess.DapperDal.EventDal;
 using SOS.DataAccess.DapperDal.MenuItemDal;
 using SOS.DataAccess.DapperDal.Offer.OfferDal;
 using SOS.DataAccess.DapperDal.Offer.OfferDetailDal;
+using SOS.DataAccess.DapperDal.Order.OrderDal;
+using SOS.DataAccess.DapperDal.Order.OrderDetailDal;
 using SOS.DataAccess.Uow;
 using System;
 using System.Collections.Generic;
@@ -29,6 +32,10 @@ namespace SOS.Business.DependencyResolvers.Ninject
             Bind<IOfferManager>().To<OfferManager>().InSingletonScope();
             Bind<IOfferService>().To<OfferService>().InSingletonScope();
             Bind<IOfferDetailService>().To<OfferDetailService>().InSingletonScope(); //
+
+            Bind<IOrderManager>().To<OrderManager>().InSingletonScope();
+            Bind<IOrderService>().To<OrderService>().InSingletonScope();
+            Bind<IOrderDetailService>().To<OrderDetailService>().InSingletonScope(); //
 
             Bind<IAccountManager>().To<AccountManager>().InSingletonScope();
 

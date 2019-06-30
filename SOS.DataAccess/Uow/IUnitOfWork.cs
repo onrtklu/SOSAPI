@@ -3,6 +3,8 @@ using SOS.DataAccess.DapperDal.MenuCategoryDal;
 using SOS.DataAccess.DapperDal.MenuItemDal;
 using SOS.DataAccess.DapperDal.Offer.OfferDal;
 using SOS.DataAccess.DapperDal.Offer.OfferDetailDal;
+using SOS.DataAccess.DapperDal.Order.OrderDal;
+using SOS.DataAccess.DapperDal.Order.OrderDetailDal;
 using SOS.DataAccess.DapperDal.RestaurantDal;
 using System;
 using System.Collections.Generic;
@@ -23,6 +25,9 @@ namespace SOS.DataAccess.Uow
 
         IOfferService OfferService { get; }
         IOfferDetailService OfferDetailService { get; }
+
+        IOrderService OrderService { get; }
+        IOrderDetailService OrderDetailService { get; }
 
         void BeginTransaction();
         void Commit();

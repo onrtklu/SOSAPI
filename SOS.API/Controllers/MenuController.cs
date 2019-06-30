@@ -23,7 +23,7 @@ namespace SOS.API.Controllers
         }
 
         [HttpGet]
-        [Route("menu-item", Name = "MenuItem" )]
+        [Route("menu-item/{id}", Name = "MenuItem" )]
         [SwaggerResponse(HttpStatusCode.OK,"When click a menu item", typeof(SosResult<MenuItemDto>))]
         public IHttpActionResult MenuItem(int id)
         {
@@ -78,7 +78,7 @@ namespace SOS.API.Controllers
         }
 
         [HttpGet]
-        [Route("menu-item-list", Name ="MenuItemList")]
+        [Route("menu-item", Name ="MenuItemList")]
         [SwaggerResponse(HttpStatusCode.OK,"Menu item list and restaurant info", typeof(SosResult<MenuDto>))]
         public IHttpActionResult MenuItemList()
         {
@@ -105,7 +105,7 @@ namespace SOS.API.Controllers
         }
 
         [HttpGet]
-        [Route("menu-category-list", Name = "MenuCategoryList")]
+        [Route("category", Name = "MenuCategoryList")]
         [SwaggerResponse(HttpStatusCode.OK, "Category list and restaurant info", typeof(SosResult<MenuCategoriesDto>))]
         public IHttpActionResult MenuCategoryList()
         {
@@ -126,7 +126,7 @@ namespace SOS.API.Controllers
         }
 
         [HttpGet]
-        [Route("menu-item-list-by-category", Name = "MenuItemListByCategory")]
+        [Route("category/{category_Id}/menu-item", Name = "MenuItemListByCategory")]
         [SwaggerResponse(HttpStatusCode.OK, "Menu item list by category and restaurant info", typeof(SosResult<MenuItemByCategoryDto>))]
         public IHttpActionResult MenuItemListByCategory(int category_Id)
         {

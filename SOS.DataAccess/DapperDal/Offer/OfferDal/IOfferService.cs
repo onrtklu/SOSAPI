@@ -9,5 +9,6 @@ namespace SOS.DataAccess.DapperDal.Offer.OfferDal
 {
     public interface IOfferService : IGenericRepository<DataObjects.Entities.OfferSchema.Offer>
     {
+        int? GetOffer(int customer_Id, int restaurant_Id);
     }
 }

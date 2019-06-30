@@ -1,5 +1,6 @@
 ﻿using Dapper;
 using SOS.Core.DataAccess.Dapper;
+using SOS.DataObjects.ComplexTypes.MenuItem;
 using SOS.DataObjects.ComplexTypes.Offer;
 using SOS.DataObjects.Entities.OfferSchema;
 using SOS.DataObjects.Entities.RestaurantSchema;
@@ -28,9 +29,9 @@ namespace SOS.DataAccess.DapperDal.Offer.OfferDetailDal
             return result;
         }
 
-        public MenuItem GetMenuItemFromOffer(int menuItemId, int customerId)
+        public MenuItemDto GetMenuItemFromOffer(int menuItemId, int customerId)
         {
-            var result = _connection.QuerySingle<MenuItem>("Offer.GetMenuItem",
+            var result = _connection.QuerySingle<MenuItemDto>("Offer.GetMenuItem",
                 new { MenuItem_Id = menuItemId, Customer_Id = customerId },
                 _transaction,
                 commandType: CommandType.StoredProcedure);
@@ -38,10 +39,10 @@ namespace SOS.DataAccess.DapperDal.Offer.OfferDetailDal
             return result;
         }
 
-        public IEnumerable<OfferMenuItemList> GetOfferMenuItemList(int customerId)
+        public IEnumerable<OfferMenuItemList> GetOfferMenuItemList(int customerId, int restaurant_Id)
         {
             var item = _connection.Query<OfferMenuItemList>("Offer.GetOfferMenuItemList",
-                new { Customer_ID = customerId },
+                new { Customer_ID = customerId, Restaurant_Id = restaurant_Id },
                 _transaction,
                 commandType: CommandType.StoredProcedure);
             

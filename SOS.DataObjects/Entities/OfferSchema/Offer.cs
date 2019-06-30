@@ -8,11 +8,11 @@ namespace SOS.DataObjects.Entities.OfferSchema
 
     public partial class Offer : BaseEntity
     {
+        public int Restaurant_Id { get; set; }
+
         public DateTime? StartOfferDatetime { get; set; }
 
         public DateTime? FinishOfferDatetime { get; set; }
-
-        public int? OfferPaymentTypeId { get; set; }
 
         public int? Customer_Id { get; set; }
 

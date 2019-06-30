@@ -25,7 +25,7 @@ namespace SOS.DataObjects.Entities.RestaurantSchema
 
         public virtual Customers Customers { get; set; }
 
-        public virtual Orders Orders { get; set; }
+        public virtual Order Orders { get; set; }
 
         public virtual ICollection<Rate> Rate { get; set; }
     }

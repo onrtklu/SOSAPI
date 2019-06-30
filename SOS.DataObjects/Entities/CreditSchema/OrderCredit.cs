@@ -20,7 +20,7 @@ namespace SOS.DataObjects.Entities.CreditSchema
 
         public virtual Customers Customers { get; set; }
 
-        public virtual Orders Orders { get; set; }
+        public virtual Order Orders { get; set; }
 
         public virtual Restaurant Restaurant { get; set; }
     }

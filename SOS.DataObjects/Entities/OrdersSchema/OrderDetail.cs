@@ -17,12 +17,8 @@ namespace SOS.DataObjects.Entities.OrdersSchema
 
         public decimal? TotalPrice { get; set; }
 
-        public int? PaymentType_Id { get; set; }
-
         public virtual MenuItem MenuItem { get; set; }
 
-        public virtual Orders Orders { get; set; }
-
-        public virtual PaymentType PaymentType { get; set; }
+        public virtual Order Orders { get; set; }
     }
 }

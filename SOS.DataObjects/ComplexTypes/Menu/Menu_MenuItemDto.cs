@@ -10,8 +10,7 @@ namespace SOS.DataObjects.ComplexTypes.Menu
     {
         public int Id { get; set; }
         public string ItemName { get; set; }
-        public string ItemDescription { get; set; }
-        public decimal StrikethroughPrice { get; set; }
+        public string ItemIngredients { get; set; }
         public decimal Price { get; set; }
     }
 }

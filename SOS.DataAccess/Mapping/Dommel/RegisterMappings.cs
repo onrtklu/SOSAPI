@@ -2,6 +2,7 @@
 using Dapper.FluentMap.Dommel;
 using Dommel;
 using SOS.DataAccess.Mapping.Dommel.Offer;
+using SOS.DataAccess.Mapping.Dommel.Order;
 using SOS.DataAccess.Mapping.Dommel.Restaurant;
 using System;
 using System.Collections.Generic;
@@ -23,11 +24,15 @@ namespace SOS.DataAccess.Mapping.Dommel
                 config.AddMap(new RestaurantDetailMap());
                 config.AddMap(new RestaurantTypeMap());
                 config.AddMap(new RestaurantPictureMap());
+
                 config.AddMap(new MenuItemMap());
                 config.AddMap(new MenuCategoryMap());
 
                 config.AddMap(new OfferMap());
                 config.AddMap(new OfferDetailMap());
+
+                config.AddMap(new OrderMap());
+                config.AddMap(new OrderDetailMap());
 
                 config.ForDommel();
             });

@@ -12,7 +12,7 @@ namespace SOS.Business.ValidationRules.FluentValidation.OfferValidation
     {
         public OfferUpdateValidatior()
         {
-            RuleFor(s => s.Id).NotEmpty().WithMessage("Id boş geçilemez");
+            RuleFor(s => s.MenuItem_Id).NotEmpty().WithMessage("Id boş geçilemez");
             RuleFor(s => s.Quantity).NotEmpty().WithMessage("Miktar boş geçilemez");
         }
     }

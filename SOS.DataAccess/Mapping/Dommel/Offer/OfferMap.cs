@@ -13,10 +13,7 @@ namespace SOS.DataAccess.Mapping.Dommel.Offer
         {
             ToTable("Offer", "Offer");
 
-            Map(s => s.OfferPaymentTypeId).ToColumn("OfferPaymentType_Id");
-
             Map(s => s.Customers).Ignore();
-            Map(s => s.PaymentType).Ignore();
             Map(s => s.OfferDetail).Ignore();
         }
     }
