@@ -78,6 +78,7 @@
     <Folder Include="Restaurant\Stored Procedures\" />
     <Folder Include="Offer\Stored Procedures\" />
     <Folder Include="Security\" />
+    <Folder Include="Orders\Stored Procedures\" />
   </ItemGroup>
   <ItemGroup>
     <Build Include="Constant\Tables\City.sql" />
@@ -121,5 +122,8 @@
     <Build Include="Security\Orders.sql" />
     <Build Include="Security\Restaurant.sql" />
     <Build Include="Security\Users.sql" />
+    <Build Include="Orders\Stored Procedures\GetOrderMenuItemList.sql" />
+    <Build Include="Orders\Stored Procedures\GetOrderList.sql" />
+    <Build Include="Orders\Stored Procedures\GetOrder.sql" />
   </ItemGroup>
 </Project>

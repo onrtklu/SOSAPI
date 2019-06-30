@@ -2,9 +2,9 @@
 -- Author:		<Author,,Name>
 -- Create date: <Create Date,,>
 -- Description:	<Description,,>
--- EXEC [Offer].[GetOfferMenuItemList] 1
+-- EXEC [Orders].[GetOrderList] 1,1
 -- =============================================
-CREATE PROCEDURE [Offer].[GetOfferMenuItemList]
+CREATE PROCEDURE [Orders].[GetOrderList]
 @Customer_ID INT,
 @Restaurant_Id INT
 AS
@@ -15,16 +15,14 @@ BEGIN
 
     -- Insert statements for procedure here
 	select 
-		mi.Id as MenuItem_Id,
-		mi.ItemName,
-		mi.Ingredients as ItemIngredients,
-		od.OfferNote,
-		mi.Price,
-		od.Quantity,
-		mi.EstimatedDeliveryTime
-	from Offer.Offer o
-		inner join Offer.OfferDetail od on od.Offer_Id = o.Id
-		inner join Restaurant.MenuItem mi on mi.Id = od.MenuItem_Id
+		o.Id AS Order_Id,
+		o.OrderTime,
+		os.OrderStatusName,
+		pt.PaymentTypeName,
+		o.FinalPrice AS TotalPrice
+	from Orders.Orders o
+		inner join Orders.OrderStatus os ON os.Id = o.OrderStatus_Id
+		inner join Orders.PaymentType pt ON pt.Id = o.PaymentType_Id
 	where o.Customer_Id = @Customer_ID
 		and o.Restaurant_Id = @Restaurant_Id
 

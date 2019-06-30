@@ -16,10 +16,19 @@ BEGIN
     -- Insert statements for procedure here
 
 
-	select mi.* 
+	select mi.Id,
+		mi.ItemName,
+		mi.Category_Id AS MenuCategoryId,
+		mi.Description,
+		mi.Ingredients,
+		mi.Price,
+		mi.Restaurant_Id,
+		mi.EstimatedTime,
+		od.OfferNote 
 	from Restaurant.MenuItem mi
 	inner join Offer.OfferDetail od ON od.MenuItem_Id = mi.Id 
 	inner join Offer.Offer o ON o.Id = od.Offer_Id
 	where o.Customer_Id = @Customer_Id and od.MenuItem_Id = @MenuItem_Id
+		and IsActive = 1
 
 END
