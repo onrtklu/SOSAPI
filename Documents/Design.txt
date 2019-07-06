@@ -4,6 +4,10 @@
 
 --- sipariþ detay
 - https://zpl.io/a3jl08Y bu ekran gibi ödeme yap - devam et olmayacak. eðer yeni sipariþ verdiyse sipariþi iptal et butonu olacak.
+- eðer önceki sipariþ ise oy ver butonu olacak. oy ver açýlacak
+
+--- oy ver
+- sipariþi oyla, restaurantý oyla, yemeði oyla, servisi oyla, garsonu oyla olacak. 5 yýldý üzerinden. en altta da istek ve þikayet" text yazma alaný olacak. yanýnda ya da altýnda "mesajýnýz restaurant yönetimine iletilecektir" yazýsý olacak.
 
 --- sipariþlerim 
 - verilen tüm sipariþlerin sayfasý olacak. kart yapýsý ile
