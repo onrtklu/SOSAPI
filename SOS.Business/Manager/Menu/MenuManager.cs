@@ -55,7 +55,7 @@ namespace SOS.Business.Manager.Menu
 
             var menuItems = _uow.MenuItemService.Select(s => s.Restaurant_Id == Restaurant_Id);
 
-            if (restaurant == null || menuItems == null)
+            if (restaurant == null)
                 return HttpStatusCode.BadRequest.SosErrorResult();
 
             var mappedRestaurant = _mapper.Map<RestaurantDto>(restaurant);
@@ -76,7 +76,7 @@ namespace SOS.Business.Manager.Menu
 
             var categoryList = _uow.MenuCategoryService.Select(s => s.Restaurant_Id == Restaurant_Id);
 
-            if (restaurant == null || categoryList == null)
+            if (restaurant == null)
                 return HttpStatusCode.BadRequest.SosErrorResult();
 
             var mappedRestaurant = _mapper.Map<RestaurantDto>(restaurant);
@@ -102,7 +102,7 @@ namespace SOS.Business.Manager.Menu
 
             var menuItems = _uow.MenuItemService.Select(s => s.MenuCategoryId == Category_Id);
 
-            if (restaurant == null || menuItems == null)
+            if (restaurant == null)
                 return HttpStatusCode.BadRequest.SosErrorResult();
 
             var mappedRestaurant = _mapper.Map<RestaurantDto>(restaurant);

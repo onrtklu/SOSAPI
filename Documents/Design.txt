@@ -1,0 +1,27 @@
+--- sepetim sayfasý
+- https://zpl.io/a3jl08Y bu ekran gibi. altta kasada öde - online ode butonlarý olacak.
+- kasada öde - online ode butonlarýna basýlýnca sipariþi onaylýyor musunuz? emin misiniz? popup açýlacak.
+
+--- sipariþ detay
+- https://zpl.io/a3jl08Y bu ekran gibi ödeme yap - devam et olmayacak. eðer yeni sipariþ verdiyse sipariþi iptal et butonu olacak.
+
+--- sipariþlerim 
+- verilen tüm sipariþlerin sayfasý olacak. kart yapýsý ile
+
+--- Main
+- Loginden sonraki her ekranýn üstünde "profil, restauranttan çýk, sepetim, garson çaðýr" butonlarý olacak.
+
+--- Menu
+- https://zpl.io/Vx0M3og menu safasýnda tahmini süre olmayacak. oylama 4.5/5 gibi kaç üzerinden olduðu yazacak. yemek sepetindeki gibi 
+-kategori
+--yemek
+--yemek
+-kategori
+-yemek
+-yemek
+þeklinde olmalý. yemek sepeti benzeri. 
+- üstü çizili fiyat olmayacak.
+
+--- Krediler
+- https://zpl.io/29wBmJp mekan ve genel diye ayrý tablar olmayacak. her kredi mekana özel olacak.
+

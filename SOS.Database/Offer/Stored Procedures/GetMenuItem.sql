@@ -23,7 +23,7 @@ BEGIN
 		mi.Ingredients,
 		mi.Price,
 		mi.Restaurant_Id,
-		mi.EstimatedTime,
+		mi.EstimatedDeliveryTime,
 		od.OfferNote 
 	from Restaurant.MenuItem mi
 	inner join Offer.OfferDetail od ON od.MenuItem_Id = mi.Id 

@@ -32,9 +32,6 @@ namespace SOS.Business.Manager.Offer
         {
             var offerMenuItems = _uow.OfferDetailService.GetOfferMenuItemList(customer_Id, restaurant_Id); // OfferMenuItemList
 
-            if (offerMenuItems.Count() == 0)
-                return HttpStatusCode.BadRequest.SosErrorResult();
-
             OfferDto offerDto = new OfferDto()
             {
                 MenuItems = offerMenuItems,
