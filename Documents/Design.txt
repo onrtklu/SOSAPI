@@ -19,7 +19,7 @@
 -kategori
 -yemek
 -yemek
-þeklinde olmalý. yemek sepeti benzeri. 
+þeklinde olmalý. yemek sepeti benzeri. kategoriler açýlýr kapanýr olacak.
 - üstü çizili fiyat olmayacak.
 
 --- Krediler
