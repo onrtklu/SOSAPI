@@ -21,13 +21,13 @@ namespace SOS.DataObjects.Entities.CustomerSchema
             RestaurantComments = new HashSet<RestaurantComments>();
         }
 
-        public string CustomerName { get; set; }
+        public string NameSurname { get; set; }
 
         public int? City_Id { get; set; }
 
         public string Address { get; set; }
 
-        public string Phone { get; set; }
+        public string PhoneNumber { get; set; }
 
         public string Email { get; set; }
 
@@ -42,6 +42,8 @@ namespace SOS.DataObjects.Entities.CustomerSchema
         public DateTime? Datetime { get; set; }
 
         public virtual City City { get; set; }
+
+        public string PictureUrl { get; set; }
 
         public virtual ICollection<CustomerCredit> CustomerCredit { get; set; }
 

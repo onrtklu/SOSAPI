@@ -1,4 +1,5 @@
-﻿using SOS.DataAccess.DapperDal.EventDal;
+﻿using SOS.DataAccess.DapperDal.CustomerDal;
+using SOS.DataAccess.DapperDal.EventDal;
 using SOS.DataAccess.DapperDal.MenuCategoryDal;
 using SOS.DataAccess.DapperDal.MenuItemDal;
 using SOS.DataAccess.DapperDal.Offer.OfferDal;
@@ -38,6 +39,8 @@ namespace SOS.DataAccess.Uow
         private IOrderService _orderService;
         private IOrderDetailService _orderDetailService;
 
+        private ICustomerService _customerService;
+
         public UnitOfWork()
         {
             string connectionString = ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString;
@@ -58,6 +61,8 @@ namespace SOS.DataAccess.Uow
 
         public IOrderService OrderService => _orderService ?? (_orderService = new OrderService(_transaction));
         public IOrderDetailService OrderDetailService => _orderDetailService ?? (_orderDetailService = new OrderDetailService(_transaction));
+
+        public ICustomerService CustomerService => _customerService ?? (_customerService = new CustomerService(_transaction));
 
         public void BeginTransaction() => _transaction = _connection.BeginTransaction();
 
@@ -97,6 +102,8 @@ namespace SOS.DataAccess.Uow
 
             _orderService = null;
             _orderDetailService = null;
+
+            _customerService = null;
     }
 
         public void Dispose()

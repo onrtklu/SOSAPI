@@ -44,6 +44,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ComplexTypes\Customer\ChangePasswordDto.cs" />
+    <Compile Include="ComplexTypes\Customer\CustomerDto.cs" />
+    <Compile Include="ComplexTypes\Customer\LoginDto.cs" />
+    <Compile Include="ComplexTypes\Customer\RegisterDto.cs" />
+    <Compile Include="ComplexTypes\Customer\UpdateCustomerDto.cs" />
     <Compile Include="ComplexTypes\Event\EventDetailDto.cs" />
     <Compile Include="ComplexTypes\Event\EventDto.cs" />
     <Compile Include="ComplexTypes\MenuItem\MenuItemDto.cs" />

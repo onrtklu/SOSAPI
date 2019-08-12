@@ -26,5 +26,12 @@ namespace SOS.API
             //Mapping
             Business.Mapping.Dommel.Register.RegisterMapping();
         }
+
+        protected void Application_EndRequest(Object sender, EventArgs e)
+        {
+            HttpApplication context = (HttpApplication)sender;
+            context.Response.SuppressFormsAuthenticationRedirect = true;
+        }
     }
+
 }

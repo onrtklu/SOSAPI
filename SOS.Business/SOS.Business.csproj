@@ -62,6 +62,8 @@
     <Compile Include="DependencyResolvers\Ninject\InstanceFactory.cs" />
     <Compile Include="DependencyResolvers\Ninject\ValidationModule.cs" />
     <Compile Include="Manager\BaseManager.cs" />
+    <Compile Include="Manager\Customer\CustomerManager.cs" />
+    <Compile Include="Manager\Customer\ICustomerManager.cs" />
     <Compile Include="Manager\Event\EventManager.cs" />
     <Compile Include="Manager\Event\IEventManager.cs" />
     <Compile Include="Manager\Menu\IMenuManager.cs" />
@@ -71,12 +73,17 @@
     <Compile Include="Manager\Order\IOrderManager.cs" />
     <Compile Include="Manager\Order\OrderManager.cs" />
     <Compile Include="Mapping\AutoMapper\BusinessProfile.cs" />
+    <Compile Include="Mapping\AutoMapper\CustomerProfile.cs" />
     <Compile Include="Mapping\AutoMapper\MenuProfile.cs" />
     <Compile Include="Mapping\AutoMapper\RestaurantProfile.cs" />
     <Compile Include="Mapping\Dommel\Register.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Utilities\Response\Response.cs" />
     <Compile Include="Utilities\Validation\Validate.cs" />
+    <Compile Include="ValidationRules\FluentValidation\CustomerValidation\ChangePasswordValidation.cs" />
+    <Compile Include="ValidationRules\FluentValidation\CustomerValidation\LoginValidation.cs" />
+    <Compile Include="ValidationRules\FluentValidation\CustomerValidation\RegisterValidation.cs" />
+    <Compile Include="ValidationRules\FluentValidation\CustomerValidation\UpdateCustomerValidation.cs" />
     <Compile Include="ValidationRules\FluentValidation\EventValidatior.cs" />
     <Compile Include="ValidationRules\FluentValidation\OfferValidation\OfferInsertValidatior.cs" />
     <Compile Include="ValidationRules\FluentValidation\OfferValidation\OfferUpdateValidatior.cs" />

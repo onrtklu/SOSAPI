@@ -55,6 +55,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DapperDal\CustomerDal\CustomerService.cs" />
+    <Compile Include="DapperDal\CustomerDal\ICustomerService.cs" />
     <Compile Include="DapperDal\EventDal\EventService.cs" />
     <Compile Include="DapperDal\EventDal\IEventService.cs" />
     <Compile Include="DapperDal\MenuCategoryDal\IMenuCategoryService.cs" />
@@ -72,6 +74,7 @@
     <Compile Include="DapperDal\RestaurantDal\IRestaurantService.cs" />
     <Compile Include="DapperDal\RestaurantDal\RestaurantService.cs" />
     <Compile Include="Mapping\Dommel\Constant\CityMap.cs" />
+    <Compile Include="Mapping\Dommel\Customer\CustomerMap.cs" />
     <Compile Include="Mapping\Dommel\EventMap.cs" />
     <Compile Include="Mapping\Dommel\Offer\OfferDetailMap.cs" />
     <Compile Include="Mapping\Dommel\Offer\OfferMap.cs" />

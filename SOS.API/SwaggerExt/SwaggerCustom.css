@@ -1,0 +1,8 @@
+﻿
+form#api_selector input#input_apiKey {
+    display: none;
+}
+
+form#api_selector A#explore {
+    display: none;
+}

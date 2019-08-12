@@ -1,4 +1,5 @@
-﻿using SOS.Business.Manager.Menu;
+﻿using SOS.API.Filters;
+using SOS.Business.Manager.Menu;
 using SOS.DataObjects.ComplexTypes.Menu;
 using SOS.DataObjects.ComplexTypes.MenuItem;
 using SOS.DataObjects.HateoasType;
@@ -80,9 +81,10 @@ namespace SOS.API.Controllers
         [HttpGet]
         [Route("menu-item", Name ="MenuItemList")]
         [SwaggerResponse(HttpStatusCode.OK,"Menu item list and restaurant info", typeof(SosResult<MenuDto>))]
+        [QRCode()]
         public IHttpActionResult MenuItemList()
         {
-            int Restaurant_Id = 1;
+            int Restaurant_Id = GetQRCodeRestaurantId();
 
             var item = _menuManager.GetMenuItemList(Restaurant_Id);
 
@@ -107,9 +109,10 @@ namespace SOS.API.Controllers
         [HttpGet]
         [Route("category", Name = "MenuCategoryList")]
         [SwaggerResponse(HttpStatusCode.OK, "Category list and restaurant info", typeof(SosResult<MenuCategoriesDto>))]
+        [QRCode()]
         public IHttpActionResult MenuCategoryList()
         {
-            int Restaurant_Id = 1;
+            int Restaurant_Id = GetQRCodeRestaurantId();
 
             var item = _menuManager.GetMenuCategoryList(Restaurant_Id);
 

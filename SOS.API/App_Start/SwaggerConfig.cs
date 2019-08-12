@@ -2,11 +2,13 @@ using System.Web.Http;
 using WebActivatorEx;
 using SOS.API;
 using Swashbuckle.Application;
+using SOS.API.SwaggerExt;
 
 [assembly: PreApplicationStartMethod(typeof(SwaggerConfig), "Register")]
 
 namespace SOS.API
 {
+
     public class SwaggerConfig
     {
         public static void Register()
@@ -16,6 +18,9 @@ namespace SOS.API
             GlobalConfiguration.Configuration
                 .EnableSwagger(c =>
                     {
+                        //c.OperationFilter<AuthorizationHeaderParameterOperationFilter>();
+                        c.OperationFilter<RestaurantHeaderParameterOperationFilter>();
+                        
                         // By default, the service root url is inferred from the request used to access the docs.
                         // However, there may be situations (e.g. proxy and load-balanced environments) where this does not
                         // resolve correctly. You can workaround this by providing your own code to determine the root URL.
@@ -190,11 +195,13 @@ namespace SOS.API
                         //
                         //c.InjectStylesheet(containingAssembly, "Swashbuckle.Dummy.SwaggerExtensions.testStyles1.css");
 
+                        c.InjectStylesheet(typeof(SwaggerConfig).Assembly, "SOS.API.SwaggerExt.SwaggerCustom.css");
+
                         // Use the "InjectJavaScript" option to invoke one or more custom JavaScripts after the swagger-ui
                         // has loaded. The file must be included in your project as an "Embedded Resource", and then the resource's
                         // "Logical Name" is passed to the method as shown above.
                         //
-                        //c.InjectJavaScript(thisAssembly, "Swashbuckle.Dummy.SwaggerExtensions.testScript1.js");
+                        c.InjectJavaScript(thisAssembly, "SOS.API.SwaggerExt.SwaggerAuthorization.js");
 
                         // The swagger-ui renders boolean data types as a dropdown. By default, it provides "true" and "false"
                         // strings as the possible choices. You can use this option to change these to something else,
@@ -248,7 +255,7 @@ namespace SOS.API
                         // If your API supports ApiKey, you can override the default values.
                         // "apiKeyIn" can either be "query" or "header"
                         //
-                        //c.EnableApiKeySupport("apiKey", "header");
+                        //c.EnableApiKeySupport("Authorization", "header");
                     });
         }
     }
