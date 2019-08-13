@@ -64,8 +64,6 @@
     <Compile Include="Manager\BaseManager.cs" />
     <Compile Include="Manager\Customer\CustomerManager.cs" />
     <Compile Include="Manager\Customer\ICustomerManager.cs" />
-    <Compile Include="Manager\Event\EventManager.cs" />
-    <Compile Include="Manager\Event\IEventManager.cs" />
     <Compile Include="Manager\Menu\IMenuManager.cs" />
     <Compile Include="Manager\Menu\MenuManager.cs" />
     <Compile Include="Manager\Offer\IOfferManager.cs" />
@@ -84,7 +82,6 @@
     <Compile Include="ValidationRules\FluentValidation\CustomerValidation\LoginValidation.cs" />
     <Compile Include="ValidationRules\FluentValidation\CustomerValidation\RegisterValidation.cs" />
     <Compile Include="ValidationRules\FluentValidation\CustomerValidation\UpdateCustomerValidation.cs" />
-    <Compile Include="ValidationRules\FluentValidation\EventValidatior.cs" />
     <Compile Include="ValidationRules\FluentValidation\OfferValidation\OfferInsertValidatior.cs" />
     <Compile Include="ValidationRules\FluentValidation\OfferValidation\OfferUpdateValidatior.cs" />
   </ItemGroup>

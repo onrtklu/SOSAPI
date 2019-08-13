@@ -1,5 +1,4 @@
 ﻿using SOS.DataAccess.DapperDal.CustomerDal;
-using SOS.DataAccess.DapperDal.EventDal;
 using SOS.DataAccess.DapperDal.MenuCategoryDal;
 using SOS.DataAccess.DapperDal.MenuItemDal;
 using SOS.DataAccess.DapperDal.Offer.OfferDal;
@@ -17,7 +16,6 @@ namespace SOS.DataAccess.Uow
 {
     public interface IUnitOfWork : IDisposable
     {
-        IEventService EventService { get; }
 
         IRestaurantService RestaurantService { get; }
 

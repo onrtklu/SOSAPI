@@ -39,14 +39,6 @@ namespace SOS.API.Controllers
                 method = "GET"
             });
 
-            var category_Id = _menuManager.GetCategoryIdByMenuItem(id);
-            item.Links.Add(new Link
-            {
-                Href = Url.Link("MenuItemListByCategory", new { category_Id = category_Id ?? 0 }),
-                Rel = "get-item-by-category",
-                method = "GET"
-            });
-
             item.Links.Add(new Link
             {
                 Href = Url.Link("OfferList", null),
@@ -106,51 +98,5 @@ namespace SOS.API.Controllers
             return response(item);
         }
 
-        [HttpGet]
-        [Route("category", Name = "MenuCategoryList")]
-        [SwaggerResponse(HttpStatusCode.OK, "Category list and restaurant info", typeof(SosResult<MenuCategoriesDto>))]
-        [QRCode()]
-        public IHttpActionResult MenuCategoryList()
-        {
-            int Restaurant_Id = GetQRCodeRestaurantId();
-
-            var item = _menuManager.GetMenuCategoryList(Restaurant_Id);
-
-            item.Links = new List<ILink>();
-
-            item.Links.Add(new Link
-            {
-                Href = Url.Link("MenuItemListByCategory", new { category_Id = 0 }),
-                Rel = "get-item-by-category",
-                method = "GET"
-            });
-
-            return response(item);
-        }
-
-        [HttpGet]
-        [Route("category/{category_Id}/menu-item", Name = "MenuItemListByCategory")]
-        [SwaggerResponse(HttpStatusCode.OK, "Menu item list by category and restaurant info", typeof(SosResult<MenuItemByCategoryDto>))]
-        public IHttpActionResult MenuItemListByCategory(int category_Id)
-        {
-            var item = _menuManager.GetMenuItemListByCategory(category_Id);
-
-            item.Links = new List<ILink>();
-
-            item.Links.Add(new Link
-            {
-                Href = Url.Link("MenuItem", new { id = 0 }),
-                Rel = "get-item",
-                method = "GET"
-            });
-            item.Links.Add(new Link
-            {
-                Href = Url.Link("AddMenuItem", null),
-                Rel = "add-item-to-offer",
-                method = "POST"
-            });
-
-            return response(item);
-        }
     }
 }

@@ -83,7 +83,6 @@
   <ItemGroup>
     <Build Include="Constant\Tables\City.sql" />
     <Build Include="Restaurant\Tables\Restaurant.sql" />
-    <Build Include="dbo\Tables\Event.sql" />
     <Build Include="dbo\Tables\Hall.sql" />
     <Build Include="dbo\Tables\Ticket.sql" />
     <Build Include="dbo\Tables\User.sql" />

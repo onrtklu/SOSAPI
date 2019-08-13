@@ -1,5 +1,4 @@
 ﻿using SOS.DataAccess.DapperDal.CustomerDal;
-using SOS.DataAccess.DapperDal.EventDal;
 using SOS.DataAccess.DapperDal.MenuCategoryDal;
 using SOS.DataAccess.DapperDal.MenuItemDal;
 using SOS.DataAccess.DapperDal.Offer.OfferDal;
@@ -26,8 +25,6 @@ namespace SOS.DataAccess.Uow
 
         private bool _disposed;
 
-        private IEventService _eventService;
-
         private IRestaurantService _restaurantService;
 
         private IMenuItemService _menuItemService;
@@ -48,8 +45,6 @@ namespace SOS.DataAccess.Uow
             _connection.Open();
             _transaction = null;
         }
-
-        public IEventService EventService => _eventService ?? (_eventService = new EventService(_transaction));
 
         public IRestaurantService RestaurantService => _restaurantService ?? (_restaurantService = new RestaurantService(_transaction));
 
@@ -90,7 +85,6 @@ namespace SOS.DataAccess.Uow
 
         private void resetRepositories()
         {
-            _eventService = null;
 
             _restaurantService = null;
 

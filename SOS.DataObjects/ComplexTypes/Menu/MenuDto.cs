@@ -13,6 +13,6 @@ namespace SOS.DataObjects.ComplexTypes.Menu
     public class MenuDto
     {
         public RestaurantDto Restaurant { get; set; }
-        public IEnumerable<Menu_MenuItemDto> MenuItems { get; set; }
+        public IEnumerable<Menu_CategoryDto> CategoryItems { get; set; }
     }
 }

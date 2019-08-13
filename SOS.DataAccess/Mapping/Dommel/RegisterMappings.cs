@@ -19,7 +19,6 @@ namespace SOS.DataAccess.Mapping.Dommel
         {
             FluentMapper.Initialize(config =>
             {
-                config.AddMap(new EventMap());
 
                 config.AddMap(new RestaurantMap());
                 config.AddMap(new RestaurantDetailMap());

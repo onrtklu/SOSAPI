@@ -14,7 +14,6 @@ namespace SOS.Business.DependencyResolvers.Ninject
     {
         public override void Load()
         {
-            Bind<IValidator<Event>>().To<EventValidatior>().InSingletonScope();
         }
     }
 }

@@ -1,5 +1,4 @@
 ﻿using AutoMapper;
-using SOS.DataObjects.ComplexTypes.Event;
 using SOS.DataObjects.ComplexTypes.Menu;
 using SOS.DataObjects.ComplexTypes.MenuItem;
 using SOS.DataObjects.Entities;
@@ -16,8 +15,6 @@ namespace SOS.Business.Mapping.AutoMapper
     {
         public BusinessProfile()
         {
-            CreateMap<Event, Event>();
-            CreateMap<EventInsertDto, Event>();
         }
     }
 
