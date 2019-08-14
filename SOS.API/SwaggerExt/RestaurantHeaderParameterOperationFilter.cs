@@ -30,7 +30,18 @@ namespace SOS.API.SwaggerExt
                 @in = "header",
                 description = "Restaurant Id From QRCode",
                 required = required,
-                type = "integer"
+                type = "integer",
+                @default = 1
+            });
+
+            operation.parameters.Add(new Parameter
+            {
+                name = "QRCodeTableId",
+                @in = "header",
+                description = "Table Id From QRCode",
+                required = required,
+                type = "integer",
+                @default = 1
             });
 
         }

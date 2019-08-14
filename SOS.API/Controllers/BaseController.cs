@@ -33,6 +33,17 @@ namespace SOS.API.Controllers
             return Convert.ToInt32(qRCodeRestaurantId.First());
         }
 
+        [ApiExplorerSettings(IgnoreApi = true)]
+        public int GetQRCodeTableId()
+        {
+            IEnumerable<string> qRCodeTableId;
+            bool validateQRCode = Request.Headers.TryGetValues("QRCodeTableId", out qRCodeTableId);
+
+            if (!validateQRCode && qRCodeTableId == null)
+                throw new NullReferenceException("Table Id is Required");
+
+            return Convert.ToInt32(qRCodeTableId.First());
+        }
 
         [ApiExplorerSettings(IgnoreApi = true)]
         public string GetClaim(string value)
