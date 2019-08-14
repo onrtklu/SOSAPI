@@ -1,9 +1,12 @@
 ﻿using Ninject.Modules;
-using SOS.Business.Account;
+using SOS.Business.Manager.About;
+using SOS.Business.Manager.Contact;
 using SOS.Business.Manager.Customer;
 using SOS.Business.Manager.Menu;
 using SOS.Business.Manager.Offer;
 using SOS.Business.Manager.Order;
+using SOS.DataAccess.DapperDal.AboutDal;
+using SOS.DataAccess.DapperDal.ContactDal;
 using SOS.DataAccess.DapperDal.CustomerDal;
 using SOS.DataAccess.DapperDal.MenuItemDal;
 using SOS.DataAccess.DapperDal.Offer.OfferDal;
@@ -35,10 +38,14 @@ namespace SOS.Business.DependencyResolvers.Ninject
             Bind<IOrderService>().To<OrderService>().InSingletonScope();
             Bind<IOrderDetailService>().To<OrderDetailService>().InSingletonScope(); //
 
-            Bind<IAccountManager>().To<AccountManager>().InSingletonScope();
-
             Bind<ICustomerManager>().To<CustomerManager>().InSingletonScope();
             Bind<ICustomerService>().To<CustomerService>().InSingletonScope(); //
+
+            Bind<IAboutManager>().To<AboutManager>().InSingletonScope();
+            Bind<IAboutService>().To<AboutService>().InSingletonScope(); //
+
+            Bind<IContactManager>().To<ContactManager>().InSingletonScope();
+            Bind<IContactService>().To<ContactService>().InSingletonScope(); //
 
             Bind<IUnitOfWork>().To<UnitOfWork>().InSingletonScope();
 

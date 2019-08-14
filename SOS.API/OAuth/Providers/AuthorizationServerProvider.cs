@@ -1,5 +1,4 @@
 ﻿using Microsoft.Owin.Security.OAuth;
-using SOS.Business.Account;
 using SOS.Business.DependencyResolvers.Ninject;
 using SOS.Business.Manager.Customer;
 using SOS.DataObjects.ResponseType;

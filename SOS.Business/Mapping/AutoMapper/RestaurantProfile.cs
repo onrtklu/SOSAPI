@@ -16,9 +16,11 @@ namespace SOS.Business.Mapping.AutoMapper
             CreateMap<Restaurant, RestaurantDto>()
                 .ForMember(dest => dest.CoverImageUrl, opts => opts.MapFrom(src => src.RestaurantPicture.Where(s => s.Cover == true).FirstOrDefault().PictureUrl))
                 .ForMember(dest => dest.RestaurantName, opts => opts.MapFrom(src => src.RestaurantName.Trim()))
-                .ForMember(dest => dest.RestaurantDescription, opts => opts.MapFrom(src => src.RestaurantDetail.Description.Trim()))
+                .ForMember(dest => dest.RestaurantShortDescription, opts => opts.MapFrom(src => src.RestaurantDetail.ShortDescription.Trim()))
                 .ForMember(dest => dest.RestaurantTypeName, opts => opts.MapFrom(src => src.RestaurantType.RestaurantTypeName.Trim()))
-                .ForMember(dest => dest.RestaurantLogoImageUrl, opts => opts.MapFrom(src => src.LogoUrl));
+                .ForMember(dest => dest.RestaurantLogoImageUrl, opts => opts.MapFrom(src => src.LogoUrl))
+                .ForMember(dest => dest.OpeningHours, opts => opts.MapFrom(src => src.RestaurantDetail.OpeningHours))
+                .ForMember(dest => dest.ClosingHours, opts => opts.MapFrom(src => src.RestaurantDetail.ClosingHours));
 
         }
     }

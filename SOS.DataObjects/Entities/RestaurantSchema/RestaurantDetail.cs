@@ -9,7 +9,11 @@ namespace SOS.DataObjects.Entities.RestaurantSchema
 
         public string Description { get; set; }
 
+        public string ShortDescription { get; set; }
+
         public string OpeningHours { get; set; }
+
+        public string ClosingHours { get; set; }
 
         public bool? Smoking { get; set; }
 

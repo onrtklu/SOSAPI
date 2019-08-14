@@ -55,13 +55,15 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Account\AccountManager.cs" />
-    <Compile Include="Account\IAccountManager.cs" />
     <Compile Include="DependencyResolvers\Ninject\AutoMapperModule.cs" />
     <Compile Include="DependencyResolvers\Ninject\BusinessModule.cs" />
     <Compile Include="DependencyResolvers\Ninject\InstanceFactory.cs" />
     <Compile Include="DependencyResolvers\Ninject\ValidationModule.cs" />
+    <Compile Include="Manager\About\AboutManager.cs" />
+    <Compile Include="Manager\About\IAboutManager.cs" />
     <Compile Include="Manager\BaseManager.cs" />
+    <Compile Include="Manager\Contact\ContactManager.cs" />
+    <Compile Include="Manager\Contact\IContactManager.cs" />
     <Compile Include="Manager\Customer\CustomerManager.cs" />
     <Compile Include="Manager\Customer\ICustomerManager.cs" />
     <Compile Include="Manager\Menu\IMenuManager.cs" />
@@ -70,6 +72,7 @@
     <Compile Include="Manager\Offer\OfferManager.cs" />
     <Compile Include="Manager\Order\IOrderManager.cs" />
     <Compile Include="Manager\Order\OrderManager.cs" />
+    <Compile Include="Mapping\AutoMapper\AboutProfile.cs" />
     <Compile Include="Mapping\AutoMapper\BusinessProfile.cs" />
     <Compile Include="Mapping\AutoMapper\CustomerProfile.cs" />
     <Compile Include="Mapping\AutoMapper\MenuProfile.cs" />
@@ -84,6 +87,7 @@
     <Compile Include="ValidationRules\FluentValidation\CustomerValidation\UpdateCustomerValidation.cs" />
     <Compile Include="ValidationRules\FluentValidation\OfferValidation\OfferInsertValidatior.cs" />
     <Compile Include="ValidationRules\FluentValidation\OfferValidation\OfferUpdateValidatior.cs" />
+    <Compile Include="ValidationRules\FluentValidation\SosValidation\ContactInsertValidation.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

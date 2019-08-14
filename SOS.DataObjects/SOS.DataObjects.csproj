@@ -44,6 +44,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ComplexTypes\Contact\ContactDtoInsert.cs" />
     <Compile Include="ComplexTypes\Customer\ChangePasswordDto.cs" />
     <Compile Include="ComplexTypes\Customer\CustomerDto.cs" />
     <Compile Include="ComplexTypes\Customer\LoginDto.cs" />
@@ -61,6 +62,7 @@
     <Compile Include="ComplexTypes\Order\OrderMenuItemList.cs" />
     <Compile Include="ComplexTypes\Order\OrderPageCreditListDto.cs" />
     <Compile Include="ComplexTypes\Restaurant\RestaurantDto.cs" />
+    <Compile Include="ComplexTypes\About\AboutDto.cs" />
     <Compile Include="Entities\ConstantSchema\City.cs" />
     <Compile Include="Entities\CreditSchema\Credit.cs" />
     <Compile Include="Entities\CreditSchema\CustomerCredit.cs" />
@@ -83,6 +85,8 @@
     <Compile Include="Entities\RestaurantSchema\RestaurantPicture.cs" />
     <Compile Include="Entities\RestaurantSchema\RestaurantType.cs" />
     <Compile Include="Entities\CustomerSchema\SocialMedia.cs" />
+    <Compile Include="Entities\SosSchema\About.cs" />
+    <Compile Include="Entities\SosSchema\Contact.cs" />
     <Compile Include="Entities\UsersSchema\Authority.cs" />
     <Compile Include="Entities\UsersSchema\RestaurantUser.cs" />
     <Compile Include="Entities\UsersSchema\Users.cs" />

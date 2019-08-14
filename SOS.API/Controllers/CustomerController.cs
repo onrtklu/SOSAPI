@@ -34,31 +34,14 @@ namespace SOS.API.Controllers
         {
             var item = _customerManager.RegisterCustomer(registerDto);
 
-            return response(item);
-        }
+            item.Links = new List<ILink>();
 
-        [HttpPut]
-        [SosAuthorize]
-        [Route("", Name = "Update")]
-        [SwaggerResponse(HttpStatusCode.OK, "Update customer", typeof(SosResult<SosOpResult>))]
-        public IHttpActionResult UpdateCustomer([FromBody]UpdateCustomerDto updateCustomerDto)
-        {
-            int customer_Id = GetUserId();
-
-            var item = _customerManager.UpdateCustomer(customer_Id ,updateCustomerDto);
-
-            return response(item);
-        }
-
-        [HttpPut]
-        [SosAuthorize]
-        [Route("change-password", Name = "ChangePassword")]
-        [SwaggerResponse(HttpStatusCode.OK, "Change Password", typeof(SosResult<SosOpResult>))]
-        public IHttpActionResult ChangePassword([FromBody]ChangePasswordDto changePasswordDto)
-        {
-            int customer_Id = GetUserId();
-
-            var item = _customerManager.ChangePassword(customer_Id, changePasswordDto);
+            item.Links.Add(new Link
+            {
+                Href = Url.Link("GetCustomer", null),
+                Rel = "get-customer",
+                method = "GET"
+            });
 
             return response(item);
         }
@@ -73,7 +56,75 @@ namespace SOS.API.Controllers
 
             var item = _customerManager.GetCustomer(customer_Id);
 
+            item.Links = new List<ILink>();
+
+            item.Links.Add(new Link
+            {
+                Href = Url.Link("Update", null),
+                Rel = "update-customer",
+                method = "PUT"
+            });
+
+            item.Links.Add(new Link
+            {
+                Href = Url.Link("ChangePassword", null),
+                Rel = "change-password",
+                method = "PUT"
+            });
+
             return response(item);
         }
+
+        [HttpPut]
+        [SosAuthorize]
+        [Route("", Name = "Update")]
+        [SwaggerResponse(HttpStatusCode.OK, "Update customer", typeof(SosResult<SosOpResult>))]
+        public IHttpActionResult UpdateCustomer([FromBody]UpdateCustomerDto updateCustomerDto)
+        {
+            int customer_Id = GetUserId();
+
+            var item = _customerManager.UpdateCustomer(customer_Id ,updateCustomerDto);
+
+            item.Links = new List<ILink>();
+
+            item.Links.Add(new Link
+            {
+                Href = Url.Link("GetCustomer", null),
+                Rel = "get-customer",
+                method = "GET"
+            });
+
+            item.Links.Add(new Link
+            {
+                Href = Url.Link("ChangePassword", null),
+                Rel = "change-password",
+                method = "PUT"
+            });
+
+            return response(item);
+        }
+
+        [HttpPut]
+        [SosAuthorize]
+        [Route("change-password", Name = "ChangePassword")]
+        [SwaggerResponse(HttpStatusCode.OK, "Change Password", typeof(SosResult<SosOpResult>))]
+        public IHttpActionResult ChangePassword([FromBody]ChangePasswordDto changePasswordDto)
+        {
+            int customer_Id = GetUserId();
+
+            var item = _customerManager.ChangePassword(customer_Id, changePasswordDto);
+
+            item.Links = new List<ILink>();
+
+            item.Links.Add(new Link
+            {
+                Href = Url.Link("GetCustomer", null),
+                Rel = "get-customer",
+                method = "PUT"
+            });
+
+            return response(item);
+        }
+
     }
 }

@@ -55,6 +55,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DapperDal\AboutDal\AboutService.cs" />
+    <Compile Include="DapperDal\AboutDal\IAboutService.cs" />
+    <Compile Include="DapperDal\ContactDal\ContactService.cs" />
+    <Compile Include="DapperDal\ContactDal\IContactService.cs" />
     <Compile Include="DapperDal\CustomerDal\CustomerService.cs" />
     <Compile Include="DapperDal\CustomerDal\ICustomerService.cs" />
     <Compile Include="DapperDal\MenuCategoryDal\IMenuCategoryService.cs" />
@@ -85,6 +89,8 @@
     <Compile Include="Mapping\Dommel\Restaurant\RestaurantMap.cs" />
     <Compile Include="Mapping\Dommel\Restaurant\RestaurantPictureMap.cs" />
     <Compile Include="Mapping\Dommel\Restaurant\RestaurantTypeMap.cs" />
+    <Compile Include="Mapping\Dommel\Sos\AboutMap.cs" />
+    <Compile Include="Mapping\Dommel\Sos\ContactMap.cs" />
     <Compile Include="Mapping\Dommel\Users\AuthorityMap.cs" />
     <Compile Include="Mapping\Dommel\Users\RestaurantUserMap.cs" />
     <Compile Include="Mapping\Dommel\Users\UsersMap.cs" />

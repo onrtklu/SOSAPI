@@ -5,6 +5,7 @@ using SOS.DataAccess.Mapping.Dommel.Customer;
 using SOS.DataAccess.Mapping.Dommel.Offer;
 using SOS.DataAccess.Mapping.Dommel.Order;
 using SOS.DataAccess.Mapping.Dommel.Restaurant;
+using SOS.DataAccess.Mapping.Dommel.Sos;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -35,6 +36,10 @@ namespace SOS.DataAccess.Mapping.Dommel
                 config.AddMap(new OrderDetailMap());
 
                 config.AddMap(new CustomerMap());
+
+                config.AddMap(new AboutMap());
+                config.AddMap(new ContactMap());
+
 
                 config.ForDommel();
             });

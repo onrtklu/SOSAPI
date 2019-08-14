@@ -1,4 +1,6 @@
-﻿using SOS.DataAccess.DapperDal.CustomerDal;
+﻿using SOS.DataAccess.DapperDal.AboutDal;
+using SOS.DataAccess.DapperDal.ContactDal;
+using SOS.DataAccess.DapperDal.CustomerDal;
 using SOS.DataAccess.DapperDal.MenuCategoryDal;
 using SOS.DataAccess.DapperDal.MenuItemDal;
 using SOS.DataAccess.DapperDal.Offer.OfferDal;
@@ -29,6 +31,9 @@ namespace SOS.DataAccess.Uow
         IOrderDetailService OrderDetailService { get; }
 
         ICustomerService CustomerService { get; }
+
+        IAboutService AboutService { get; }
+        IContactService ContactService { get; }
 
         void BeginTransaction();
         void Commit();

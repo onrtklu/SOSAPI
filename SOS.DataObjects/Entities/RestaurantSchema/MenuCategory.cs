@@ -12,8 +12,6 @@ namespace SOS.DataObjects.Entities.RestaurantSchema
             MenuItem = new HashSet<MenuItem>();
         }
 
-        public int? Parent_Id { get; set; }
-
         public string CategoryName { get; set; }
 
         public int Restaurant_Id { get; set; }

@@ -79,14 +79,12 @@
     <Folder Include="Offer\Stored Procedures\" />
     <Folder Include="Security\" />
     <Folder Include="Orders\Stored Procedures\" />
+    <Folder Include="Sos\" />
+    <Folder Include="Sos\Tables\" />
   </ItemGroup>
   <ItemGroup>
     <Build Include="Constant\Tables\City.sql" />
     <Build Include="Restaurant\Tables\Restaurant.sql" />
-    <Build Include="dbo\Tables\Hall.sql" />
-    <Build Include="dbo\Tables\Ticket.sql" />
-    <Build Include="dbo\Tables\User.sql" />
-    <Build Include="dbo\Tables\Play.sql" />
     <Build Include="Offer\Tables\Offer.sql" />
     <Build Include="Offer\Tables\OfferDetail.sql" />
     <Build Include="Restaurant\Tables\RestaurantType.sql" />
@@ -124,5 +122,8 @@
     <Build Include="Orders\Stored Procedures\GetOrderMenuItemList.sql" />
     <Build Include="Orders\Stored Procedures\GetOrderList.sql" />
     <Build Include="Orders\Stored Procedures\GetOrder.sql" />
+    <Build Include="Sos\Tables\Contact.sql" />
+    <Build Include="Sos\Tables\About.sql" />
+    <Build Include="Security\Sos.sql" />
   </ItemGroup>
 </Project>
