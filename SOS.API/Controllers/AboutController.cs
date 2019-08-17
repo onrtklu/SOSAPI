@@ -30,7 +30,6 @@ namespace SOS.API.Controllers
         [SwaggerResponse(HttpStatusCode.OK, "Get about", typeof(SosResult<AboutDto>))]
         public IHttpActionResult GetAbout()
         {
-            int customer_Id = GetUserId();
 
             var item = _aboutManager.GetAbout();
 

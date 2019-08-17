@@ -13,7 +13,7 @@ namespace SOS.Business.Mapping.AutoMapper
         public CustomerProfile()
         {
             CreateMap<Customers, CustomerDto>()
-                .ForMember(dest => dest.BirthDate, opts => opts.MapFrom(src => src.BirthDate.Value.ToShortDateString()));
+                .ForMember(dest => dest.BirthDate, opts => opts.MapFrom(src => src.BirthDate == null ? null : src.BirthDate.Value.ToShortDateString()));
         }
     }
 }
