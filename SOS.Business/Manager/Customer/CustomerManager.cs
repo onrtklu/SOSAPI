@@ -31,7 +31,7 @@ namespace SOS.Business.Manager.Customer
         {
             var entity = _uow.CustomerService.Get(customer_Id);
 
-            if(entity == null)
+            if (entity == null)
                 return HttpStatusCode.Unauthorized.SosErrorResult("Kullanıcı bulunamadı");
 
             _uow.CustomerService.Delete(entity);
@@ -41,7 +41,7 @@ namespace SOS.Business.Manager.Customer
 
         public ISosResult RegisterCustomer(RegisterDto registerDto)
         {
-            Validate<RegisterValidation, RegisterDto>.Valid(registerDto); 
+            Validate<RegisterValidation, RegisterDto>.Valid(registerDto);
 
             int customer = _uow.CustomerService.Select(s => s.Email == registerDto.Email).Count();
             if (customer > 0)
@@ -74,7 +74,7 @@ namespace SOS.Business.Manager.Customer
             if (customers.Count() > 1)
                 return HttpStatusCode.BadRequest.SosErrorResult("Bu mail adresine ait birden fazla kayıt bulundu");
 
-            if(customers.Count() == 0)
+            if (customers.Count() == 0)
                 return HttpStatusCode.BadRequest.SosErrorResult("Bu mail adresine ait kullanıcı bulunamadı");
 
             var customer = customers.FirstOrDefault();
@@ -101,10 +101,10 @@ namespace SOS.Business.Manager.Customer
                 return HttpStatusCode.BadRequest.SosErrorResult("Kullanıcı bulunamadı");
 
             customer.NameSurname = updateCustomerDto.NameSurname;
-            customer.PhoneNumber = updateCustomerDto.PhoneNumber;
-            customer.BirthDate = updateCustomerDto.BirthDate;
-            customer.Address = updateCustomerDto.Address;
-            customer.PictureUrl = updateCustomerDto.PictureUrl;
+            customer.PhoneNumber = updateCustomerDto.PhoneNumber ?? customer.PhoneNumber;
+            customer.BirthDate = updateCustomerDto.BirthDate ?? customer.BirthDate;
+            customer.Address = updateCustomerDto.Address ?? customer.Address;
+            customer.PictureUrl = updateCustomerDto.PictureUrl ?? customer.PictureUrl;
             customer.Datetime = DateTime.Now;
 
             bool result = _uow.CustomerService.Update(customer);

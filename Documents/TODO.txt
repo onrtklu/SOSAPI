@@ -1,0 +1,13 @@
+- Validation mesajlarýnýn formatý düzenlenecek türkçeleþtirilecek.
+
+- register metodunun dönüþ deðerine token eklenecek
+
+- resim yüklerken base64 yada byte array tipinde veri alýnacak. döndürürken url yollanacak.
+
+- þifremi unuttum apiye eklenecek
+
+- zeplinde resimler klasorlenip duzgun hale getirilecek
+
+- api dokumaný için md file olusturulacak.
+	- zeplindeki resimlerle metotlarý eslestirecek 
+	- fluent validationdaki validation kontrolleri eklenecek

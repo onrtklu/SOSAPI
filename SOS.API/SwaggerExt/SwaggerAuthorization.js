@@ -44,7 +44,20 @@
                     padding: 10px;
                     box-shadow: 0 2px 1px rgba(0,0,0,0.5);
                     display: none;
+                    z-index: 1;
                 }
+
+                #sa-qr-code{
+                    display:inline-block;
+                    position: absolute;
+                    background: #FFFFFF;
+                    right: 20px;
+                    top: 48px;
+                    padding: 10px;
+                    box-shadow: 0 2px 1px rgba(0,0,0,0.5);
+                    display: none;
+                }
+
                  .sa-btn{
                     display: inline-block;
                     color: #FFF;
@@ -56,15 +69,87 @@
                     font-size: 0.9em;
                     cursor: pointer;
                 }
+
+                 .sa-btn-qr-code{
+                    display: inline-block;
+                    color: #FFF;
+                    font-weight: bold;
+                    background: #000000;
+                    border-radius: 3px;
+                    padding: 6px 8px;
+                    font-family: "Droid Sans", sans-serif;
+                    font-size: 0.9em;
+                    cursor: pointer;
+                }
+
                 #sa-setting input{
                     margin-bottom: 5px;
                     padding: 3px;
                     border: 2px inset;
                 }
+                .img-qr-code{
+                    width: 200px;
+                }
+
+                .tooltip {
+                  position: relative;
+                  display: inline-block;
+                  border-bottom: 1px dotted black;
+                }
+
+                .tooltip .tooltiptext {
+                  visibility: hidden;
+                  width: 100%;
+                  background-color: #555;
+                  color: #fff;
+                  text-align: center;
+                  border-radius: 6px;
+                  padding: 5px 0;
+                  position: absolute;
+                  z-index: 1;
+                  bottom: 95%;
+                  left: 30%;
+                  margin-left: -60px;
+                  opacity: 0;
+                  transition: opacity 0.3s;
+                }
+
+                .tooltip .tooltiptext::after {
+                  content: "";
+                  position: absolute;
+                  top: 100%;
+                  left: 50%;
+                  margin-left: -5px;
+                  border-width: 5px;
+                  border-style: solid;
+                  border-color: #555 transparent transparent transparent;
+                }
+
+                .tooltip:hover .tooltiptext {
+                  visibility: visible;
+                  opacity: 1;
+                }
+
             </style>
             `;
             $('head').append(styles);
             var settingTemplate = `
+
+                <div id="sa-qr-code">
+                    <div class="tooltip">
+                        <img src="/Upload/QRCode/QRCode 1-1.png" class="img-qr-code"/>
+                        <span class="tooltiptext">QRCodeRestaurantId: 1 QRCodeTableId: 1</span>
+                    </div>
+                    <div class="tooltip">
+                        <img src="/Upload/QRCode/QRCode 1-2.png" class="img-qr-code"/>
+                        <span class="tooltiptext">QRCodeRestaurantId: 1 QRCodeTableId: 2</span>
+                    </div>
+                    <div class="tooltip">
+                        <img src="/Upload/QRCode/QRCode 2-3.png" class="img-qr-code"/>
+                        <span class="tooltiptext">QRCodeRestaurantId: 2 QRCodeTableId: 3</span>
+                    </div>
+                </div>
+
                 <div id="sa-setting">
                     <input id="sa-path" placeholder="Path" value="/api/token">
                     <br>
@@ -75,6 +160,7 @@
                     <span id="sa-btn-login" class="sa-btn">Login</span>
                     <span id="sa-btn-logout" class="sa-btn" style="display: none">Logout</span>
                 </div>
+
             `;
             $('body').append(settingTemplate);
 
@@ -83,6 +169,13 @@
             $('<div id="sa-btn-setting" class="sa-btn">Login</div>')
                 .click(function () {
                     $('#sa-setting').fadeToggle();
+                })
+                .appendTo('#api_selector');
+
+
+            $('<div id="sa-btn-qr-code" class="sa-btn-qr-code">QR Code</div>')
+                .click(function () {
+                    $('#sa-qr-code').fadeToggle();
                 })
                 .appendTo('#api_selector');
 

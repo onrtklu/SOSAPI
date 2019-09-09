@@ -257,6 +257,9 @@
     <Content Include="Upload\CategoryImage\menuler.jpg" />
     <Content Include="Upload\CategoryImage\taze-sikilmislar.jpg" />
     <Content Include="Upload\CustomerImage\onr-profile.jpg" />
+    <Content Include="Upload\QRCode\QRCode 1-1.png" />
+    <Content Include="Upload\QRCode\QRCode 1-2.png" />
+    <Content Include="Upload\QRCode\QRCode 2-3.png" />
     <Content Include="Upload\RestaurantImage\bambi-logo.png" />
     <Content Include="Upload\RestaurantImage\tavuk-pilav-porsyon.jpg" />
     <Content Include="Upload\RestaurantImage\waffle.jpg" />
