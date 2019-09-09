@@ -1,5 +1,6 @@
 ﻿using Microsoft.Owin.Security;
 using Microsoft.Owin.Security.OAuth;
+using Newtonsoft.Json;
 using SOS.API.ExcHand;
 using SOS.Business.Manager.Customer;
 using SOS.DataObjects.ComplexTypes.Customer;
@@ -26,10 +27,24 @@ namespace SOS.API.Controllers
             _customerManager = customerManager;
         }
 
+        [HttpGet]
+        [Route("login", Name = "Login")]
+        [SwaggerResponse(HttpStatusCode.OK, "Login customer", typeof(SosResult<ResultRegisterLoginDto>))]
+        public IHttpActionResult Login(string Email, string Password)
+        {
+            LoginDto loginDto = new LoginDto()
+            {
+                Email = Email,
+                Password = Password
+            };
+
+            var item = _customerManager.Login(loginDto);
+            return response(item);
+        }
 
         [HttpPost]
         [Route("register", Name = "Register")]
-        [SwaggerResponse(HttpStatusCode.OK, "Register customer", typeof(SosResult<SosOpResult>))]
+        [SwaggerResponse(HttpStatusCode.OK, "Register customer", typeof(SosOpDataResult<ResultRegisterLoginDto>))]
         public IHttpActionResult Register([FromBody]RegisterDto registerDto)
         {
             var item = _customerManager.RegisterCustomer(registerDto);

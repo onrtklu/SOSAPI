@@ -8,7 +8,7 @@ using SOS.DataObjects.HateoasType;
 
 namespace SOS.DataObjects.ResponseType
 {
-    public class SosOpResult : ISosOpResult
+    public class SosOpDataResult<T> : ISosOpResult, ISosOkResult<T>
     {
         public bool Statu { get; set; }
         public HttpStatusCode StatusCode { get; set; }
@@ -16,6 +16,7 @@ namespace SOS.DataObjects.ResponseType
         public string Message { get; set; }
 
         public int? Id { get; set; }
+        public T Data { get; set; }
 
         public IList<ILink> Links { get; set; }
     }

@@ -59,5 +59,15 @@ namespace SOS.Business.Utilities.Response
 
             return _SosOp;
         }
+
+        public static SosOpDataResult<T> SosOpDataResult<T>(this HttpStatusCode code, int? id, T data, string message = null, bool statu = true) => new SosOpDataResult<T>()
+        {
+            Statu = statu,
+            StatusCode = code,
+            Id = id,
+            Data = data,
+            Message = message
+        };
+
     }
 }

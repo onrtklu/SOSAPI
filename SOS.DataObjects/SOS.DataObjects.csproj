@@ -45,10 +45,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ComplexTypes\Contact\ContactDtoInsert.cs" />
+    <Compile Include="ComplexTypes\Customer\AuthToken.cs" />
     <Compile Include="ComplexTypes\Customer\ChangePasswordDto.cs" />
     <Compile Include="ComplexTypes\Customer\CustomerDto.cs" />
     <Compile Include="ComplexTypes\Customer\LoginDto.cs" />
     <Compile Include="ComplexTypes\Customer\RegisterDto.cs" />
+    <Compile Include="ComplexTypes\Customer\ResultRegisterDto.cs" />
     <Compile Include="ComplexTypes\Customer\UpdateCustomerDto.cs" />
     <Compile Include="ComplexTypes\MenuItem\MenuItemDto.cs" />
     <Compile Include="ComplexTypes\Menu\MenuDto.cs" />
@@ -100,6 +102,7 @@
     <Compile Include="ResponseType\ISosOpResult.cs" />
     <Compile Include="ResponseType\ISosResult.cs" />
     <Compile Include="ResponseType\SosErrorResult.cs" />
+    <Compile Include="ResponseType\SosOpDataResult.cs" />
     <Compile Include="ResponseType\SosOpResult.cs" />
     <Compile Include="ResponseType\SosResult.cs" />
   </ItemGroup>

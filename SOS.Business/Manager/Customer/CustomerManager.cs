@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using AutoMapper;
 using SOS.Business.Utilities.Response;
+using SOS.Business.Utilities.UrlUtilities.RestSharp;
 using SOS.Business.Utilities.Validation;
 using SOS.Business.ValidationRules.FluentValidation.CustomerValidation;
 using SOS.Core.Utilities.Security;
@@ -62,7 +63,42 @@ namespace SOS.Business.Manager.Customer
                 Datetime = DateTime.Now
             });
 
-            return HttpStatusCode.Created.SosOpResult((int)result, "Kayit başarılı");
+            var authToken = TokenUtility.GetTokenUtility(registerDto.Email, registerDto.Password);
+            var authRefreshToken = TokenUtility.GetRefreshTokenUtility(registerDto.Email, registerDto.Password);
+
+            ResultRegisterLoginDto resultRegisterDto = new ResultRegisterLoginDto()
+            {
+                NameSurname = registerDto.NameSurname,
+                Token = authToken.access_token,
+                RefreshToken = authRefreshToken.access_token
+            };
+
+            return HttpStatusCode.Created.SosOpDataResult((int)result, resultRegisterDto, "Kayit başarılı");
+        }
+
+        public ISosResult Login(LoginDto loginDto)
+        {
+            var authToken = TokenUtility.GetTokenUtility(loginDto.Email, loginDto.Password);
+            var authRefreshToken = TokenUtility.GetRefreshTokenUtility(loginDto.Email, loginDto.Password);
+
+            var customers = _uow.CustomerService.Select(s => s.Email == loginDto.Email);
+
+            if (customers.Count() > 1)
+                return HttpStatusCode.BadRequest.SosErrorResult("Bu mail adresine ait birden fazla kayıt bulundu");
+
+            if (customers.Count() == 0)
+                return HttpStatusCode.BadRequest.SosErrorResult("Bu mail adresine ait kullanıcı bulunamadı");
+
+            var customer = customers.FirstOrDefault();
+
+            ResultRegisterLoginDto resultRegisterLoginDto = new ResultRegisterLoginDto()
+            {
+                NameSurname = customer.NameSurname,
+                Token = authToken.access_token,
+                RefreshToken = authRefreshToken.access_token
+            };
+
+            return resultRegisterLoginDto.SosResult();
         }
 
         public ISosResult LoginCustomer(LoginDto loginDto)

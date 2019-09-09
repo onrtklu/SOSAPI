@@ -10,6 +10,8 @@ namespace SOS.Business.Manager.Customer
 {
     public interface ICustomerManager
     {
+        ISosResult Login(LoginDto loginDto);
+
         ISosResult RegisterCustomer(RegisterDto registerDto);
 
         ISosResult UpdateCustomer(int Customer_Id, UpdateCustomerDto updateCustomerDto);

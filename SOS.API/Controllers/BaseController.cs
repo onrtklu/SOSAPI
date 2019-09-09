@@ -6,6 +6,7 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Security.Claims;
+using System.Web;
 using System.Web.Http;
 using System.Web.Http.Description;
 using System.Web.Http.Results;
@@ -68,5 +69,18 @@ namespace SOS.API.Controllers
             return Convert.ToInt32(customClaimValue.Value);
         }
 
+        [ApiExplorerSettings(IgnoreApi = true)]
+        public string GetBaseUrl()
+        {
+            var request = HttpContext.Current.Request;
+            var appUrl = HttpRuntime.AppDomainAppVirtualPath;
+
+            if (appUrl != "/")
+                appUrl = "/" + appUrl;
+
+            var baseUrl = string.Format("{0}://{1}{2}", request.Url.Scheme, request.Url.Authority, appUrl);
+
+            return baseUrl;
+        }
     }
 }
