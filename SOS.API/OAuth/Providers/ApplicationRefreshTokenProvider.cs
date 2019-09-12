@@ -15,9 +15,7 @@ namespace SOS.API.OAuth.Providers
             object owinCollection;
             context.OwinContext.Environment.TryGetValue("Microsoft.Owin.Form#collection", out owinCollection);
 
-            var grantType = ((FormCollection)owinCollection)?.GetValues("grant_type").FirstOrDefault();
-
-            if (grantType == null || grantType.Equals("refresh_token")) return;
+            if (((FormCollection)owinCollection).GetValues("refresh_token") != null) return;
 
             //Dilerseniz access_token'dan farklı olarak refresh_token'ın expire time'ını da belirleyebilir, uzatabilirsiniz 
             context.Ticket.Properties.ExpiresUtc = DateTime.UtcNow.AddMinutes(1);

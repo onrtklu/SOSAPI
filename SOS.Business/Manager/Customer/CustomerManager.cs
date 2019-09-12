@@ -99,9 +99,9 @@ namespace SOS.Business.Manager.Customer
             return resultRegisterLoginDto.SosResult();
         }
 
-        public ISosResult RefreshToken(string RefreshToken)
+        public ISosResult RefreshToken(string RefreshToken, string Email)
         {
-            var authToken = TokenUtility.GetTokenUtilityFromRefreshToken(RefreshToken);
+            var authToken = TokenUtility.GetTokenUtilityFromRefreshToken(RefreshToken, Email);
 
             var customer = TokenUtility.GetUserInfo(authToken.access_token);
 
@@ -142,6 +142,22 @@ namespace SOS.Business.Manager.Customer
 
             return HttpStatusCode.BadRequest.SosErrorResult("Şifre Yanlış");
 
+        }
+
+        public ISosResult GetUserByRefreshToken(string Email)
+        {
+            var customers = _uow.CustomerService.Select(s => s.Email == Email);
+
+
+            if (customers.Count() > 1)
+                return HttpStatusCode.BadRequest.SosErrorResult("Bu mail adresine ait birden fazla kayıt bulundu");
+
+            if (customers.Count() == 0)
+                return HttpStatusCode.BadRequest.SosErrorResult("Bu mail adresine ait kullanıcı bulunamadı");
+
+            var customer = customers.FirstOrDefault();
+
+            return HttpStatusCode.OK.SosOpDataResult<Customers>(customer.Id, customer, "Başarılı");
         }
 
         public ISosResult UpdateCustomer(int Customer_Id, UpdateCustomerDto updateCustomerDto)

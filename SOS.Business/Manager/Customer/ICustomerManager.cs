@@ -12,13 +12,15 @@ namespace SOS.Business.Manager.Customer
     {
         ISosResult Login(LoginDto loginDto);
 
-        ISosResult RefreshToken(string RefreshToken);
+        ISosResult RefreshToken(string RefreshToken, string Email);
 
         ISosResult RegisterCustomer(RegisterDto registerDto);
 
         ISosResult UpdateCustomer(int Customer_Id, UpdateCustomerDto updateCustomerDto);
 
         ISosResult LoginCustomer(LoginDto loginDto);
+
+        ISosResult GetUserByRefreshToken(string Email);
 
         ISosResult DeleteCustomer(int customer_Id);
 

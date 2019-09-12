@@ -9,6 +9,7 @@ using SOS.DataObjects.ResponseType;
 using Swashbuckle.Swagger.Annotations;
 using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
@@ -45,9 +46,10 @@ namespace SOS.API.Controllers
         [HttpGet]
         [Route("refresh-token", Name = "RefreshToken")]
         [SwaggerResponse(HttpStatusCode.OK, "Get Token By Refresh Token", typeof(SosResult<ResultRegisterLoginDto>))]
-        public IHttpActionResult RefreshToken(string RefreshToken)
+        public IHttpActionResult RefreshToken(string RefreshToken, string Email)
         {
-            var item = _customerManager.RefreshToken(RefreshToken);
+            var item = _customerManager.RefreshToken(RefreshToken, Email);
+
             return response(item);
         }
 
@@ -80,21 +82,21 @@ namespace SOS.API.Controllers
 
             var item = _customerManager.GetCustomer(customer_Id);
 
-            item.Links = new List<ILink>();
+            //item.Links = new List<ILink>();
 
-            item.Links.Add(new Link
-            {
-                Href = Url.Link("Update", null),
-                Rel = "update-customer",
-                method = "PUT"
-            });
+            //item.Links.Add(new Link
+            //{
+            //    Href = Url.Link("Update", null),
+            //    Rel = "update-customer",
+            //    method = "PUT"
+            //});
 
-            item.Links.Add(new Link
-            {
-                Href = Url.Link("ChangePassword", null),
-                Rel = "change-password",
-                method = "PUT"
-            });
+            //item.Links.Add(new Link
+            //{
+            //    Href = Url.Link("ChangePassword", null),
+            //    Rel = "change-password",
+            //    method = "PUT"
+            //});
 
             return response(item);
         }

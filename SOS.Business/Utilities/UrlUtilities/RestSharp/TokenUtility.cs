@@ -30,7 +30,7 @@ namespace SOS.Business.Utilities.UrlUtilities.RestSharp
             return JsonConvert.DeserializeObject<AuthToken>(response.Content);
         }
 
-        public static AuthToken GetTokenUtilityFromRefreshToken(string RefreshToken)
+        public static AuthToken GetTokenUtilityFromRefreshToken(string RefreshToken, string Email)
         {
 
             var client = new RestClient(BaseUrlUtility.GetBaseUrl() + "api/token");
@@ -39,6 +39,7 @@ namespace SOS.Business.Utilities.UrlUtilities.RestSharp
             request.Parameters.Clear();
             request.AddParameter("grant_type", "password");
             request.AddParameter("refresh_token", RefreshToken);
+            request.AddParameter("username", Email);
             request.AddParameter("scope", "2"); //Get Refresh Token From 
 
             IRestResponse response = client.Execute<AuthToken>(request);

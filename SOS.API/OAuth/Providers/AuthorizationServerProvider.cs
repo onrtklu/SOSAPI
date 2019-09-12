@@ -1,6 +1,7 @@
 ﻿using Microsoft.Owin.Security.OAuth;
 using SOS.Business.DependencyResolvers.Ninject;
 using SOS.Business.Manager.Customer;
+using SOS.DataObjects.Entities.CustomerSchema;
 using SOS.DataObjects.ResponseType;
 using System;
 using System.Collections.Generic;
@@ -71,12 +72,23 @@ namespace SOS.API.OAuth.Providers
         {
             var identity = new ClaimsIdentity(context.Options.AuthenticationType);
 
-            //identity.AddClaim(new Claim("sub", context.UserName));
-            identity.AddClaim(new Claim("role", "user"));
-            //identity.AddClaim(new Claim("userid", context.ClientId));
-            //identity.AddClaim(new Claim("scope", context.Scope.FirstOrDefault()));
+            var customer = _customerManager.GetUserByRefreshToken(context.UserName);
 
-            context.Validated(identity);
+            if (customer.Statu)
+            {
+
+                identity.AddClaim(new Claim("sub", ((SosOpDataResult<Customers>)customer).Data.Email.ToString()));
+                identity.AddClaim(new Claim("role", "user"));
+                identity.AddClaim(new Claim("userid", ((SosOpDataResult<Customers>)customer).Id.ToString()));
+                //identity.AddClaim(new Claim("userid", context.ClientId));
+                //identity.AddClaim(new Claim("scope", context.Scope.FirstOrDefault()));
+
+                context.Validated(identity);
+            }
+            else
+            {
+                context.SetError(customer.Status, customer.Message);
+            }
         }
     }
 }
