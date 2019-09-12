@@ -64,13 +64,12 @@ namespace SOS.Business.Manager.Customer
             });
 
             var authToken = TokenUtility.GetTokenUtility(registerDto.Email, registerDto.Password);
-            var authRefreshToken = TokenUtility.GetRefreshTokenUtility(registerDto.Email, registerDto.Password);
 
             ResultRegisterLoginDto resultRegisterDto = new ResultRegisterLoginDto()
             {
                 NameSurname = registerDto.NameSurname,
                 Token = authToken.access_token,
-                RefreshToken = authRefreshToken.access_token
+                RefreshToken = authToken.refresh_token
             };
 
             return HttpStatusCode.Created.SosOpDataResult((int)result, resultRegisterDto, "Kayit başarılı");
@@ -79,7 +78,6 @@ namespace SOS.Business.Manager.Customer
         public ISosResult Login(LoginDto loginDto)
         {
             var authToken = TokenUtility.GetTokenUtility(loginDto.Email, loginDto.Password);
-            var authRefreshToken = TokenUtility.GetRefreshTokenUtility(loginDto.Email, loginDto.Password);
 
             var customers = _uow.CustomerService.Select(s => s.Email == loginDto.Email);
 
@@ -95,7 +93,26 @@ namespace SOS.Business.Manager.Customer
             {
                 NameSurname = customer.NameSurname,
                 Token = authToken.access_token,
-                RefreshToken = authRefreshToken.access_token
+                RefreshToken = authToken.refresh_token
+            };
+
+            return resultRegisterLoginDto.SosResult();
+        }
+
+        public ISosResult RefreshToken(string RefreshToken)
+        {
+            var authToken = TokenUtility.GetTokenUtilityFromRefreshToken(RefreshToken);
+
+            var customer = TokenUtility.GetUserInfo(authToken.access_token);
+
+            if(!customer.Statu)
+                return HttpStatusCode.BadRequest.SosErrorResult(customer.StatusCode.ToString() + " " + customer.Message);
+
+            ResultRegisterLoginDto resultRegisterLoginDto = new ResultRegisterLoginDto()
+            {
+                NameSurname = customer.Data.NameSurname,
+                Token = authToken.access_token,
+                RefreshToken = authToken.refresh_token
             };
 
             return resultRegisterLoginDto.SosResult();

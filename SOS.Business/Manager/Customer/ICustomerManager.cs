@@ -12,6 +12,8 @@ namespace SOS.Business.Manager.Customer
     {
         ISosResult Login(LoginDto loginDto);
 
+        ISosResult RefreshToken(string RefreshToken);
+
         ISosResult RegisterCustomer(RegisterDto registerDto);
 
         ISosResult UpdateCustomer(int Customer_Id, UpdateCustomerDto updateCustomerDto);

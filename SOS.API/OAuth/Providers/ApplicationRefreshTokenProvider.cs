@@ -20,7 +20,7 @@ namespace SOS.API.OAuth.Providers
             if (grantType == null || grantType.Equals("refresh_token")) return;
 
             //Dilerseniz access_token'dan farklı olarak refresh_token'ın expire time'ını da belirleyebilir, uzatabilirsiniz 
-            context.Ticket.Properties.ExpiresUtc = DateTime.UtcNow.AddMinutes(10);
+            context.Ticket.Properties.ExpiresUtc = DateTime.UtcNow.AddMinutes(1);
 
             context.SetToken(context.SerializeTicket());
         }

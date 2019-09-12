@@ -42,6 +42,15 @@ namespace SOS.API.Controllers
             return response(item);
         }
 
+        [HttpGet]
+        [Route("refresh-token", Name = "RefreshToken")]
+        [SwaggerResponse(HttpStatusCode.OK, "Get Token By Refresh Token", typeof(SosResult<ResultRegisterLoginDto>))]
+        public IHttpActionResult RefreshToken(string RefreshToken)
+        {
+            var item = _customerManager.RefreshToken(RefreshToken);
+            return response(item);
+        }
+
         [HttpPost]
         [Route("register", Name = "Register")]
         [SwaggerResponse(HttpStatusCode.OK, "Register customer", typeof(SosOpDataResult<ResultRegisterLoginDto>))]
