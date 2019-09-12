@@ -27,8 +27,16 @@ namespace SOS.API.OAuth.Providers
 
         public override Task TokenEndpointResponse(OAuthTokenEndpointResponseContext context)
         {
-            var token = context.AccessToken;
-            return base.TokenEndpointResponse(context);
+            if (context.TokenIssued)
+            {
+                // client information
+                var accessExpiration = DateTimeOffset.Now.AddSeconds(10);
+                context.Properties.ExpiresUtc = accessExpiration;
+            }
+            return Task.FromResult<object>(null);
+            
+            //var token = context.AccessToken;
+            //return base.TokenEndpointResponse(context);
         }
 
         // OAuthAuthorizationServerProvider sınıfının kaynak erişimine izin verebilmek için ilgili GrantResourceOwnerCredentials metotunu override ediyoruz.
@@ -70,7 +78,9 @@ namespace SOS.API.OAuth.Providers
 
                 AuthenticationProperties authenticationProperties = new AuthenticationProperties()
                 {
-                    ExpiresUtc = DateTimeOffset.UtcNow.AddDays(1)
+                    ExpiresUtc = DateTimeOffset.UtcNow.AddMinutes(120),
+                    AllowRefresh = true,
+                    IsPersistent = true
                 };
 
                 AuthenticationTicket authenticationTicket = new AuthenticationTicket(identity, authenticationProperties);
@@ -107,11 +117,12 @@ namespace SOS.API.OAuth.Providers
 
                 AuthenticationProperties authenticationProperties = new AuthenticationProperties()
                 {
-                    ExpiresUtc = DateTimeOffset.UtcNow.AddDays(5)
+                    ExpiresUtc = DateTimeOffset.UtcNow.AddMinutes(500),
+                    AllowRefresh = true,
+                    IsPersistent = true
                 };
 
                 AuthenticationTicket authenticationTicket = new AuthenticationTicket(identity, authenticationProperties);
-
 
                 context.Validated(authenticationTicket);
             }

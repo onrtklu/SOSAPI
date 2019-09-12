@@ -35,11 +35,10 @@ namespace SOS.API.OAuth
             OAuthAuthorizationServerOptions oAuthAuthorizationServerOptions = new OAuthAuthorizationServerOptions()
             {
                 TokenEndpointPath = new Microsoft.Owin.PathString("/api/token"), // token alacağımız path'i belirtiyoruz
-                //AccessTokenExpireTimeSpan = TimeSpan.FromDays(1),
+                AccessTokenExpireTimeSpan = TimeSpan.FromMinutes(1),
                 AllowInsecureHttp = true,
-                Provider = new AuthorizationServerProvider()
-
-                //RefreshTokenProvider = new ApplicationRefreshTokenProvider(),
+                Provider = new AuthorizationServerProvider(),
+                RefreshTokenProvider = new ApplicationRefreshTokenProvider()
             };
 
             // AppBuilder'a token üretimini gerçekleştirebilmek için ilgili authorization ayarlarımızı veriyoruz.
@@ -55,6 +54,6 @@ namespace SOS.API.OAuth
 
         }
 
-        
+
     }
 }
