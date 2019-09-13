@@ -1,6 +1,8 @@
 ﻿using Microsoft.Owin;
+using Microsoft.Owin.Security;
 using Microsoft.Owin.Security.Infrastructure;
 using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -10,42 +12,46 @@ namespace SOS.API.OAuth.Providers
 {
     public class ApplicationRefreshTokenProvider : IAuthenticationTokenProvider
     {
-        public void Create(AuthenticationTokenCreateContext context)
-        {
-            object owinCollection;
-            context.OwinContext.Environment.TryGetValue("Microsoft.Owin.Form#collection", out owinCollection);
-
-            if (((FormCollection)owinCollection).GetValues("refresh_token") != null) return;
-
-            //Dilerseniz access_token'dan farklı olarak refresh_token'ın expire time'ını da belirleyebilir, uzatabilirsiniz 
-            context.Ticket.Properties.ExpiresUtc = DateTime.UtcNow.AddMinutes(1);
-
-            context.SetToken(context.SerializeTicket());
-        }
+        private static ConcurrentDictionary<string, AuthenticationTicket> _refreshTokens = new ConcurrentDictionary<string, AuthenticationTicket>();
 
         public async Task CreateAsync(AuthenticationTokenCreateContext context)
         {
-            Create(context);
-        }
+            var guid = Guid.NewGuid().ToString();
 
-        public void Receive(AuthenticationTokenReceiveContext context)
-        {
-            context.DeserializeTicket(context.Token);
-
-            if (context.Ticket == null)
+            // maybe only create a handle the first time, then re-use for same client
+            // copy properties and set the desired lifetime of refresh token
+            var refreshTokenProperties = new AuthenticationProperties(context.Ticket.Properties.Dictionary)
             {
-                context.Response.StatusCode = 400;
-                context.Response.ContentType = "application/json";
-                context.Response.ReasonPhrase = "invalid token";
-                return;
-            }
+                IssuedUtc = context.Ticket.Properties.IssuedUtc,
+                ExpiresUtc = DateTime.UtcNow.AddYears(1)
+            };
+            var refreshTokenTicket = new AuthenticationTicket(context.Ticket.Identity, refreshTokenProperties);
 
-            context.SetTicket(context.Ticket);
+            //_refreshTokens.TryAdd(guid, context.Ticket);
+            _refreshTokens.TryAdd(guid, refreshTokenTicket);
+
+            // consider storing only the hash of the handle
+            context.SetToken(guid);
         }
 
         public async Task ReceiveAsync(AuthenticationTokenReceiveContext context)
         {
-            Receive(context);
+            AuthenticationTicket ticket;
+            if (_refreshTokens.TryRemove(context.Token, out ticket))
+            {
+                context.SetTicket(ticket);
+            }
         }
+
+        public void Create(AuthenticationTokenCreateContext context)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void Receive(AuthenticationTokenReceiveContext context)
+        {
+            throw new NotImplementedException();
+        }
+
     }
 }

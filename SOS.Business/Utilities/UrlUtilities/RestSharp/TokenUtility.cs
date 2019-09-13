@@ -37,7 +37,7 @@ namespace SOS.Business.Utilities.UrlUtilities.RestSharp
             var request = new RestRequest(Method.POST);
 
             request.Parameters.Clear();
-            request.AddParameter("grant_type", "password");
+            request.AddParameter("grant_type", "refresh_token");
             request.AddParameter("refresh_token", RefreshToken);
             request.AddParameter("username", Email);
             request.AddParameter("scope", "2"); //Get Refresh Token From 
