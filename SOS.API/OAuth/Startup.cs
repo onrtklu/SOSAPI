@@ -35,7 +35,7 @@ namespace SOS.API.OAuth
             OAuthAuthorizationServerOptions oAuthAuthorizationServerOptions = new OAuthAuthorizationServerOptions()
             {
                 TokenEndpointPath = new Microsoft.Owin.PathString("/api/token"), // token alacağımız path'i belirtiyoruz
-                AccessTokenExpireTimeSpan = TimeSpan.FromMinutes(1),
+                AccessTokenExpireTimeSpan = TimeSpan.FromDays(1),
                 AllowInsecureHttp = true,
                 Provider = new AuthorizationServerProvider(),
                 RefreshTokenProvider = new ApplicationRefreshTokenProvider()

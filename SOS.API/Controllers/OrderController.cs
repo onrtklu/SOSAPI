@@ -1,6 +1,5 @@
 ﻿using SOS.Business.Manager.Order;
 using SOS.DataObjects.ComplexTypes.Order;
-using SOS.DataObjects.HateoasType;
 using SOS.DataObjects.ResponseType;
 using Swashbuckle.Swagger.Annotations;
 using System;
@@ -32,15 +31,6 @@ namespace SOS.API.Controllers
 
             var item = _orderManager.OrderList(customer_Id, restaurant_Id);
 
-            item.Links = new List<ILink>();
-
-            item.Links.Add(new Link
-            {
-                Href = Url.Link("OrderDetailList", new { order_Id = 0 }),
-                Rel = "get-order-detail-list",
-                method = "GET"
-            });
-
             return response(item);
         }
 
@@ -50,22 +40,6 @@ namespace SOS.API.Controllers
         public IHttpActionResult GetOrderDetailList(int order_Id)
         {
             var item = _orderManager.OrderDetailList(order_Id);
-
-            item.Links = new List<ILink>();
-
-            item.Links.Add(new Link
-            {
-                Href = Url.Link("MenuItemList", null),
-                Rel = "get-all-menu-item",
-                method = "GET"
-            });
-
-            item.Links.Add(new Link
-            {
-                Href = Url.Link("OrderList", null),
-                Rel = "get-order-list",
-                method = "GET"
-            });
 
             return response(item);
         }
@@ -80,22 +54,6 @@ namespace SOS.API.Controllers
 
             var item = _orderManager.CompleteOrderByOnline(customer_Id, restaurant_Id);
 
-            item.Links = new List<ILink>();
-
-            item.Links.Add(new Link
-            {
-                Href = Url.Link("MenuItemList", null),
-                Rel = "get-all-menu-item",
-                method = "GET"
-            });
-
-            item.Links.Add(new Link
-            {
-                Href = Url.Link("OrderList", null),
-                Rel = "get-order-list",
-                method = "GET"
-            });
-
             return response(item);
         }
 
@@ -108,22 +66,6 @@ namespace SOS.API.Controllers
             int restaurant_Id = 1;
 
             var item = _orderManager.CompleteOrderByCash(customer_Id, restaurant_Id);
-
-            item.Links = new List<ILink>();
-
-            item.Links.Add(new Link
-            {
-                Href = Url.Link("MenuItemList", null),
-                Rel = "get-all-menu-item",
-                method = "GET"
-            });
-
-            item.Links.Add(new Link
-            {
-                Href = Url.Link("OrderList", null),
-                Rel = "get-order-list",
-                method = "GET"
-            });
 
             return response(item);
         }

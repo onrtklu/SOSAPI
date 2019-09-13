@@ -99,9 +99,9 @@ namespace SOS.Business.Manager.Customer
             return resultRegisterLoginDto.SosResult();
         }
 
-        public ISosResult RefreshToken(string RefreshToken, string Email)
+        public ISosResult RefreshToken(string RefreshToken)
         {
-            var authToken = TokenUtility.GetTokenUtilityFromRefreshToken(RefreshToken, Email);
+            var authToken = TokenUtility.GetTokenUtilityFromRefreshToken(RefreshToken);
 
             var customer = TokenUtility.GetUserInfo(authToken.access_token);
 

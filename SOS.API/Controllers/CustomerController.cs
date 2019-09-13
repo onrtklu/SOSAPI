@@ -4,7 +4,6 @@ using Newtonsoft.Json;
 using SOS.API.ExcHand;
 using SOS.Business.Manager.Customer;
 using SOS.DataObjects.ComplexTypes.Customer;
-using SOS.DataObjects.HateoasType;
 using SOS.DataObjects.ResponseType;
 using Swashbuckle.Swagger.Annotations;
 using System;
@@ -46,9 +45,9 @@ namespace SOS.API.Controllers
         [HttpGet]
         [Route("refresh-token", Name = "RefreshToken")]
         [SwaggerResponse(HttpStatusCode.OK, "Get Token By Refresh Token", typeof(SosResult<ResultRegisterLoginDto>))]
-        public IHttpActionResult RefreshToken(string RefreshToken, string Email)
+        public IHttpActionResult RefreshToken(string RefreshToken)
         {
-            var item = _customerManager.RefreshToken(RefreshToken, Email);
+            var item = _customerManager.RefreshToken(RefreshToken);
 
             return response(item);
         }
@@ -59,15 +58,6 @@ namespace SOS.API.Controllers
         public IHttpActionResult Register([FromBody]RegisterDto registerDto)
         {
             var item = _customerManager.RegisterCustomer(registerDto);
-
-            item.Links = new List<ILink>();
-
-            item.Links.Add(new Link
-            {
-                Href = Url.Link("GetCustomer", null),
-                Rel = "get-customer",
-                method = "GET"
-            });
 
             return response(item);
         }
@@ -82,22 +72,6 @@ namespace SOS.API.Controllers
 
             var item = _customerManager.GetCustomer(customer_Id);
 
-            //item.Links = new List<ILink>();
-
-            //item.Links.Add(new Link
-            //{
-            //    Href = Url.Link("Update", null),
-            //    Rel = "update-customer",
-            //    method = "PUT"
-            //});
-
-            //item.Links.Add(new Link
-            //{
-            //    Href = Url.Link("ChangePassword", null),
-            //    Rel = "change-password",
-            //    method = "PUT"
-            //});
-
             return response(item);
         }
 
@@ -111,22 +85,6 @@ namespace SOS.API.Controllers
 
             var item = _customerManager.UpdateCustomer(customer_Id ,updateCustomerDto);
 
-            item.Links = new List<ILink>();
-
-            item.Links.Add(new Link
-            {
-                Href = Url.Link("GetCustomer", null),
-                Rel = "get-customer",
-                method = "GET"
-            });
-
-            item.Links.Add(new Link
-            {
-                Href = Url.Link("ChangePassword", null),
-                Rel = "change-password",
-                method = "PUT"
-            });
-
             return response(item);
         }
 
@@ -139,15 +97,6 @@ namespace SOS.API.Controllers
             int customer_Id = GetUserId();
 
             var item = _customerManager.ChangePassword(customer_Id, changePasswordDto);
-
-            item.Links = new List<ILink>();
-
-            item.Links.Add(new Link
-            {
-                Href = Url.Link("GetCustomer", null),
-                Rel = "get-customer",
-                method = "PUT"
-            });
 
             return response(item);
         }

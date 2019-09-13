@@ -4,7 +4,6 @@ using System.Linq;
 using System.Net;
 using System.Text;
 using System.Threading.Tasks;
-using SOS.DataObjects.HateoasType;
 
 namespace SOS.DataObjects.ResponseType
 {
@@ -17,7 +16,5 @@ namespace SOS.DataObjects.ResponseType
 
         public int? Id { get; set; }
         public T Data { get; set; }
-
-        public IList<ILink> Links { get; set; }
     }
 }

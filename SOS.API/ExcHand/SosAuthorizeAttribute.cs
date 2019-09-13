@@ -32,7 +32,7 @@ namespace SOS.API.ExcHand
                 return Task.FromResult<object>(null);
             }
 
-            if (!(principal.HasClaim(x => x.Type == "role")))
+            if (!(principal.HasClaim(x => x.Type == "userid")))
             {
                 var customClaimValue = principal.Claims.Where(c => c.Type == "userid").SingleOrDefault();
 

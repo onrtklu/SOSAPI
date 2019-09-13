@@ -1,5 +1,4 @@
-﻿using SOS.DataObjects.HateoasType;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
@@ -16,7 +15,5 @@ namespace SOS.DataObjects.ResponseType
         public string Message { get; set; }
 
         public T Data { get; set; }
-
-        public IList<ILink> Links { get; set; }
     }
 }

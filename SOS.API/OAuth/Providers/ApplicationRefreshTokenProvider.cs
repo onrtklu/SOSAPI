@@ -23,7 +23,7 @@ namespace SOS.API.OAuth.Providers
             var refreshTokenProperties = new AuthenticationProperties(context.Ticket.Properties.Dictionary)
             {
                 IssuedUtc = context.Ticket.Properties.IssuedUtc,
-                ExpiresUtc = DateTime.UtcNow.AddYears(1)
+                ExpiresUtc = DateTime.UtcNow.AddDays(5)
             };
             var refreshTokenTicket = new AuthenticationTicket(context.Ticket.Identity, refreshTokenProperties);
 

@@ -1,5 +1,4 @@
-﻿using SOS.DataObjects.HateoasType;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
@@ -14,7 +13,5 @@ namespace SOS.DataObjects.ResponseType
         HttpStatusCode StatusCode { get; set; }
         string Status { get; }
         string Message { get; set; }
-
-        IList<ILink> Links { get; set; }
     }
 }

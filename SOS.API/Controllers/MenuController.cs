@@ -2,7 +2,6 @@
 using SOS.Business.Manager.Menu;
 using SOS.DataObjects.ComplexTypes.Menu;
 using SOS.DataObjects.ComplexTypes.MenuItem;
-using SOS.DataObjects.HateoasType;
 using SOS.DataObjects.ResponseType;
 using Swashbuckle.Swagger.Annotations;
 using System;
@@ -30,43 +29,6 @@ namespace SOS.API.Controllers
         {
             var item = _menuManager.GetMenuItem(id);
 
-            item.Links = new List<ILink>();
-
-            item.Links.Add(new Link
-            {
-                Href = Url.Link("MenuItemList", null),
-                Rel = "get-all-menu-item",
-                method = "GET"
-            });
-
-            item.Links.Add(new Link
-            {
-                Href = Url.Link("OfferList", null),
-                Rel = "get-list-in-offer",
-                method = "GET"
-            });
-
-            item.Links.Add(new Link
-            {
-                Href = Url.Link("AddMenuItem", null),
-                Rel = "add-item-to-offer",
-                method = "POST"
-            });
-
-            item.Links.Add(new Link
-            {
-                Href = Url.Link("UpdateMenuItem", null),
-                Rel = "update-item-to-offer",
-                method = "PUT"
-            });
-
-            item.Links.Add(new Link
-            {
-                Href = Url.Link("DeleteMenuItem", null),
-                Rel = "delete-item-to-offer",
-                method = "DELETE"
-            });
-
             return response(item);
         }
 
@@ -79,21 +41,6 @@ namespace SOS.API.Controllers
             int Restaurant_Id = GetQRCodeRestaurantId();
 
             var item = _menuManager.GetMenuItemList(Restaurant_Id);
-
-            item.Links = new List<ILink>();
-
-            item.Links.Add(new Link
-            {
-                Href = Url.Link("MenuItem", new { id = 0 }),
-                Rel = "get-item",
-                method = "GET"
-            });
-            item.Links.Add(new Link
-            {
-                Href = Url.Link("AddMenuItem", null),
-                Rel = "add-item-to-offer",
-                method = "POST"
-            });
 
             return response(item);
         }

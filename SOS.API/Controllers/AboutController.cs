@@ -2,7 +2,6 @@
 using SOS.Business.Manager.Contact;
 using SOS.DataObjects.ComplexTypes.About;
 using SOS.DataObjects.ComplexTypes.Contact;
-using SOS.DataObjects.HateoasType;
 using SOS.DataObjects.ResponseType;
 using Swashbuckle.Swagger.Annotations;
 using System;
@@ -30,17 +29,7 @@ namespace SOS.API.Controllers
         [SwaggerResponse(HttpStatusCode.OK, "Get about", typeof(SosResult<AboutDto>))]
         public IHttpActionResult GetAbout()
         {
-
             var item = _aboutManager.GetAbout();
-
-            item.Links = new List<ILink>();
-
-            item.Links.Add(new Link
-            {
-                Href = Url.Link("SendMessage", null),
-                Rel = "send-message",
-                method = "POST"
-            });
 
             return response(item);
         }
@@ -51,15 +40,6 @@ namespace SOS.API.Controllers
         public IHttpActionResult SendMessage([FromBody]ContactDtoInsert contactDtoInsert)
         {
             var item = _contactManager.SendMessage(contactDtoInsert);
-
-            item.Links = new List<ILink>();
-
-            item.Links.Add(new Link
-            {
-                Href = Url.Link("GetAbout", null),
-                Rel = "get-about",
-                method = "GET"
-            });
 
             return response(item);
         }

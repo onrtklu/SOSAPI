@@ -95,8 +95,6 @@
     <Compile Include="Enums\OrderStatus.cs" />
     <Compile Include="Enums\PaymentStatus.cs" />
     <Compile Include="Enums\PaymentType.cs" />
-    <Compile Include="HateoasType\ILink.cs" />
-    <Compile Include="HateoasType\Link.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ResponseType\ISosOkResult.cs" />
     <Compile Include="ResponseType\ISosOpResult.cs" />
@@ -112,6 +110,8 @@
       <Name>SOS.Core</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="HateoasType\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
