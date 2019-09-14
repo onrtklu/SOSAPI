@@ -40,7 +40,7 @@ namespace SOS.Business.Manager.Customer
             return HttpStatusCode.OK.SosOpResult(customer_Id, "Kayıt silindi");
         }
 
-        public ISosResult RegisterCustomer(RegisterDto registerDto)
+        public ISosResult RegisterCustomer(RegisterDto registerDto, string profilePictureUrl = null)
         {
             Validate<RegisterValidation, RegisterDto>.Valid(registerDto);
 
@@ -59,6 +59,7 @@ namespace SOS.Business.Manager.Customer
                 PhoneNumber = registerDto.PhoneNumber,
                 BirthDate = registerDto.BirthDate,
                 Address = registerDto.Address,
+                PictureUrl = profilePictureUrl,
                 ActiveDate = DateTime.Now,
                 Datetime = DateTime.Now
             });
@@ -92,6 +93,7 @@ namespace SOS.Business.Manager.Customer
             ResultRegisterLoginDto resultRegisterLoginDto = new ResultRegisterLoginDto()
             {
                 NameSurname = customer.NameSurname,
+                PictureUrl = customer.PictureUrl,
                 Token = authToken.access_token,
                 RefreshToken = authToken.refresh_token
             };
@@ -111,6 +113,7 @@ namespace SOS.Business.Manager.Customer
             ResultRegisterLoginDto resultRegisterLoginDto = new ResultRegisterLoginDto()
             {
                 NameSurname = customer.Data.NameSurname,
+                PictureUrl = customer.Data.PictureUrl,
                 Token = authToken.access_token,
                 RefreshToken = authToken.refresh_token
             };
@@ -160,7 +163,7 @@ namespace SOS.Business.Manager.Customer
             return HttpStatusCode.OK.SosOpDataResult<Customers>(customer.Id, customer, "Başarılı");
         }
 
-        public ISosResult UpdateCustomer(int Customer_Id, UpdateCustomerDto updateCustomerDto)
+        public ISosResult UpdateCustomer(int Customer_Id, UpdateCustomerDto updateCustomerDto, string profilePictureUrl = null)
         {
             Validate<UpdateCustomerValidation, UpdateCustomerDto>.Valid(updateCustomerDto);
 
@@ -169,11 +172,11 @@ namespace SOS.Business.Manager.Customer
             if (customer == null)
                 return HttpStatusCode.BadRequest.SosErrorResult("Kullanıcı bulunamadı");
 
-            customer.NameSurname = updateCustomerDto.NameSurname;
+            customer.NameSurname = updateCustomerDto.NameSurname ?? customer.NameSurname;
             customer.PhoneNumber = updateCustomerDto.PhoneNumber ?? customer.PhoneNumber;
             customer.BirthDate = updateCustomerDto.BirthDate ?? customer.BirthDate;
             customer.Address = updateCustomerDto.Address ?? customer.Address;
-            customer.PictureUrl = updateCustomerDto.PictureUrl ?? customer.PictureUrl;
+            customer.PictureUrl = profilePictureUrl ?? customer.PictureUrl;
             customer.Datetime = DateTime.Now;
 
             bool result = _uow.CustomerService.Update(customer);

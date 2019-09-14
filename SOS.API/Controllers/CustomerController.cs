@@ -2,6 +2,7 @@
 using Microsoft.Owin.Security.OAuth;
 using Newtonsoft.Json;
 using SOS.API.ExcHand;
+using SOS.API.Filters;
 using SOS.Business.Manager.Customer;
 using SOS.DataObjects.ComplexTypes.Customer;
 using SOS.DataObjects.ResponseType;
@@ -9,12 +10,17 @@ using Swashbuckle.Swagger.Annotations;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
+using System.Drawing;
+using System.Drawing.Imaging;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Security.Claims;
+using System.Web;
 using System.Web.Http;
+using System.Web.UI.WebControls;
 
 namespace SOS.API.Controllers
 {
@@ -57,7 +63,14 @@ namespace SOS.API.Controllers
         [SwaggerResponse(HttpStatusCode.OK, "Register customer", typeof(SosOpDataResult<ResultRegisterLoginDto>))]
         public IHttpActionResult Register([FromBody]RegisterDto registerDto)
         {
-            var item = _customerManager.RegisterCustomer(registerDto);
+            string profilePictureUrl = null;
+
+            if (registerDto.ProfilePicture != null)
+            {
+                profilePictureUrl = WriteImage(registerDto.ProfilePicture);
+            }
+
+            var item = _customerManager.RegisterCustomer(registerDto, profilePictureUrl);
 
             return response(item);
         }
@@ -83,9 +96,40 @@ namespace SOS.API.Controllers
         {
             int customer_Id = GetUserId();
 
-            var item = _customerManager.UpdateCustomer(customer_Id ,updateCustomerDto);
+            string profilePictureUrl = null;
+
+            if (updateCustomerDto.ProfilePicture != null)
+            {
+                profilePictureUrl = WriteImage(updateCustomerDto.ProfilePicture);
+            }
+
+            var item = _customerManager.UpdateCustomer(customer_Id ,updateCustomerDto, profilePictureUrl);
 
             return response(item);
+        }
+
+        private string WriteImage(byte[] arr)
+        {
+            var filename = $@"Upload\CustomerImage\{DateTime.Now.Ticks}.";
+
+            using (var im = System.Drawing.Image.FromStream(new MemoryStream(arr)))
+            {
+                ImageFormat frmt;
+                if (ImageFormat.Png.Equals(im.RawFormat))
+                {
+                    filename += "png";
+                    frmt = ImageFormat.Png;
+                }
+                else
+                {
+                    filename += "jpg";
+                    frmt = ImageFormat.Jpeg;
+                }
+                string path = HttpContext.Current.Server.MapPath("~/") + filename;
+                im.Save(path, frmt);
+            }
+
+            return GetBaseUrl() + filename;
         }
 
         [HttpPut]

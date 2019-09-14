@@ -1,5 +1,6 @@
 ﻿(function () {
 
+    var _token = "";
 
     function getJwt(loginData, success, error, complete) {
         $.ajax({
@@ -12,6 +13,7 @@
 
             },
             success: function (data) {
+                _token = data.access_token;
                 success && success(data.access_token);
             },
             error: function (jqXhr, err, msg) {
@@ -57,6 +59,17 @@
                     box-shadow: 0 2px 1px rgba(0,0,0,0.5);
                     display: none;
                 }
+                #sa-profile-picture{
+                    display:inline-block;
+                    position: absolute;
+                    background: #FFFFFF;
+                    right: 20px;
+                    top: 48px;
+                    padding: 10px;
+                    box-shadow: 0 2px 1px rgba(0,0,0,0.5);
+                    display: none;
+                    z-index: 1;
+                }
 
                  .sa-btn{
                     display: inline-block;
@@ -75,6 +88,18 @@
                     color: #FFF;
                     font-weight: bold;
                     background: #000000;
+                    border-radius: 3px;
+                    padding: 6px 8px;
+                    font-family: "Droid Sans", sans-serif;
+                    font-size: 0.9em;
+                    cursor: pointer;
+                }
+
+                 .sa-btn-profile-picture{
+                    display: inline-block;
+                    color: #FFF;
+                    font-weight: bold;
+                    background: #6b2314;
                     border-radius: 3px;
                     padding: 6px 8px;
                     font-family: "Droid Sans", sans-serif;
@@ -161,6 +186,19 @@
                     <span id="sa-btn-logout" class="sa-btn" style="display: none">Logout</span>
                 </div>
 
+
+                <div id="sa-profile-picture">
+                    <input id="sa-path-verb" placeholder="Http Verb" value="PUT">
+                    <br>
+                    <input id="sa-path-picture" placeholder="Path" value="/api/customer">
+                    <br>
+                    <input type="file" id="imageFile"/>
+                    <br>
+                    <span id="sa-btn-upload-image" class="sa-btn">Upload Image</span>
+                    <br>
+                    <label id="sa-profile-picture-response" style="color: #7f0029;font-weight: bold;"></label>
+                </div>
+
             `;
             $('body').append(settingTemplate);
 
@@ -176,6 +214,13 @@
             $('<div id="sa-btn-qr-code" class="sa-btn-qr-code">QR Code</div>')
                 .click(function () {
                     $('#sa-qr-code').fadeToggle();
+                })
+                .appendTo('#api_selector');
+
+
+            $('<div id="sa-btn-profile-picture" class="sa-btn-profile-picture">Upload Image</div>')
+                .click(function () {
+                    $('#sa-profile-picture').fadeToggle();
                 })
                 .appendTo('#api_selector');
 
@@ -225,6 +270,40 @@
 
         });
 
+
+
+        $('#sa-btn-upload-image').click(function () {
+
+            var file = document.getElementById("imageFile").files[0];
+            var r = new FileReader();
+            r.onloadend = function (e) {
+
+                var arr = Array.from(new Uint8Array(e.target.result));
+
+                var uploadData = {
+                    ProfilePicture: arr
+                };
+                console.log(uploadData);
+
+                $.ajax({
+                    type: $('#sa-path-verb').val(), // "PUT",
+                    headers: { "Authorization": "Bearer " + _token },
+                    url: $('#sa-path-picture').val(), // "/api/customer",
+                    data: uploadData,
+                    success: function (response) {
+                        console.log(response);
+                        $('#sa-profile-picture-response').html('success');
+                    },
+                    error: function (error) {
+                        console.log("HATA - " + error.responseText);
+                        $('#sa-profile-picture-response').html(error.responseText);
+                    }
+                });
+
+            };
+            r.readAsArrayBuffer(file);
+
+        });
 
         //Auto login
         (function () {
