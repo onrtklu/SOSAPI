@@ -27,7 +27,9 @@ namespace SOS.API.Controllers
         [SwaggerResponse(HttpStatusCode.OK,"When click a menu item", typeof(SosResult<MenuItemDto>))]
         public IHttpActionResult MenuItem(int id)
         {
-            var item = _menuManager.GetMenuItem(id);
+            int customer_Id = GetUserId();
+
+            var item = _menuManager.GetMenuItem(id, customer_Id);
 
             return response(item);
         }

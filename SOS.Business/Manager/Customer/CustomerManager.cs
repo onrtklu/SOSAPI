@@ -40,7 +40,7 @@ namespace SOS.Business.Manager.Customer
             return HttpStatusCode.OK.SosOpResult(customer_Id, "Kayıt silindi");
         }
 
-        public ISosResult RegisterCustomer(RegisterDto registerDto, string profilePictureUrl = null)
+        public ISosResult RegisterCustomer(RegisterDto registerDto)
         {
             Validate<RegisterValidation, RegisterDto>.Valid(registerDto);
 
@@ -59,7 +59,6 @@ namespace SOS.Business.Manager.Customer
                 PhoneNumber = registerDto.PhoneNumber,
                 BirthDate = registerDto.BirthDate,
                 Address = registerDto.Address,
-                PictureUrl = profilePictureUrl,
                 ActiveDate = DateTime.Now,
                 Datetime = DateTime.Now
             });
@@ -78,6 +77,8 @@ namespace SOS.Business.Manager.Customer
 
         public ISosResult Login(LoginDto loginDto)
         {
+            Validate<LoginValidation, LoginDto>.Valid(loginDto);
+
             var authToken = TokenUtility.GetTokenUtility(loginDto.Email, loginDto.Password);
 
             var customers = _uow.CustomerService.Select(s => s.Email == loginDto.Email);
@@ -89,6 +90,14 @@ namespace SOS.Business.Manager.Customer
                 return HttpStatusCode.BadRequest.SosErrorResult("Bu mail adresine ait kullanıcı bulunamadı");
 
             var customer = customers.FirstOrDefault();
+
+            string[] passwordArray = customer.Password.Split('æ');
+
+            if (passwordArray.Count() != 2)
+                return HttpStatusCode.BadRequest.SosErrorResult("Şifre Yanlış");
+            
+            if (Cryptography.ValidateHash(passwordArray[0], passwordArray[1], loginDto.Password) == false)
+                return HttpStatusCode.BadRequest.SosErrorResult("Şifre Yanlış");
 
             ResultRegisterLoginDto resultRegisterLoginDto = new ResultRegisterLoginDto()
             {
@@ -163,7 +172,7 @@ namespace SOS.Business.Manager.Customer
             return HttpStatusCode.OK.SosOpDataResult<Customers>(customer.Id, customer, "Başarılı");
         }
 
-        public ISosResult UpdateCustomer(int Customer_Id, UpdateCustomerDto updateCustomerDto, string profilePictureUrl = null)
+        public ISosResult UpdateCustomer(int Customer_Id, UpdateCustomerDto updateCustomerDto)
         {
             Validate<UpdateCustomerValidation, UpdateCustomerDto>.Valid(updateCustomerDto);
 
@@ -172,19 +181,38 @@ namespace SOS.Business.Manager.Customer
             if (customer == null)
                 return HttpStatusCode.BadRequest.SosErrorResult("Kullanıcı bulunamadı");
 
-            customer.NameSurname = updateCustomerDto.NameSurname ?? customer.NameSurname;
-            customer.PhoneNumber = updateCustomerDto.PhoneNumber ?? customer.PhoneNumber;
-            customer.BirthDate = updateCustomerDto.BirthDate ?? customer.BirthDate;
-            customer.Address = updateCustomerDto.Address ?? customer.Address;
-            customer.PictureUrl = profilePictureUrl ?? customer.PictureUrl;
+            customer.NameSurname = updateCustomerDto?.NameSurname ?? customer.NameSurname;
+            customer.PhoneNumber = updateCustomerDto?.PhoneNumber ?? customer.PhoneNumber;
+            customer.BirthDate = updateCustomerDto?.BirthDate ?? customer.BirthDate;
+            customer.Address = updateCustomerDto?.Address ?? customer.Address;
             customer.Datetime = DateTime.Now;
 
             bool result = _uow.CustomerService.Update(customer);
             if (result == false)
                 return HttpStatusCode.BadRequest.SosErrorResult();
 
-
             return HttpStatusCode.OK.SosOpResult(customer.Id, "Kayıt güncellendi");
+        }
+
+        public ISosResult UploadProfilePicture(int Customer_Id, string profilePictureUrl)
+        {
+            if (profilePictureUrl == null)
+                return HttpStatusCode.BadRequest.SosErrorResult("Resim yolu bulunamadı");
+
+            var customer = _uow.CustomerService.Get(Customer_Id);
+
+            if (customer == null)
+                return HttpStatusCode.BadRequest.SosErrorResult("Kullanıcı bulunamadı");
+
+            customer.PictureUrl = profilePictureUrl ?? customer.PictureUrl;
+            customer.Datetime = DateTime.Now;
+
+
+            bool result = _uow.CustomerService.Update(customer);
+            if (result == false)
+                return HttpStatusCode.BadRequest.SosErrorResult();
+
+            return HttpStatusCode.OK.SosOpResult(customer.Id, "Resim yüklendi");
         }
 
         public ISosResult GetCustomer(int customer_Id)

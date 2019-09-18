@@ -52,6 +52,7 @@
     <Compile Include="ComplexTypes\Customer\RegisterDto.cs" />
     <Compile Include="ComplexTypes\Customer\ResultRegisterDto.cs" />
     <Compile Include="ComplexTypes\Customer\UpdateCustomerDto.cs" />
+    <Compile Include="ComplexTypes\Customer\UploadProfilePicture.cs" />
     <Compile Include="ComplexTypes\MenuItem\MenuItemDto.cs" />
     <Compile Include="ComplexTypes\Menu\MenuDto.cs" />
     <Compile Include="ComplexTypes\Menu\Menu_CategoryDto.cs" />

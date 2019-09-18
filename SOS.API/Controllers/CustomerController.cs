@@ -33,6 +33,16 @@ namespace SOS.API.Controllers
             _customerManager = customerManager;
         }
 
+        [HttpPost]
+        [Route("register", Name = "Register")]
+        [SwaggerResponse(HttpStatusCode.OK, "Register customer", typeof(SosOpDataResult<ResultRegisterLoginDto>))]
+        public IHttpActionResult Register([FromBody]RegisterDto registerDto)
+        {
+            var item = _customerManager.RegisterCustomer(registerDto);
+
+            return response(item);
+        }
+
         [HttpGet]
         [Route("login", Name = "Login")]
         [SwaggerResponse(HttpStatusCode.OK, "Login customer", typeof(SosResult<ResultRegisterLoginDto>))]
@@ -58,23 +68,6 @@ namespace SOS.API.Controllers
             return response(item);
         }
 
-        [HttpPost]
-        [Route("register", Name = "Register")]
-        [SwaggerResponse(HttpStatusCode.OK, "Register customer", typeof(SosOpDataResult<ResultRegisterLoginDto>))]
-        public IHttpActionResult Register([FromBody]RegisterDto registerDto)
-        {
-            string profilePictureUrl = null;
-
-            if (registerDto.ProfilePicture != null)
-            {
-                profilePictureUrl = WriteImage(registerDto.ProfilePicture);
-            }
-
-            var item = _customerManager.RegisterCustomer(registerDto, profilePictureUrl);
-
-            return response(item);
-        }
-
         [HttpGet]
         [SosAuthorize]
         [Route("", Name = "GetCustomer")]
@@ -90,20 +83,33 @@ namespace SOS.API.Controllers
 
         [HttpPut]
         [SosAuthorize]
+        [Route("upload-profile-picture")]
+        [SwaggerResponse(HttpStatusCode.OK, "Upload profile picture", typeof(SosResult<SosOpResult>))]
+        public IHttpActionResult UploadProfilePicture([FromBody]UploadProfilePicture uploadProfilePicture)
+        {
+            int customer_Id = GetUserId();
+
+            string profilePictureUrl = null;
+
+            if (uploadProfilePicture?.ProfilePicture != null)
+            {
+                profilePictureUrl = WriteImage(uploadProfilePicture.ProfilePicture);
+            }
+
+            var item = _customerManager.UploadProfilePicture(customer_Id, profilePictureUrl); //update profile picture
+
+            return response(item);
+        }
+
+        [HttpPut]
+        [SosAuthorize]
         [Route("", Name = "Update")]
         [SwaggerResponse(HttpStatusCode.OK, "Update customer", typeof(SosResult<SosOpResult>))]
         public IHttpActionResult UpdateCustomer([FromBody]UpdateCustomerDto updateCustomerDto)
         {
             int customer_Id = GetUserId();
 
-            string profilePictureUrl = null;
-
-            if (updateCustomerDto.ProfilePicture != null)
-            {
-                profilePictureUrl = WriteImage(updateCustomerDto.ProfilePicture);
-            }
-
-            var item = _customerManager.UpdateCustomer(customer_Id ,updateCustomerDto, profilePictureUrl);
+            var item = _customerManager.UpdateCustomer(customer_Id ,updateCustomerDto);
 
             return response(item);
         }
@@ -129,7 +135,7 @@ namespace SOS.API.Controllers
                 im.Save(path, frmt);
             }
 
-            return GetBaseUrl() + filename;
+            return filename;
         }
 
         [HttpPut]

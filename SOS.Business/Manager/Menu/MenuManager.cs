@@ -26,14 +26,14 @@ namespace SOS.Business.Manager.Menu
             _mapper = mapper;
         }
 
-        public ISosResult GetMenuItem(int Id)
+        public ISosResult GetMenuItem(int Id, int customer_Id)
         {
             MenuItem resultMenuItem;
             MenuItemDto resultMenuItemDto;
 
-            if (_uow.OfferDetailService.IsMenuItemAdded(Id, 1)) // offer'a ekli olup olmadığına bakılır
+            if (_uow.OfferDetailService.IsMenuItemAdded(Id, customer_Id)) // offer'a ekli olup olmadığına bakılır
             {
-                resultMenuItemDto = _uow.OfferDetailService.GetMenuItemFromOffer(Id, 1); //offer'da varsa offer'dan getirir
+                resultMenuItemDto = _uow.OfferDetailService.GetMenuItemFromOffer(Id, customer_Id); //offer'da varsa offer'dan getirir
                 if (resultMenuItemDto == null)
                     return HttpStatusCode.BadRequest.SosErrorResult();
             }

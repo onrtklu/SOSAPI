@@ -190,7 +190,7 @@
                 <div id="sa-profile-picture">
                     <input id="sa-path-verb" placeholder="Http Verb" value="PUT">
                     <br>
-                    <input id="sa-path-picture" placeholder="Path" value="/api/customer">
+                    <input id="sa-path-picture" placeholder="Path" value="/api/customer/upload-profile-picture">
                     <br>
                     <input type="file" id="imageFile"/>
                     <br>

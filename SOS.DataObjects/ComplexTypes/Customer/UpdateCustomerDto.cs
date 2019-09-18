@@ -12,6 +12,5 @@ namespace SOS.DataObjects.ComplexTypes.Customer
         public string PhoneNumber { get; set; }
         public DateTime? BirthDate { get; set; }
         public string Address { get; set; }
-        public byte[] ProfilePicture { get; set; }
     }
 }
