@@ -292,11 +292,13 @@
                     data: uploadData,
                     success: function (response) {
                         console.log(response);
-                        $('#sa-profile-picture-response').html('success');
+                        alert("success");
+                        //$('#sa-profile-picture-response').html('success');
                     },
                     error: function (error) {
                         console.log("HATA - " + error.responseText);
-                        $('#sa-profile-picture-response').html(error.responseText);
+                        alert(error.responseText);
+                        //$('#sa-profile-picture-response').html(error.responseText);
                     }
                 });
 

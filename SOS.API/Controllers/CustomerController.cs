@@ -135,7 +135,9 @@ namespace SOS.API.Controllers
                 im.Save(path, frmt);
             }
 
-            return filename;
+            string baseUrl = GetBaseUrl();
+
+            return  baseUrl + filename.Replace("\\", "/");
         }
 
         [HttpPut]
