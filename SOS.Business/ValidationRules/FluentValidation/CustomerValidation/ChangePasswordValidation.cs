@@ -14,7 +14,7 @@ namespace SOS.Business.ValidationRules.FluentValidation.CustomerValidation
         {
             RuleFor(s => s.OldPassword).NotEmpty().WithMessage("Eski şifre boş geçilemez");
             RuleFor(s => s.NewPassword).NotEmpty().WithMessage("Yeni şifre boş geçilemez")
-                .Matches("^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)[a-zA-Z\\d]{8,}$").WithMessage("Şifre en az 8 karakter, büyük harf, küçük harf ve sayı içermelidir");
+                .Matches("^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9]).{8,}$").WithMessage("Şifre en az 8 karakter, büyük harf, küçük harf ve sayı içermelidir");
             RuleFor(s => s.NewPasswordConfirm).NotEmpty().WithMessage("Yeni şifre doğrulama boş geçilemez");
             RuleFor(s=>s.NewPassword).Equal(s=>s.NewPasswordConfirm).WithMessage("Şifreler eşit olmalıdır");
         }

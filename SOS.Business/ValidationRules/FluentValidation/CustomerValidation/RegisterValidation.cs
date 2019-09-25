@@ -23,7 +23,7 @@ namespace SOS.Business.ValidationRules.FluentValidation.CustomerValidation
             RuleFor(s => s.Password)
                 .NotEmpty()
                 .WithMessage("Şifre boş geçilemez")
-                .Matches("^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)[a-zA-Z\\d]{8,}$")
+                .Matches("^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9]).{8,}$")
                 .WithMessage("Şifre en az 8 karakter, büyük harf, küçük harf ve sayı içermelidir");
 
             RuleFor(s => s.PasswordConfirm)

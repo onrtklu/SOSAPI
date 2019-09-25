@@ -22,7 +22,7 @@ namespace SOS.API.ExcHand
 
             if (!principal.Identity.IsAuthenticated)
             {
-                actionContext.Response = actionContext.Request.CreateResponse(HttpStatusCode.OK,
+                actionContext.Response = actionContext.Request.CreateResponse(HttpStatusCode.Unauthorized,
                     new SosErrorResult
                     {
                         Statu = false,
@@ -36,7 +36,7 @@ namespace SOS.API.ExcHand
             {
                 var customClaimValue = principal.Claims.Where(c => c.Type == "userid").SingleOrDefault();
 
-                actionContext.Response = actionContext.Request.CreateResponse(HttpStatusCode.OK,
+                actionContext.Response = actionContext.Request.CreateResponse(HttpStatusCode.Unauthorized,
                     new SosErrorResult
                     {
                         Statu = false,
