@@ -31,7 +31,7 @@ namespace SOS.API.Controllers
 
             var item = _offerManager.GetOfferList(customer_Id, restaurant_Id);
 
-            return response(item);
+            return Ok(item);
         }
         
         [HttpPost]
@@ -44,7 +44,7 @@ namespace SOS.API.Controllers
 
             var item = _offerManager.AddOfferItem(value, customer_Id, restaurant_Id);
 
-            return response(item);
+            return Ok(item);
 
         }
 
@@ -58,7 +58,7 @@ namespace SOS.API.Controllers
 
             var item = _offerManager.UpdateOfferItem(value, customer_Id, restaurant_Id);
 
-            return response(item);
+            return Ok(item);
         }
 
         [HttpDelete]
@@ -71,7 +71,7 @@ namespace SOS.API.Controllers
 
             var item = _offerManager.DeleteOfferItem(menuItem_Id, customer_Id, restaurant_Id);
 
-            return response(item);
+            return Ok(item);
         }
     }
 }

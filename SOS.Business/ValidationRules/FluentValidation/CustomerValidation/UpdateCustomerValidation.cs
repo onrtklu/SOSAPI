@@ -12,6 +12,9 @@ namespace SOS.Business.ValidationRules.FluentValidation.CustomerValidation
     {
         public UpdateCustomerValidation()
         {
+            RuleFor(s => s.PhoneNumber)
+                .Matches("(([\\+]90?)|([0]?))([ ]?)((\\([0-9]{3}\\))|([0-9]{3}))([ ]?)([0-9]{3})(\\s*[\\-]?)([0-9]{2})(\\s*[\\-]?)([0-9]{2})")
+                .WithMessage("Geçerli bir telefon numarası olmalıdır");
         }
     }
 }

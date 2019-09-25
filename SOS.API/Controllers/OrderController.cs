@@ -31,7 +31,7 @@ namespace SOS.API.Controllers
 
             var item = _orderManager.OrderList(customer_Id, restaurant_Id);
 
-            return response(item);
+            return Ok(item);
         }
 
         [HttpGet]
@@ -41,7 +41,7 @@ namespace SOS.API.Controllers
         {
             var item = _orderManager.OrderDetailList(order_Id);
 
-            return response(item);
+            return Ok(item);
         }
 
         [HttpPost]
@@ -54,7 +54,7 @@ namespace SOS.API.Controllers
 
             var item = _orderManager.CompleteOrderByOnline(customer_Id, restaurant_Id);
 
-            return response(item);
+            return Ok(item);
         }
 
         [HttpPost]
@@ -67,7 +67,7 @@ namespace SOS.API.Controllers
 
             var item = _orderManager.CompleteOrderByCash(customer_Id, restaurant_Id);
 
-            return response(item);
+            return Ok(item);
         }
 
     }

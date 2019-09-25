@@ -17,12 +17,6 @@ namespace SOS.API.Controllers
     public class BaseController : ApiController
     {
         [ApiExplorerSettings(IgnoreApi = true)]
-        public ResponseMessageResult response(ISosResult data)
-        {
-                return new ResponseMessageResult(Request.CreateResponse(data.StatusCode, data));
-        }
-
-        [ApiExplorerSettings(IgnoreApi = true)]
         public int GetQRCodeRestaurantId()
         {
             IEnumerable<string> qRCodeRestaurantId;

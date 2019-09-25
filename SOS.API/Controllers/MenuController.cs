@@ -31,7 +31,7 @@ namespace SOS.API.Controllers
 
             var item = _menuManager.GetMenuItem(id, customer_Id);
 
-            return response(item);
+            return Ok(item);
         }
 
         [HttpGet]
@@ -44,7 +44,7 @@ namespace SOS.API.Controllers
 
             var item = _menuManager.GetMenuItemList(Restaurant_Id);
 
-            return response(item);
+            return Ok(item);
         }
 
     }

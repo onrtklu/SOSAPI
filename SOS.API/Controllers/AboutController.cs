@@ -31,7 +31,7 @@ namespace SOS.API.Controllers
         {
             var item = _aboutManager.GetAbout();
 
-            return response(item);
+            return Ok(item);
         }
 
         [HttpPost]
@@ -41,7 +41,7 @@ namespace SOS.API.Controllers
         {
             var item = _contactManager.SendMessage(contactDtoInsert);
 
-            return response(item);
+            return Ok(item);
         }
     }
 }

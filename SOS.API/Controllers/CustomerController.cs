@@ -40,7 +40,7 @@ namespace SOS.API.Controllers
         {
             var item = _customerManager.RegisterCustomer(registerDto);
 
-            return response(item);
+            return Ok(item);
         }
 
         [HttpGet]
@@ -55,7 +55,7 @@ namespace SOS.API.Controllers
             };
 
             var item = _customerManager.Login(loginDto);
-            return response(item);
+            return Ok(item);
         }
 
         [HttpGet]
@@ -65,7 +65,7 @@ namespace SOS.API.Controllers
         {
             var item = _customerManager.RefreshToken(RefreshToken);
 
-            return response(item);
+            return Ok(item);
         }
 
         [HttpGet]
@@ -78,7 +78,7 @@ namespace SOS.API.Controllers
 
             var item = _customerManager.GetCustomer(customer_Id);
 
-            return response(item);
+            return Ok(item);
         }
 
         [HttpPut]
@@ -98,7 +98,7 @@ namespace SOS.API.Controllers
 
             var item = _customerManager.UploadProfilePicture(customer_Id, profilePictureUrl); //update profile picture
 
-            return response(item);
+            return Ok(item);
         }
 
         [HttpPut]
@@ -111,7 +111,7 @@ namespace SOS.API.Controllers
 
             var item = _customerManager.UpdateCustomer(customer_Id ,updateCustomerDto);
 
-            return response(item);
+            return Ok(item);
         }
 
         private string WriteImage(byte[] arr)
@@ -150,7 +150,7 @@ namespace SOS.API.Controllers
 
             var item = _customerManager.ChangePassword(customer_Id, changePasswordDto);
 
-            return response(item);
+            return Ok(item);
         }
 
     }

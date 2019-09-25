@@ -12,10 +12,11 @@ namespace SOS.Business.ValidationRules.FluentValidation.CustomerValidation
     {
         public ChangePasswordValidation()
         {
-            RuleFor(s => s.OldPassword).NotEmpty().WithMessage("Eski Şifre Boş Geçilemez");
-            RuleFor(s => s.NewPassword).NotEmpty().WithMessage("Yeni Şifre Boş Geçilemez");
-            RuleFor(s => s.NewPasswordConfirm).NotEmpty().WithMessage("Yeni Şifre Doğrulama Boş Geçilemez");
-            RuleFor(s=>s.NewPassword).Equal(s=>s.NewPasswordConfirm).WithMessage("Şifreler Eşit Olmalı");
+            RuleFor(s => s.OldPassword).NotEmpty().WithMessage("Eski şifre boş geçilemez");
+            RuleFor(s => s.NewPassword).NotEmpty().WithMessage("Yeni şifre boş geçilemez")
+                .Matches("^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)[a-zA-Z\\d]{8,}$").WithMessage("Şifre en az 8 karakter, büyük harf, küçük harf ve sayı içermelidir");
+            RuleFor(s => s.NewPasswordConfirm).NotEmpty().WithMessage("Yeni şifre doğrulama boş geçilemez");
+            RuleFor(s=>s.NewPassword).Equal(s=>s.NewPasswordConfirm).WithMessage("Şifreler eşit olmalıdır");
         }
     }
 }

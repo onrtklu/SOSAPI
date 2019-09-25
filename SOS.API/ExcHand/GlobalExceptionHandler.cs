@@ -16,8 +16,8 @@ namespace SOS.API.ExcHand
     {
         public override void Handle(ExceptionHandlerContext context)
         {
-            var r = context.Request.CreateResponse(
-                HttpStatusCode.InternalServerError,
+            var r = context.Request.CreateResponse( 
+                HttpStatusCode.OK,
                 new SosErrorResult
                 {
                     Statu = false,
