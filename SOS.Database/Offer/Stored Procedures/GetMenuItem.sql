@@ -2,7 +2,7 @@
 -- Author:		<Author,,Name>
 -- Create date: <Create Date,,>
 -- Description:	<Description,,>
--- EXEC [Offer].[GetMenuItem] 1,1
+-- EXEC [Offer].[GetMenuItem] 5,2
 -- =============================================
 CREATE PROCEDURE [Offer].[GetMenuItem]
 	 @MenuItem_Id int,
@@ -17,13 +17,13 @@ BEGIN
 
 
 	select mi.Id,
-		mi.ItemName,
+		LTRIM(RTRIM(mi.ItemName)) AS ItemName,
 		mi.Category_Id AS MenuCategoryId,
-		mi.Description,
-		mi.Ingredients,
+		LTRIM(RTRIM(mi.Ingredients)) AS Ingredients,
 		mi.Price,
 		mi.Restaurant_Id,
-		od.OfferNote 
+		LTRIM(RTRIM(od.OfferNote)) AS OfferNote,
+		od.Quantity
 	from Restaurant.MenuItem mi
 	inner join Offer.OfferDetail od ON od.MenuItem_Id = mi.Id 
 	inner join Offer.Offer o ON o.Id = od.Offer_Id
