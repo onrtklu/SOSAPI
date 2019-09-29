@@ -260,6 +260,8 @@ paket-files/
 __pycache__/
 *.pyc
 
-/SOS.API/Upload/CustomerImage/*
-
 *.pubxml
+
+/SOS.API/Upload/CustomerImage/*
+/SOS.API/Upload/CategoryImage/*
+/SOS.API/Upload/RestaurantImage/*
