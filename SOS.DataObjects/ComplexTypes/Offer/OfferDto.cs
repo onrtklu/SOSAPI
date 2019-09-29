@@ -11,8 +11,6 @@ namespace SOS.DataObjects.ComplexTypes.Offer
     {
         public decimal? SubTotalPrice { get; set; }
         public decimal? TotalPrice { get; set; }
-        public int? EstimatedDeliveryTime { get; set; }
         public IEnumerable<OfferMenuItemList> MenuItems { get; set; }
-        public IEnumerable<OfferPageCreditListDto> CreditList { get; set; }
     }
 }

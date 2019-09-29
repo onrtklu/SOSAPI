@@ -19,7 +19,6 @@ BEGIN
 		os.OrderStatusName AS OrderStatusName,
 		pt.Id AS PaymentType_Id,
 		pt.PaymentTypeName,
-		o.EstimatedDeliveryTime,
 		o.TotalPrice,
 		o.Discount,
 		o.FinalPrice

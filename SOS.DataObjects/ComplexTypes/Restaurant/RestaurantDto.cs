@@ -17,5 +17,6 @@ namespace SOS.DataObjects.ComplexTypes.Restaurant
         public string RestaurantTypeName { get; set; }
         public string OpeningHours { get; set; }
         public string ClosingHours { get; set; }
+        public string Wifi { get; set; }
     }
 }

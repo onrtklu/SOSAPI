@@ -35,14 +35,13 @@ namespace SOS.Business.Manager.Offer
             OfferDto offerDto = new OfferDto()
             {
                 MenuItems = offerMenuItems,
-                TotalPrice = offerMenuItems.Sum(s => s.Price * s.Quantity),
-                EstimatedDeliveryTime = offerMenuItems.Max(s=>s.EstimatedDeliveryTime)
+                TotalPrice = offerMenuItems.Sum(s => s.Price * s.Quantity)
             };
 
             return offerDto.SosResult();
         }
 
-        public ISosResult AddOfferItem(MenuItemDtoInsert menuItem, int customer_Id, int restaurant_Id)
+        public ISosResult AddOfferItem(MenuItemDtoInsert menuItem, int customer_Id, int restaurant_Id, int table_Id)
         {
             // Validation kontrolü
             Validate<OfferInsertValidatior, MenuItemDtoInsert>.Valid(menuItem); 
@@ -64,7 +63,8 @@ namespace SOS.Business.Manager.Offer
                 {
                     Restaurant_Id = restaurant_Id,
                     StartOfferDatetime = DateTime.Now,
-                    Customer_Id = customer_Id
+                    Customer_Id = customer_Id,
+                    Table_Id = table_Id
                 });
 
             // Offer tablosunda kayıt yoksa OfferDetail tablosuna kayıt eder

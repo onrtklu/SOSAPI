@@ -21,8 +21,6 @@ namespace SOS.DataObjects.Entities.OrdersSchema
 
         public DateTime? OrderTime { get; set; }
 
-        public int? EstimatedDeliveryTime { get; set; }
-
         public DateTime? ActualDeliveryTime { get; set; }
 
         public int? Customer_Id { get; set; }

@@ -13,7 +13,6 @@ namespace SOS.DataObjects.ComplexTypes.Order
         public string OrderStatusName { get; set; }
         public int PaymentType_Id { get; set; }
         public string PaymentTypeName { get; set; }
-        public int EstimatedDeliveryTime { get; set; }
         public decimal TotalPrice { get; set; }
         public decimal Discount { get; set; }
         public decimal FinalPrice { get; set; }

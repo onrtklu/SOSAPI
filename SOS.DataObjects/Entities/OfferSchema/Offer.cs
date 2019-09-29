@@ -14,7 +14,9 @@ namespace SOS.DataObjects.Entities.OfferSchema
 
         public DateTime? FinishOfferDatetime { get; set; }
 
-        public int? Customer_Id { get; set; }
+        public int Customer_Id { get; set; }
+
+        public int Table_Id { get; set; }
 
         public virtual Customers Customers { get; set; }
 

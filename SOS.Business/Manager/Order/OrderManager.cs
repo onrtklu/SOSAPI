@@ -75,7 +75,6 @@ namespace SOS.Business.Manager.Order
             {
                 Restaurant_Id = offer.Restaurant_Id,
                 OrderTime = DateTime.Now,
-                EstimatedDeliveryTime = offerMenuItems.Max(s => s.EstimatedDeliveryTime),
                 Customer_Id = customer_Id,
                 TotalPrice = offerMenuItems.Sum(s => s.Price * s.Quantity),
                 Discount = 0,

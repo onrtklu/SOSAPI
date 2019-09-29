@@ -12,7 +12,7 @@ namespace SOS.Business.Manager.Offer
     {
         ISosResult GetOfferList(int customer_Id, int restaurant_Id);
 
-        ISosResult AddOfferItem(MenuItemDtoInsert menuItem, int customer_Id, int restaurant_Id);
+        ISosResult AddOfferItem(MenuItemDtoInsert menuItem, int customer_Id, int restaurant_Id, int table_Id);
 
         ISosResult UpdateOfferItem(MenuItemDtoUpdate menuItem, int customer_Id, int restaurant_Id);
 

@@ -14,6 +14,5 @@ namespace SOS.DataObjects.ComplexTypes.Offer
         public string OfferNote { get; set; }
         public decimal Price { get; set; }
         public int Quantity { get; set; }
-        public int? EstimatedDeliveryTime { get; set; }
     }
 }

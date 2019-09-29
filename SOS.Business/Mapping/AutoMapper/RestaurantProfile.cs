@@ -20,8 +20,8 @@ namespace SOS.Business.Mapping.AutoMapper
                 .ForMember(dest => dest.RestaurantTypeName, opts => opts.MapFrom(src => src.RestaurantType.RestaurantTypeName.Trim()))
                 .ForMember(dest => dest.RestaurantLogoImageUrl, opts => opts.MapFrom(src => src.LogoUrl))
                 .ForMember(dest => dest.OpeningHours, opts => opts.MapFrom(src => src.RestaurantDetail.OpeningHours))
-                .ForMember(dest => dest.ClosingHours, opts => opts.MapFrom(src => src.RestaurantDetail.ClosingHours));
-
+                .ForMember(dest => dest.ClosingHours, opts => opts.MapFrom(src => src.RestaurantDetail.ClosingHours))
+                .ForMember(dest => dest.Wifi, opts => opts.MapFrom(src => src.RestaurantDetail.Wifi));
         }
     }
 }

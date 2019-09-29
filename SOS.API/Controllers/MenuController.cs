@@ -40,9 +40,9 @@ namespace SOS.API.Controllers
         [QRCode()]
         public IHttpActionResult MenuItemList()
         {
-            int Restaurant_Id = GetQRCodeRestaurantId();
+            int restaurant_Id = GetQRCodeRestaurantId();
 
-            var item = _menuManager.GetMenuItemList(Restaurant_Id);
+            var item = _menuManager.GetMenuItemList(restaurant_Id);
 
             return Ok(item);
         }

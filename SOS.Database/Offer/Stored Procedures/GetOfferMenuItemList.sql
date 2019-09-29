@@ -2,7 +2,7 @@
 -- Author:		<Author,,Name>
 -- Create date: <Create Date,,>
 -- Description:	<Description,,>
--- EXEC [Offer].[GetOfferMenuItemList] 1
+-- EXEC [Offer].[GetOfferMenuItemList] 1,1
 -- =============================================
 CREATE PROCEDURE [Offer].[GetOfferMenuItemList]
 @Customer_ID INT,
@@ -20,8 +20,7 @@ BEGIN
 		mi.Ingredients as ItemIngredients,
 		od.OfferNote,
 		mi.Price,
-		od.Quantity,
-		mi.EstimatedDeliveryTime
+		od.Quantity
 	from Offer.Offer o
 		inner join Offer.OfferDetail od on od.Offer_Id = o.Id
 		inner join Restaurant.MenuItem mi on mi.Id = od.MenuItem_Id

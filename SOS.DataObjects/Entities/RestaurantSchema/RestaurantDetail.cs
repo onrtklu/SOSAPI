@@ -15,6 +15,8 @@ namespace SOS.DataObjects.Entities.RestaurantSchema
 
         public string ClosingHours { get; set; }
 
+        public string Wifi { get; set; }
+
         public bool? Smoking { get; set; }
 
         public bool? Alcohol { get; set; }

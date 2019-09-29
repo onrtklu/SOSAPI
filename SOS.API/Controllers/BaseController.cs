@@ -23,9 +23,12 @@ namespace SOS.API.Controllers
             bool validateQRCode = Request.Headers.TryGetValues("QRCodeRestaurantId", out qRCodeRestaurantId);
 
             if (!validateQRCode && qRCodeRestaurantId == null)
-                throw new NullReferenceException("Restaurant Id is Required");
+                throw new NullReferenceException("Restaurant Id zorunlu");
 
-            return Convert.ToInt32(qRCodeRestaurantId.First());
+            if (int.TryParse(qRCodeRestaurantId.First(), out int result) == false)
+                throw new InvalidCastException("Restaurant Id numara olmalıdır");
+
+            return result;
         }
 
         [ApiExplorerSettings(IgnoreApi = true)]
@@ -35,9 +38,12 @@ namespace SOS.API.Controllers
             bool validateQRCode = Request.Headers.TryGetValues("QRCodeTableId", out qRCodeTableId);
 
             if (!validateQRCode && qRCodeTableId == null)
-                throw new NullReferenceException("Table Id is Required");
+                throw new NullReferenceException("Table Id zorunlu");
 
-            return Convert.ToInt32(qRCodeTableId.First());
+            if (int.TryParse(qRCodeTableId.First(), out int result) == false)
+                throw new InvalidCastException("Table Id numara olmalıdır");
+
+            return result;
         }
 
         [ApiExplorerSettings(IgnoreApi = true)]
@@ -60,7 +66,10 @@ namespace SOS.API.Controllers
             if(customClaimValue == null || customClaimValue.Value == null)
                 throw new NullReferenceException("Kullanıcı Id bulunamadı");
 
-            return Convert.ToInt32(customClaimValue.Value);
+            if (int.TryParse(customClaimValue.Value, out int result) == false)
+                throw new InvalidCastException("Kullanıcı Id numara olmalıdır");
+
+            return result;
         }
 
         [ApiExplorerSettings(IgnoreApi = true)]

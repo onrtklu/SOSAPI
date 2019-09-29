@@ -19,8 +19,7 @@ BEGIN
 		mi.Ingredients AS ItemIngredients,
 		od.OrderNote,
 		od.ItemPrice AS Price,
-		od.Quantity,
-		mi.EstimatedDeliveryTime
+		od.Quantity
 	from Orders.Orders o
 		inner join Orders.OrderDetail od ON od.Order_Id = o.Id
 		inner join Restaurant.MenuItem mi ON mi.Id = od.MenuItem_Id
