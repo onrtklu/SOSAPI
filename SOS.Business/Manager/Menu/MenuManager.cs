@@ -39,7 +39,7 @@ namespace SOS.Business.Manager.Menu
             }
             else
             {
-                resultMenuItem = _uow.MenuItemService.GetWithCategory(Id); // offer'da yoksa menuItem'dan getirir
+                resultMenuItem = _uow.MenuItemService.Get(Id); // offer'da yoksa menuItem'dan getirir
                 if (resultMenuItem == null)
                     return HttpStatusCode.BadRequest.SosErrorResult();
 

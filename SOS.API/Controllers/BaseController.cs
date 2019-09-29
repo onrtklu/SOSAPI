@@ -58,12 +58,16 @@ namespace SOS.API.Controllers
         }
 
         [ApiExplorerSettings(IgnoreApi = true)]
-        public int GetUserId()
+        public int GetUserId(bool required = true)
         {
+
             ClaimsPrincipal principal = Request.GetRequestContext().Principal as ClaimsPrincipal;
             var customClaimValue = principal.Claims.Where(c => c.Type == "userid").SingleOrDefault();
 
-            if(customClaimValue == null || customClaimValue.Value == null)
+            if (customClaimValue == null && required == false) //token yoksa ve customer id zorunlu değilse 0 dön
+                return 0;
+
+            if (customClaimValue == null || customClaimValue.Value == null)
                 throw new NullReferenceException("Kullanıcı Id bulunamadı");
 
             if (int.TryParse(customClaimValue.Value, out int result) == false)

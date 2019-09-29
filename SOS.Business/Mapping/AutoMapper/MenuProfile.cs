@@ -14,8 +14,7 @@ namespace SOS.Business.Mapping.AutoMapper
         public MenuProfile()
         {
             CreateMap<MenuItem, MenuItemDto>()
-                .ForMember(dest => dest.ItemName, opts => opts.MapFrom(src => src.ItemName.Trim()))
-                .ForMember(dest => dest.CategoryName, opts => opts.MapFrom(src => src.MenuCategory.CategoryName));
+                .ForMember(dest => dest.ItemName, opts => opts.MapFrom(src => src.ItemName.Trim()));
 
             CreateMap<MenuItem, Menu_MenuItemDto>()
                 .ForMember(dest => dest.ItemName, opts => opts.MapFrom(src => src.ItemName.Trim()))

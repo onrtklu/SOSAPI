@@ -17,9 +17,7 @@ namespace SOS.DataObjects.ComplexTypes.MenuItem
         public string ItemName { get; set; }
         public decimal Price { get; set; }
         public int Quantity { get; set; }
-        public string Description { get; set; }
         public string Ingredients { get; set; }
-        public string CategoryName { get; set; }
         public string OfferNote { get; set; }
     }
 

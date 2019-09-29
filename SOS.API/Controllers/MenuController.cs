@@ -25,9 +25,10 @@ namespace SOS.API.Controllers
         [HttpGet]
         [Route("menu-item/{id}", Name = "MenuItem" )]
         [SwaggerResponse(HttpStatusCode.OK,"When click a menu item", typeof(SosResult<MenuItemDto>))]
+        [QRCode()]
         public IHttpActionResult MenuItem(int id)
         {
-            int customer_Id = GetUserId();
+            int customer_Id = GetUserId(required: false);
 
             var item = _menuManager.GetMenuItem(id, customer_Id);
 
