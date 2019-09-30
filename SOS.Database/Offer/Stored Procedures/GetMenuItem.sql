@@ -20,7 +20,7 @@ BEGIN
 		LTRIM(RTRIM(mi.ItemName)) AS ItemName,
 		mi.Category_Id AS MenuCategoryId,
 		LTRIM(RTRIM(mi.Ingredients)) AS Ingredients,
-		mi.Price,
+		mi.Price * od.Quantity AS Price,
 		mi.Restaurant_Id,
 		LTRIM(RTRIM(od.OfferNote)) AS OfferNote,
 		od.Quantity

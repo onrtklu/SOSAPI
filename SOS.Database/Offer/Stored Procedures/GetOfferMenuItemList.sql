@@ -19,7 +19,7 @@ BEGIN
 		mi.ItemName,
 		mi.Ingredients as ItemIngredients,
 		od.OfferNote,
-		mi.Price,
+		mi.Price * od.Quantity AS Price,
 		od.Quantity
 	from Offer.Offer o
 		inner join Offer.OfferDetail od on od.Offer_Id = o.Id

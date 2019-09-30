@@ -75,7 +75,7 @@ namespace SOS.API.Controllers
         [SwaggerResponse(HttpStatusCode.OK, Description = "delete a menu item to the offer", Type = typeof(SosOpResult))]
         [SosAuthorize]
         [QRCode]
-        public IHttpActionResult Delete([FromBody]int menuItem_Id)
+        public IHttpActionResult Delete(int menuItem_Id)
         {
             int customer_Id = GetUserId();
             int restaurant_Id = GetQRCodeRestaurantId();
