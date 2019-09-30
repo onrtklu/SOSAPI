@@ -35,7 +35,7 @@ namespace SOS.Business.Manager.Offer
             OfferDto offerDto = new OfferDto()
             {
                 MenuItems = offerMenuItems,
-                TotalPrice = offerMenuItems.Sum(s => s.Price * s.Quantity)
+                TotalPrice = offerMenuItems.Sum(s => s.Price)
             };
 
             return offerDto.SosResult();
