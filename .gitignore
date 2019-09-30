@@ -263,5 +263,3 @@ __pycache__/
 *.pubxml
 
 /SOS.API/Upload/CustomerImage/*
-/SOS.API/Upload/CategoryImage/*
-/SOS.API/Upload/RestaurantImage/*
